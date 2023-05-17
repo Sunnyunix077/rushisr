@@ -1,0 +1,4 @@
+---
+# vars file for os-configure
+remote_repo_url: "http://reposrv.netcracker.com/sources.list.d/distr/netcracker_ubuntu_focal.list"
+dir_path: "/srv/www"

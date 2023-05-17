@@ -1,0 +1,6 @@
+---
+# handlers file for os-configure
+- name: Restart network Service
+  service:
+    name: systemd-networkd
+    state: restarted

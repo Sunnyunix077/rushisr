@@ -1,0 +1,52 @@
+---
+- name: Print Ubuntu Release
+  debug:
+    var: ansible_distribution_release
+- name: Create resolv.conf file
+  template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+    mode: '0644'
+  notify:
+    - Restart network Service
+- name: Download sources.list file
+  get_url:
+    url: "{{ remote_repo_url }}"
+    dest: "/etc/apt/sources.list"
+    force: true
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+- name: Install packages from packages.deb list
+  apt:
+    name: "{{ packages.deb  }}"
+    state: latest
+    force_apt_get: yes
+- name: Create directory
+  file:
+    path: "{{ dir_path }}"
+    state: directory
+    
+- name: Create volume group
+  lvg:
+    vg: myvg
+    pvs: /dev/vdb
+
+- name: Create logical volume
+  lvol:
+    vg: myvg
+    lv: mylv
+    size: 4G
+
+- name: Format logical volume to xfs
+  filesystem:
+    fstype: xfs
+    dev: /dev/myvg/mylv
+
+- name: Mount logical volume
+  mount:
+    path: "{{ dir_path }}"
+    src: /dev/myvg/mylv
+    fstype: xfs
+    state: mounted

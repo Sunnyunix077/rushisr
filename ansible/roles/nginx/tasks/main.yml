@@ -1,0 +1,27 @@
+---
+# tasks file for nginx
+- name: Add the user 'johnd' with a specific uid and a primary group of 'admin'
+  ansible.builtin.user:
+    name: webuser
+    shell: /bin/bash
+- name: Install nginx package
+  apt:
+    name: nginx
+    state: present
+    force_apt_get: yes
+- name: Set ownership of server root directory
+  file:
+    path: "{{ server_root }}"
+    owner: "{{ web_user }}"
+    group: "{{ web_user }}"
+    mode: '0755'
+    state: directory
+- name: Configure Nginx server block
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/sites-available/default
+    owner: "{{ web_user }}"
+    group: "{{ web_user }}"
+    mode: '0644'
+  notify:
+    - restart nginx
