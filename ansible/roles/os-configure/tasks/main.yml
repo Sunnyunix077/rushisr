@@ -14,12 +14,26 @@
 #    url: "{{ remote_repo_url }}"
 #    dest: "/etc/apt/sources.list"
 #    force: true
-- name: Download sources.list file
-  apt_repository:
-    repo: "{{ item }}"
-    state: present
-    update_cache: yes
-  with_items: "{{ remote_repo.ubuntu }}"
+#- name: Download sources.list file
+#  apt_repository:
+#    repo: "{{ item }}"
+#    state: present
+#    update_cache: yes
+#  with_items: "{{ remote_repo.ubuntu }}"
+- name: Download repository file
+  get_url:
+    url: "{{ item }}"
+    dest: /tmp/{{ item | basename }}
+  with_items: "{{ repo.ubuntu }}"
+  delegate_to: localhost
+
+- name: Copy repository file to the correct location
+  copy:
+    src: "/tmp/{{ item | basename }}"
+    dest: "/etc/apt/sources.list.d/{{ item | basename }}"
+  with_items:
+    - "nc_focal.list"
+
 - name: Update apt cache
   apt:
     update_cache: yes
@@ -33,26 +47,26 @@
   file:
     path: "{{ dir_path }}"
     state: directory
-    
+
 - name: Create volume group
   lvg:
-    vg: myvg
+    vg: "{{ my_vg }}"
     pvs: /dev/vdb
 
 - name: Create logical volume
   lvol:
-    vg: myvg
-    lv: mylv
+    vg: "{{ my_vg }}"
+    lv: "{{ my_lv }}"
     size: 4G
 
 - name: Format logical volume to xfs
   filesystem:
     fstype: xfs
-    dev: /dev/myvg/mylv
+    dev: "/dev/{{ my_vg }}/{{ my_lv }}"
 
 - name: Mount logical volume
   mount:
     path: "{{ dir_path }}"
-    src: /dev/myvg/mylv
+    src: "/dev/{{ my_vg }}/{{ my_lv }}"
     fstype: xfs
     state: mounted

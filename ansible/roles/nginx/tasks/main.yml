@@ -2,21 +2,36 @@
 - name: Create webuser
   user:
     name: webuser
-    state: present
 
-- name: Install Nginx package
+- name: Install nginx package
   apt:
     name: nginx
     state: present
 
-- name: Configure Nginx
-  file:
-    src: nginx.conf
-    dest: /etc/nginx/sites-available/default
+#- name: Configure nginx
+#  copy:
+#    src: nginx.conf
+#    dest: /etc/nginx/nginx.conf
+#  notify: Restart Nginx service
 
-- name: Copy index.html template to new root
+- name: Copy default index.html
   template:
     src: index.html.j2
     dest: /srv/www/index.html
-  notify:
-    - restart nginx
+    owner: webuser
+    group: webuser
+    mode: 0644
+  register: index_html_result
+
+- name: Configure nginx
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+  notify: Restart Nginx service
+  when: index_html_result.changed
+
+#- name: Ensure Nginx service is running and enabled
+#  service:
+#    name: nginx
+#    state: started
+#    enabled: yes

@@ -1,14 +1,23 @@
 ---
 # vars file for os-configure
 #remote_repo_url: "http://reposrv.netcracker.com/sources.list.d/distr/netcracker_ubuntu_focal.list"
-remote_repo:
+# vars file for os-configure
+#remote_repo:
+#  ubuntu:
+#    - deb http://yumsrv03cn.netcracker.com/deb/ubuntu/ focal main restricted
+#    - deb http://yumsrv03cn.netcracker.com/deb/ubuntu/ focal-updates main restricted
+#    - deb http://yumsrv03cn.netcracker.com/deb/ubuntu/ focal universe
+#    - deb http://yumsrv03cn.netcracker.com/deb/ubuntu/ focal-updates universe
+#    - deb http://yumsrv03cn.netcracker.com/deb/ubuntu/ focal multiverse
+#    - deb http://yumsrv03cn.netcracker.com/deb/ubuntu/ focal-updates multiverse
+#    - deb http://yumsrv03cn.netcracker.com/deb/ubuntu/ focal-backports main restricted universe multiverse
+
+repo:
   ubuntu:
-    - deb http://yumsrv03cn.netcracker.com/deb/ubuntu/ focal main restricted
-    - deb http://yumsrv03cn.netcracker.com/deb/ubuntu/ focal-updates main restricted
-    - deb http://yumsrv03cn.netcracker.com/deb/ubuntu/ focal universe
-    - deb http://yumsrv03cn.netcracker.com/deb/ubuntu/ focal-updates universe
-    - deb http://yumsrv03cn.netcracker.com/deb/ubuntu/ focal multiverse
-    - deb http://yumsrv03cn.netcracker.com/deb/ubuntu/ focal-updates multiverse
-    - deb http://yumsrv03cn.netcracker.com/deb/ubuntu/ focal-backports main restricted universe multiverse
+    - http://yumsrv03cn.netcracker.com/sources.list.d/nc_focal.list
 
 dir_path: "/srv/www"
+remote_dir: "/etc/apt/sources.list.d/"
+#expected_os: "ubuntu"
+my_vg: "test_vg"
+my_lv: "test_lv"
