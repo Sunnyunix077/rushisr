@@ -10,7 +10,7 @@
     state: present
 
 - name: Configure Nginx
-  files:
+  file:
     src: nginx.conf
     dest: /etc/nginx/sites-available/default
 
