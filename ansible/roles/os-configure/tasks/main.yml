@@ -9,11 +9,17 @@
     mode: '0644'
   notify:
     - Restart network Service
+#- name: Download sources.list file
+#  get_url:
+#    url: "{{ remote_repo_url }}"
+#    dest: "/etc/apt/sources.list"
+#    force: true
 - name: Download sources.list file
-  get_url:
-    url: "{{ remote_repo_url }}"
-    dest: "/etc/apt/sources.list"
-    force: true
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items: "{{ remote_repo.ubuntu }}"
 - name: Update apt cache
   apt:
     update_cache: yes
