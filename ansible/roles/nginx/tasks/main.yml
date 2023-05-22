@@ -27,7 +27,7 @@
   copy:
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
-  notify: restart ngnix
+  notify: restart nginx
   when: index_html_result.changed
 
 #- name: Ensure Nginx service is running and enabled
