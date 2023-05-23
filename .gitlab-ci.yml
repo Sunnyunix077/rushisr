@@ -34,7 +34,7 @@ deploy:
     - terraform apply -auto-approve # Apply Demo 3 - terraform code to create VM
   artifacts:
     paths:
-      - terraform.tfstate # Save tfstate as artifact
+      - ./terraform/terraform.tfstate # Save tfstate as artifact
 
 configure:
   stage: configure
@@ -54,6 +54,8 @@ test:
 
 destroy:
   stage: destroy
+  tags:
+    - NETCRACKER
   image: $IMAGE
   script:
     - terraform init # Initialize Terraform
@@ -61,6 +63,8 @@ destroy:
 
 dependencies:
   stage: destroy
+  tags:
+    - NETCRACKER
   script:
     - terraform init # Initialize Terraform
     - terraform workspace select default # Select the default workspace for tfstate loading
