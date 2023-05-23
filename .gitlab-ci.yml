@@ -42,7 +42,7 @@ configure:
     - NETCRACKER
   image: $IMAGE
   script:
-    - ansible-playbook site.yml # Configure VM using Demo 4 - ansible code
+    - ansible-playbook ./ansible/site.yml # Configure VM using Demo 4 - ansible code
 
 test:
   stage: test
