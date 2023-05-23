@@ -68,4 +68,4 @@ dependencies:
   script:
     - terraform init # Initialize Terraform
     - terraform workspace select default # Select the default workspace for tfstate loading
-    - terraform state pull > terraform.tfstate # Load tfstate from artifacts for destruction
+    - terraform state pull > ./terraform/terraform.tfstate # Load tfstate from artifacts for destruction
