@@ -66,7 +66,7 @@ destroy:
 #    - terraform destroy -auto-approve # Load tfstate from artifacts and destroy VM
     - terraform init # Initialize Terraform
     - terraform state pull -from=./terraform/terraform.tftate > terraform.tfstate # Load tfstate from an alternative location
-    - terraform detroy -var-file=".secret.tfvars" -auto-approve # Destroy VM based on loaded tfstate
+    - terraform destroy -var-file=".secret.tfvars" -auto-approve # Destroy VM based on loaded tfstate
 
 #dependencies:
 #  stage: destroy
