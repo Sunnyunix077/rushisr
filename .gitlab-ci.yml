@@ -58,14 +58,17 @@ destroy:
     - NETCRACKER
   image: $IMAGE
   script:
+#    - terraform init # Initialize Terraform
+#    - terraform destroy -auto-approve # Load tfstate from artifacts and destroy VM
     - terraform init # Initialize Terraform
-    - terraform destroy -auto-approve # Load tfstate from artifacts and destroy VM
+    - terraform state pull -from=./terraform/terraform.tftate > terraform.tfstate # Load tfstate from an alternative location
+    - terraform destroy -auto-approve # Destroy VM based on loaded tfstate
 
-dependencies:
-  stage: destroy
-  tags:
-    - NETCRACKER
-  script:
-    - terraform init # Initialize Terraform
+#dependencies:
+#  stage: destroy
+#  tags:
+#    - NETCRACKER
+#  script:
+#    - terraform init # Initialize Terraform
 #    - terraform workspace select default # Select the default workspace for tfstate loading
-    - terraform state pull > ./terraform/terraform.tfstate # Load tfstate from artifacts for destruction
+#    - terraform state pull > ./terraform/terraform.tfstate # Load tfstate from artifacts for destruction
