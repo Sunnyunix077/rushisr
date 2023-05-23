@@ -39,10 +39,10 @@ deploy:
     - terraform --version # Print Terraform version for debugging purposes
     - terraform workspace new myworkspace || terraform workspace select myworkspace # Create or select a workspace (optional)
     - terraform init # Re-initialize Terraform after workspace selection (if applicable)
-    - terraform apply -var-file=".secret.tfvars" -auto-approve # Apply Demo 3 - terraform code to create VM
+    - terraform apply -var-file="../.secret.tfvars" -auto-approve # Apply Demo 3 - terraform code to create VM
   artifacts:
     paths:
-      - ./terraform/terraform.tfstate # Save tfstate as artifact
+      - ./terraform.tfstate # Save tfstate as artifact
 
 configure:
   stage: configure
