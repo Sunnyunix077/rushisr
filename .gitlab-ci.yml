@@ -34,6 +34,7 @@ deploy:
     - NETCRACKER
   image: $IMAGE
   script:
+    - cd terraform
     - terraform init # Initialize Terraform
     - terraform --version # Print Terraform version for debugging purposes
     - terraform workspace new myworkspace || terraform workspace select myworkspace # Create or select a workspace (optional)
