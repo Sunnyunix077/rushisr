@@ -31,7 +31,7 @@ deploy:
   image: $IMAGE
   script:
     - terraform init # Initialize Terraform
-    - terraform apply -auto-approve # Apply Demo 3 - terraform code to create VM
+    - terraform apply -var-file=".secret.tfvars" -auto-approve # Apply Demo 3 - terraform code to create VM
   artifacts:
     paths:
       - ./terraform/terraform.tfstate # Save tfstate as artifact
@@ -62,7 +62,7 @@ destroy:
 #    - terraform destroy -auto-approve # Load tfstate from artifacts and destroy VM
     - terraform init # Initialize Terraform
     - terraform state pull -from=./terraform/terraform.tftate > terraform.tfstate # Load tfstate from an alternative location
-    - terraform destroy -auto-approve # Destroy VM based on loaded tfstate
+    - terraform detroy -var-file=".secret.tfvars" -auto-approve # Destroy VM based on loaded tfstate
 
 #dependencies:
 #  stage: destroy
