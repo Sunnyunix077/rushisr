@@ -18,12 +18,16 @@ lint_ansible:
 
 lint_terraform:
   stage: lint
+  tags:
+    - NETCRACKER
   image: $IMAGE
   script:
     - tflint # Linting command using tflint for Demo 3 - terraform code
 
 deploy:
   stage: deploy
+  tags:
+    - NETCRACKER
   image: $IMAGE
   script:
     - terraform init # Initialize Terraform
@@ -34,12 +38,16 @@ deploy:
 
 configure:
   stage: configure
+  tags:
+    - NETCRACKER
   image: $IMAGE
   script:
     - ansible-playbook site.yml # Configure VM using Demo 4 - ansible code
 
 test:
   stage: test
+  tags:
+    - NETCRACKER
   image: $IMAGE
   script:
     - 'curl -I http://0.0.0.0:8080'
