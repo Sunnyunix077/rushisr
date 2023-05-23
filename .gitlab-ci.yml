@@ -10,6 +10,8 @@ stages:
 
 lint_ansible:
   stage: lint
+  tags:
+    - NETCRACKER
   image: $IMAGE
   script:
     - ansible-lint site.yml # Linting command for Demo 4 - ansible code
