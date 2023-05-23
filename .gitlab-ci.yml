@@ -1,0 +1,32 @@
+stages:
+  - lint
+  - deploy
+  - configure
+  - test
+  - destroy
+
+lint:
+  stage: lint
+  script:
+    - tflint
+    - ansible-lint playbook.yml
+
+deploy:
+  stage: deploy
+  script:
+    - terraform plan -var-file="../.secrest.tfvars"
+
+configure:
+  stage: configure
+  script:
+    - ansible-playbook site.yml
+
+test:
+  stage: test
+  script:
+    - echo "Testing is completed"
+
+destroy:
+  stage: destroy
+  script:
+    - terraform validate
