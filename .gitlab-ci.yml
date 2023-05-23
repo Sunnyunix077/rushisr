@@ -1,5 +1,5 @@
 variables:
-  DOCKER_IMAGE: artifactorycn.netcracker.com:17048/ops_terraform:1.0
+  IMAGE: artifactorycn.netcracker.com:17048/ops_terraform:1.0
 
 stages:
   - lint
@@ -10,19 +10,19 @@ stages:
 
 lint_ansible:
   stage: lint
-  image: $DOCKER_IMAGE
+  image: $IMAGE
   script:
     - ansible-lint playbook.yml # Linting command for Demo 4 - ansible code
 
 lint_terraform:
   stage: lint
-  image: $DOCKER_IMAGE
+  image: $IMAGE
   script:
     - tflint # Linting command using tflint for Demo 3 - terraform code
 
 deploy:
   stage: deploy
-  image: $DOCKER_IMAGE
+  image: $IMAGE
   script:
     - terraform init # Initialize Terraform
     - terraform apply -auto-approve # Apply Demo 3 - terraform code to create VM
@@ -32,19 +32,19 @@ deploy:
 
 configure:
   stage: configure
-  image: $DOCKER_IMAGE
+  image: $IMAGE
   script:
     - ansible-playbook site.yml # Configure VM using Demo 4 - ansible code
 
 test:
   stage: test
-  image: $DOCKER_IMAGE
+  image: $IMAGE
   script:
     - # Add commands to check HTTP/200 response on GET request to your VM
 
 destroy:
   stage: destroy
-  image: $DOCKER_IMAGE
+  image: $IMAGE
   script:
     - terraform init # Initialize Terraform
     - terraform destroy -auto-approve # Load tfstate from artifacts and destroy VM
