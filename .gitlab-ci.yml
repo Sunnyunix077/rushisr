@@ -35,6 +35,7 @@ deploy:
   image: $IMAGE
   script:
     - cd terraform
+    - ls -al
     - terraform init # Initialize Terraform
     - terraform --version # Print Terraform version for debugging purposes
     - terraform workspace new myworkspace || terraform workspace select myworkspace # Create or select a workspace (optional)
@@ -42,7 +43,7 @@ deploy:
     - terraform apply -var-file="../.secret.tfvars" -auto-approve # Apply Demo 3 - terraform code to create VM
   artifacts:
     paths:
-      - ./terraform.tfstate # Save tfstate as artifact
+      - ./terraform/terraform.tfstate # Save tfstate as artifact
 
 configure:
   stage: configure
