@@ -1,3 +1,6 @@
+variables:
+  DOCKER_IMAGE: artifactorycn.netcracker.com:17048/ops_terraform:1.0
+
 stages:
   - lint
   - deploy
@@ -5,28 +8,50 @@ stages:
   - test
   - destroy
 
-lint:
+lint_ansible:
   stage: lint
+  image: $DOCKER_IMAGE
   script:
-    - tflint
-    - ansible-lint playbook.yml
+    - ansible-lint playbook.yml # Linting command for Demo 4 - ansible code
+
+lint_terraform:
+  stage: lint
+  image: $DOCKER_IMAGE
+  script:
+    - tflint # Linting command using tflint for Demo 3 - terraform code
 
 deploy:
   stage: deploy
+  image: $DOCKER_IMAGE
   script:
-    - terraform plan -var-file="../.secrest.tfvars"
+    - terraform init # Initialize Terraform
+    - terraform apply -auto-approve # Apply Demo 3 - terraform code to create VM
+  artifacts:
+    paths:
+      - terraform.tfstate # Save tfstate as artifact
 
 configure:
   stage: configure
+  image: $DOCKER_IMAGE
   script:
-    - ansible-playbook site.yml
+    - ansible-playbook site.yml # Configure VM using Demo 4 - ansible code
 
 test:
   stage: test
+  image: $DOCKER_IMAGE
   script:
-    - echo "Testing is completed"
+    - # Add commands to check HTTP/200 response on GET request to your VM
 
 destroy:
   stage: destroy
+  image: $DOCKER_IMAGE
   script:
-    - terraform validate
+    - terraform init # Initialize Terraform
+    - terraform destroy -auto-approve # Load tfstate from artifacts and destroy VM
+
+dependencies:
+  stage: destroy
+  script:
+    - terraform init # Initialize Terraform
+    - terraform workspace select default # Select the default workspace for tfstate loading
+    - terraform state pull > terraform.tfstate # Load tfstate from artifacts for destruction
