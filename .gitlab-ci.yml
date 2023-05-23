@@ -12,7 +12,7 @@ lint_ansible:
   stage: lint
   image: $IMAGE
   script:
-    - ansible-lint playbook.yml # Linting command for Demo 4 - ansible code
+    - ansible-lint site.yml # Linting command for Demo 4 - ansible code
 
 lint_terraform:
   stage: lint
