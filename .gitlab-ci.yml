@@ -31,7 +31,7 @@ lint_terraform:
 deploy:
   stage: deploy
   tags:
-    - NETCRACKER
+    - NETCRACKER-MEDIUM
   image: $IMAGE
   script:
     - cd terraform
