@@ -1,0 +1,91 @@
+variables:
+  IMAGE: artifactorycn.netcracker.com:17048/ops_terraform:1.0
+
+#before_script:
+#  - echo "$OPENRC_FILE" > openrc.sh
+#  - source openrc.sh
+#  - echo "Checking if openrc.sh is sourced correctly"
+#  - echo "Environment variables:"
+#  - env | grep OS_ # Assuming OS_ prefix for OpenStack environment variables
+
+stages:
+  - lint
+  - deploy
+  - configure
+  - test
+  - destroy
+
+lint_ansible:
+  stage: lint
+  tags:
+    - NETCRACKER
+  image: $IMAGE
+  script:
+    - ansible-lint ./ansile/site.yml # Linting command for Demo 4 - ansible code
+
+lint_terraform:
+  stage: lint
+  tags:
+    - NETCRACKER
+  image: $IMAGE
+  script:
+    - tflint # Linting command using tflint for Demo 3 - terraform code
+
+deploy:
+  stage: deploy
+  tags:
+    - NETCRACKER-MEDIUM
+  image: $IMAGE
+  script:
+    - echo "$OPENRC_FILE" > openrc.sh
+    - source openrc.sh
+    - echo "Checking if openrc.sh is sourced correctly"
+    - echo "Environment variables:"
+    - env | grep OS_ # Assuming OS_ prefix for OpenStack environment variables
+    - cd terraform
+    - ls -al
+    - terraform init --plugin-dir /home/jenkins/.terraform/providers # Initialize Terraform
+    - terraform --version # Print Terraform version for debugging purposes
+#    - terraform workspace new myworkspace || terraform workspace select myworkspace # Create or select a workspace (optional)
+#    - terraform init # Re-initialize Terraform after workspace selection (if applicable)
+    - terraform apply -var-file="../.secret.tfvars" -auto-approve # Apply Demo 3 - terraform code to create VM
+  artifacts:
+    paths:
+      - ./terraform/terraform.tfstate # Save tfstate as artifact
+
+configure:
+  stage: configure
+  tags:
+    - NETCRACKER
+  image: $IMAGE
+  script:
+    - ansible-playbook ./ansible/site.yml # Configure VM using Demo 4 - ansible code
+
+test:
+  stage: test
+  tags:
+    - NETCRACKER
+  image: $IMAGE
+  script:
+    - 'curl -I http://0.0.0.0:8080'
+
+destroy:
+  stage: destroy
+  tags:
+    - NETCRACKER
+  image: $IMAGE
+  script:
+#    - terraform init # Initialize Terraform
+#    - terraform destroy -auto-approve # Load tfstate from artifacts and destroy VM
+    - terraform init # Initialize Terraform
+    - terraform state pull -from=./terraform/terraform.tftate > terraform.tfstate # Load tfstate from an alternative location
+    - terraform destroy -var-file=".secret.tfvars" -auto-approve # Destroy VM based on loaded tfstate
+
+#dependencies:
+#  stage: destroy
+#  tags:
+#    - NETCRACKER
+#  script:
+#    - terraform init # Initialize Terraform
+#    - terraform workspace select default # Select the default workspace for tfstate loading
+#    - terraform state pull > ./terraform/terraform.tfstate # Load tfstate from artifacts for destruction
