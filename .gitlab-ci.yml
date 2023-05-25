@@ -8,11 +8,11 @@ variables:
 #  - echo "Checking if openrc.sh is sourced correctly"
 #  - echo "Environment variables:"
 #  - env | grep OS_ # Assuming OS_ prefix for OpenStack environment variables
-before_script:
-  - source $OPENRC_PATH
-  - echo "Checking if openrc.sh is sourced correctly"
-  - echo "Environment variables:"
-  - env | grep OS_
+#before_script:
+#  - source $OPENRC_PATH
+#  - echo "Checking if openrc.sh is sourced correctly"
+#  - echo "Environment variables:"
+#  - env | grep OS_
 
 stages:
   - lint
@@ -43,11 +43,10 @@ deploy:
     - NETCRACKER-MEDIUM
   image: $IMAGE
   script:
-#    - echo "$OPENRC_FILE" > openrc.sh
-#    - source openrc.sh
-#    - echo "Checking if openrc.sh is sourced correctly"
-#    - echo "Environment variables:"
-#    - env | grep OS_ # Assuming OS_ prefix for OpenStack environment variables
+    - source $OPENRC_PATH
+    - echo "Checking if openrc.sh is sourced correctly"
+    - echo "Environment variables:"
+    - env | grep OS_
     - cd terraform
     - ls -al
     - terraform init --plugin-dir /home/jenkins/.terraform/providers # Initialize Terraform
