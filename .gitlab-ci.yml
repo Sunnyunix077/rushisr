@@ -6,17 +6,23 @@ stages:
 # Build stage
 build:
   stage: build
+  tags:
+    - NETCRACKER
   script:
     - echo "Building your project..."
 
 # Test stage
 test:
   stage: test
+  tags:
+    - NETCRACKER
   script:
     - echo "Running tests..."
 
 # Deploy stage
 deploy:
   stage: deploy
+  tags:
+    - NETCRACKER
   script:
     - echo "Deploying your project..."
