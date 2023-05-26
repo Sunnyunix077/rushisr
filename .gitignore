@@ -3,3 +3,4 @@ terraform/.terraform
 terraform/.terraform.tftate
 terraform/.terraform.tftate.backup
 terraform/openrc.sh
+terraform/.terraform.lock.hcl
