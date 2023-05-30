@@ -23,8 +23,8 @@ before_script:
 #  - ls -al
   - id; who
   - mv terraform /usr/local/bin/
-  - export PATH=/usr/local/bin:$PATH
-  - chmod +x /usr/local/bin/terraform
+#  - export PATH=/usr/local/bin:$PATH
+#  - chmod +x /usr/local/bin/terraform
   - terraform -version
   - pwd
 #  - env | grep OS_
