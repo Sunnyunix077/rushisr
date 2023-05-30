@@ -1,63 +1,18 @@
 variables:
   IMAGE: artifactorycn.netcracker.com:17048/tfansible:1.0
-  OPENRC_PATH: ./terraform/openrc.sh
-
+  
 before_script:
   - echo "$OPENRC_FILE" > openrc.sh
   - source openrc.sh
-  - which terraform
-  - echo "Checking if openrc.sh is sourced correctly"
-  - echo "Environment variables:"
-  - apt-get install curl -y
-#  - apt-get install fastjar -y
-  - apt-get install unzip -y
-  - rm /usr/bin/terraform
-  - mkdir test
-  - cd test
-  - curl -O https://git.netcracker.com/rude0423/demo_lab/-/tree/master/terraform/terraform
-  - ls -al
-#  - pwd
-#  - mv terraform_1.4.6_linux_amd64.zip terraform_1.4.6_linux_amd64.gz
-#  - gunzip terraform_1.4.6_linux_amd64.gz
-#  - pwd
-#  - ls -al
-  - id; who
-  - mv terraform /usr/local/bin/
-#  - export PATH=/usr/local/bin:$PATH
-  - chown root:root /usr/local/bin/terraform
-  - chmod +x /usr/local/bin/terraform
-  - terraform -version
-  - pwd
-#  - env | grep OS_
-#  - apt-get update
-#  - apt-get install -y wget unzip  # Install required dependencies (if needed)
-#  - wget https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip
-#  - unzip terraform_1.4.6_linux_amd64.zip
-#  - chmod +x terraform
-#  - mv terraform /usr/local/bin/
-#  - terraform -version
-#  - terraform -install-version 1.4.6
-#  - terraform --version
-#before_script:
-#  - source $OPENRC_PATH
-#  - echo "Checking if openrc.sh is sourced correctly"
-#  - echo "Environment variables:"
-#  - env | grep OS_
-
+ 
+#  tags:
+#    - NETCRACKER
 stages:
-#  - lint
+  - lint
   - deploy
   - configure
   - test
   - destroy
-
-#lint_ansible:
-#  stage: lint
-#  tags:
-#    - NETCRACKER
-#  image: $IMAGE
-#  script:
-#    - ansible-lint ./ansile/site.yml # Linting command for Demo 4 - ansible code
 
 #lint_terraform:
 #  stage: lint
@@ -65,7 +20,15 @@ stages:
 #    - NETCRACKER
 #  image: $IMAGE
 #  script:
-#    - tflint # Linting command using tflint for Demo 3 - terraform code
+#    - tflint <path_to_demo_3_terraform_code>
+
+#lint_ansible:
+#  stage: lint
+#  tags:
+#    - NETCRACKER
+#  image: $IMAGE
+#  script:
+#    - ansible-lint <path_to_demo_4_ansible_code>
 
 deploy:
   stage: deploy
@@ -73,21 +36,11 @@ deploy:
     - NETCRACKER
   image: $IMAGE
   script:
-#    - source $OPENRC_PATH
-#    - echo "Checking if openrc.sh is sourced correctly"
-#   - echo "Environment variables:"
-#   - env | grep OS_
-    - ls -al
-    - cd terraform
-    - ls -al
-    - terraform init -upgrade # Initialize Terraform
-    - terraform --version # Print Terraform version for debugging purposes
-#    - terraform workspace new myworkspace || terraform workspace select myworkspace # Create or select a workspace (optional)
-#    - terraform init # Re-initialize Terraform after workspace selection (if applicable)
-    - terraform apply -var-file="../.secret.tfvars" -auto-approve # Apply Demo 3 - terraform code to create VM
+    - terraform apply -auto-approve <path_to_demo_3_terraform_code>
+    - terraform state pull > tfstate.json
   artifacts:
     paths:
-      - ./terraform/terraform.tfstate # Save tfstate as artifact
+      - tfstate.json
 
 configure:
   stage: configure
@@ -95,7 +48,7 @@ configure:
     - NETCRACKER
   image: $IMAGE
   script:
-    - ansible-playbook ./ansible/site.yml # Configure VM using Demo 4 - ansible code
+    - ansible-playbook <path_to_demo_4_ansible_code>
 
 test:
   stage: test
@@ -103,7 +56,8 @@ test:
     - NETCRACKER
   image: $IMAGE
   script:
-    - 'curl -I http://0.0.0.0:8080'
+    - curl -I http://0.0.0.0:8080
+    # Add additional tests if needed
 
 destroy:
   stage: destroy
@@ -111,17 +65,6 @@ destroy:
     - NETCRACKER
   image: $IMAGE
   script:
-#    - terraform init # Initialize Terraform
-#    - terraform destroy -auto-approve # Load tfstate from artifacts and destroy VM
-    - terraform init # Initialize Terraform
-    - terraform state pull -from=./terraform/terraform.tftate > terraform.tfstate # Load tfstate from an alternative location
-    - terraform destroy -var-file=".secret.tfvars" -auto-approve # Destroy VM based on loaded tfstate
-
-#dependencies:
-#  stage: destroy
-#  tags:
-#    - NETCRACKER
-#  script:
-#    - terraform init # Initialize Terraform
-#    - terraform workspace select default # Select the default workspace for tfstate loading
-#    - terraform state pull > ./terraform/terraform.tfstate # Load tfstate from artifacts for destruction
+    - terraform init
+    - terraform state push tfstate.json
+    - terraform destroy -auto-approve <path_to_demo_3_terraform_code>
