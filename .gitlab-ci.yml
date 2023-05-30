@@ -10,7 +10,7 @@ before_script:
   - apt-get install curl -y
   - apt-get install fastjar -y
   - apt-get install unzip -y
-  - curl -O https://git.netcracker.com/rude0423/demo_lab/-/tree/master/terraform/terraform_1.4.6_linux_amd64.zip
+  - curl -O https://git.netcracker.com/rude0423/demo_lab/-/tree/master/terraform_1.4.6_linux_amd64.zip
   - jar xvf terraform_1.4.6_linux_amd64.zip
   - mv terraform /usr/local/bin/
   - terraform -version
