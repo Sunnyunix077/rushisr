@@ -64,6 +64,7 @@ deploy:
 #    - echo "Checking if openrc.sh is sourced correctly"
 #   - echo "Environment variables:"
 #   - env | grep OS_
+    - ls -al
     - cd ./terraform
     - ls -al
     - terraform init -upgrade # Initialize Terraform
