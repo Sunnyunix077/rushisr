@@ -14,6 +14,7 @@ before_script:
   - jar xvf terraform_1.4.6_linux_amd64.zip
   - mv terraform /usr/local/bin/
   - terraform -version
+  - pwd
 #  - env | grep OS_
 #  - apt-get update
 #  - apt-get install -y wget unzip  # Install required dependencies (if needed)
