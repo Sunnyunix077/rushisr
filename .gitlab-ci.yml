@@ -36,7 +36,7 @@ deploy:
     - NETCRACKER
   image: $IMAGE
   script:
-    - terraform apply -auto-approve <path_to_demo_3_terraform_code>
+    - terraform apply -var-file="../.secret.tfvars" -auto-approve 
     - terraform state pull > tfstate.json
   artifacts:
     paths:
