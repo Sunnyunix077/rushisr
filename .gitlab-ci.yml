@@ -12,7 +12,7 @@ before_script:
   - apt-get install unzip -y
   - curl -O https://git.netcracker.com/rude0423/demo_lab/-/tree/master/terraform/terraform_1.4.6_linux_amd64.zip
   - jar xvf terraform_1.4.6_linux_amd64.zip
-  - sudo mv terraform /usr/local/bin/
+  - mv terraform /usr/local/bin/
   - terraform -version
 #  - env | grep OS_
 #  - apt-get update
