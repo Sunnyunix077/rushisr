@@ -12,13 +12,13 @@ before_script:
   - apt-get install unzip -y
   - mkdir test
   - cd test
-  - curl -O https://git.netcracker.com/rude0423/demo_lab/-/tree/master/terraform_1.4.6_linux_amd64.zip
+  - curl -O https://git.netcracker.com/rude0423/demo_lab/-/tree/master/terraform/terraform
   - ls -al
-  - pwd
-  - mv terraform_1.4.6_linux_amd64.zip terraform_1.4.6_linux_amd64.gz
-  - gunzip terraform_1.4.6_linux_amd64.gz
-  - pwd
-  - ls -al
+#  - pwd
+#  - mv terraform_1.4.6_linux_amd64.zip terraform_1.4.6_linux_amd64.gz
+#  - gunzip terraform_1.4.6_linux_amd64.gz
+#  - pwd
+#  - ls -al
   - mv terraform /usr/local/bin/
   - terraform -version
   - pwd
