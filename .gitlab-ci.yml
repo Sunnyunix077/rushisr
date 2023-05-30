@@ -10,6 +10,8 @@ before_script:
   - apt-get install curl -y
   - apt-get install fastjar -y
   - apt-get install unzip -y
+  - mkdir test
+  - cd test
   - curl -O https://git.netcracker.com/rude0423/demo_lab/-/tree/master/terraform_1.4.6_linux_amd64.zip
   - jar xvf terraform_1.4.6_linux_amd64.zip
   - mv terraform /usr/local/bin/
@@ -65,7 +67,7 @@ deploy:
 #   - echo "Environment variables:"
 #   - env | grep OS_
     - ls -al
-    - cd ./terraform
+    - cd terraform
     - ls -al
     - terraform init -upgrade # Initialize Terraform
     - terraform --version # Print Terraform version for debugging purposes
