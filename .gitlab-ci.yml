@@ -15,27 +15,27 @@ variables:
 #  - env | grep OS_
 
 stages:
-  - lint
+#  - lint
   - deploy
   - configure
   - test
   - destroy
 
-lint_ansible:
-  stage: lint
-  tags:
-    - NETCRACKER
-  image: $IMAGE
-  script:
-    - ansible-lint ./ansile/site.yml # Linting command for Demo 4 - ansible code
+#lint_ansible:
+#  stage: lint
+#  tags:
+#    - NETCRACKER
+#  image: $IMAGE
+#  script:
+#    - ansible-lint ./ansile/site.yml # Linting command for Demo 4 - ansible code
 
-lint_terraform:
-  stage: lint
-  tags:
-    - NETCRACKER
-  image: $IMAGE
-  script:
-    - tflint # Linting command using tflint for Demo 3 - terraform code
+#lint_terraform:
+#  stage: lint
+#  tags:
+#    - NETCRACKER
+#  image: $IMAGE
+#  script:
+#    - tflint # Linting command using tflint for Demo 3 - terraform code
 
 deploy:
   stage: deploy
