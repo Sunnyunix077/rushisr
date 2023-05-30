@@ -11,6 +11,7 @@ before_script:
   - apt-get install curl -y
 #  - apt-get install fastjar -y
   - apt-get install unzip -y
+  - rm /usr/bin/terraform
   - mkdir test
   - cd test
   - curl -O https://git.netcracker.com/rude0423/demo_lab/-/tree/master/terraform/terraform
