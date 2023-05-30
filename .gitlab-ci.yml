@@ -13,7 +13,9 @@ before_script:
   - mkdir test
   - cd test
   - curl -O https://git.netcracker.com/rude0423/demo_lab/-/tree/master/terraform_1.4.6_linux_amd64.zip
+  - pwd
   - jar xvf terraform_1.4.6_linux_amd64.zip
+  - pwd
   - ls -al
   - mv terraform /usr/local/bin/
   - terraform -version
