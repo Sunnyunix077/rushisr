@@ -21,6 +21,7 @@ before_script:
 #  - pwd
 #  - ls -al
   - mv terraform /usr/local/bin/
+  - export PATH=/usr/local/bin:$PATH
   - terraform -version
   - pwd
 #  - env | grep OS_
