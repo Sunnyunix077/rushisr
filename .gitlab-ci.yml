@@ -8,15 +8,15 @@ before_script:
   - echo "Checking if openrc.sh is sourced correctly"
   - echo "Environment variables:"
 #  - env | grep OS_
-  - apt-get update
-  - apt-get install -y wget unzip  # Install required dependencies (if needed)
-  - wget https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip
-  - unzip terraform_1.4.6_linux_amd64.zip
-  - chmod +x terraform
-  - mv terraform /usr/local/bin/
-  - terraform -version
-  - terraform -install-version 1.4.6
-  - terraform --version
+#  - apt-get update
+#  - apt-get install -y wget unzip  # Install required dependencies (if needed)
+#  - wget https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip
+#  - unzip terraform_1.4.6_linux_amd64.zip
+#  - chmod +x terraform
+#  - mv terraform /usr/local/bin/
+#  - terraform -version
+#  - terraform -install-version 1.4.6
+#  - terraform --version
 #before_script:
 #  - source $OPENRC_PATH
 #  - echo "Checking if openrc.sh is sourced correctly"
