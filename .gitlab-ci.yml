@@ -21,8 +21,10 @@ before_script:
 #  - gunzip terraform_1.4.6_linux_amd64.gz
 #  - pwd
 #  - ls -al
+  - id; who
   - mv terraform /usr/local/bin/
   - export PATH=/usr/local/bin:$PATH
+  - chmod +x /usr/local/bin/terraform
   - terraform -version
   - pwd
 #  - env | grep OS_
