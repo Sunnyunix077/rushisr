@@ -8,6 +8,11 @@ before_script:
   - echo "Checking if openrc.sh is sourced correctly"
   - echo "Environment variables:"
 #  - env | grep OS_ # Assuming OS_ prefix for OpenStack environment variables
+  - apk add --update wget unzip  # Install required dependencies (if needed)
+  - wget https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip
+  - unzip terraform_1.4.6_linux_amd64.zip
+  - chmod +x terraform
+  - mv terraform /usr/local/bin/
   - terraform -version
   - terraform -install-version 1.4.6
   - terraform --version
