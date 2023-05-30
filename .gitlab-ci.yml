@@ -5,6 +5,7 @@ variables:
 before_script:
   - echo "$OPENRC_FILE" > openrc.sh
   - source openrc.sh
+  - which terraform
   - echo "Checking if openrc.sh is sourced correctly"
   - echo "Environment variables:"
   - apt-get install curl -y
