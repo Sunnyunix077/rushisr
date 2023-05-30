@@ -1,5 +1,5 @@
 variables:
-  IMAGE: artifactorycn.netcracker.com:17048/ops_terraform:1.0
+  IMAGE: artifactorycn.netcracker.com:17048/tfansible:1.0
   OPENRC_PATH: ./terraform/openrc.sh
 
 #before_script:
