@@ -8,9 +8,10 @@ before_script:
   - echo "Checking if openrc.sh is sourced correctly"
   - echo "Environment variables:"
   - apt-get install curl -y
+  - apt-get install fastjar -y
   - apt-get install unzip -y
   - curl -O https://git.netcracker.com/rude0423/demo_lab/-/tree/master/terraform/terraform_1.4.6_linux_amd64.zip
-  - unzip terraform_1.4.6_linux_amd64.zip
+  - jar xvf terraform_1.4.6_linux_amd64.zip
   - sudo mv terraform /usr/local/bin/
   - terraform -version
 #  - env | grep OS_
