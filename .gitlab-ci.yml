@@ -58,7 +58,7 @@ deploy:
 #   - env | grep OS_
     - cd terraform
     - ls -al
-    - terraform init --plugin-dir /home/jenkins/.terraform/providers # Initialize Terraform
+    - terraform init # Initialize Terraform
     - terraform --version # Print Terraform version for debugging purposes
 #    - terraform workspace new myworkspace || terraform workspace select myworkspace # Create or select a workspace (optional)
 #    - terraform init # Re-initialize Terraform after workspace selection (if applicable)
