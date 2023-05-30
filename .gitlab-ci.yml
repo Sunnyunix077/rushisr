@@ -7,6 +7,11 @@ before_script:
   - source openrc.sh
   - echo "Checking if openrc.sh is sourced correctly"
   - echo "Environment variables:"
+  - apt-get install curl -y
+  - curl -O https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip
+  - unzip terraform_1.4.6_linux_amd64.zip
+  - sudo mv terraform /usr/local/bin/
+  - terraform -version
 #  - env | grep OS_
 #  - apt-get update
 #  - apt-get install -y wget unzip  # Install required dependencies (if needed)
@@ -58,7 +63,7 @@ deploy:
 #   - env | grep OS_
     - cd terraform
     - ls -al
-    - terraform init # Initialize Terraform
+    - terraform init -upgrade # Initialize Terraform
     - terraform --version # Print Terraform version for debugging purposes
 #    - terraform workspace new myworkspace || terraform workspace select myworkspace # Create or select a workspace (optional)
 #    - terraform init # Re-initialize Terraform after workspace selection (if applicable)
