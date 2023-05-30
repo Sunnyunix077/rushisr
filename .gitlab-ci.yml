@@ -15,7 +15,8 @@ before_script:
   - curl -O https://git.netcracker.com/rude0423/demo_lab/-/tree/master/terraform_1.4.6_linux_amd64.zip
   - ls -al
   - pwd
-  - gunzip terraform_1.4.6_linux_amd64.zip
+  - mv terraform_1.4.6_linux_amd64.zip terraform_1.4.6_linux_amd64.gz
+  - gunzip terraform_1.4.6_linux_amd64.gz
   - pwd
   - ls -al
   - mv terraform /usr/local/bin/
