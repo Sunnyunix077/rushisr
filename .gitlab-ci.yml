@@ -41,7 +41,6 @@ deploy:
     - NETCRACKER
   image: $IMAGE
   script:
-    - cp zephyr02.crt .
     - export OS_PASSWORD=$OS_PASSWORD
     - echo "$OPENRC_FILE" > openrc.sh
     - chmod +x openrc.sh
