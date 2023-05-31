@@ -4,6 +4,4 @@ provider "openstack" {
   password          = var.password
   user_domain_name  = var.user_domain_name
 }
-provider "local" {
-  version = "1.4.0"
-}
+provider "local" {}
