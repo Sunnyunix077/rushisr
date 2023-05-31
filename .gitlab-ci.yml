@@ -46,7 +46,7 @@ deploy:
     - pwd
     - terraform init --plugin-dir /opt/.terraform/providers
 #    - terraform plan --refresh-only -out=tfplan
-    - terraform apply -var-file=".secret.tfvars" -auto-approve 
+    - terraform apply -var-file="../.secret.tfvars" -auto-approve 
     - terraform state pull > tfstate.json
   artifacts:
     paths:
