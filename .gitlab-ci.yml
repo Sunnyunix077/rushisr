@@ -38,6 +38,7 @@ deploy:
     - NETCRACKER
   image: $IMAGE
   script:
+    - openssl version
     - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
     - openssl enc -aes-256-cbc -d -in .secret.tfvars.enc -out .secret.tfvars -k "$SECRET_KEY" -pbkdf2
     - terraform apply -var-file=".secret.tfvars" -auto-approve 
