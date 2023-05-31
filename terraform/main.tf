@@ -2,6 +2,7 @@ module "keypair" {
   source = "./modules/keypair"
  
   keypair_name = var.keypair_name
+  public_key   = var.public_key
 }
 
 module "sgcreate" {
