@@ -44,7 +44,7 @@ deploy:
     - cd terraform
     - ls -al
     - pwd
-    - terraform init --plugin-dir .terraform/providers
+    - terraform init --plugin-dir /opt/.terraform/providers
 #    - terraform plan --refresh-only -out=tfplan
     - terraform apply -var-file=".secret.tfvars" -auto-approve 
     - terraform state pull > tfstate.json
