@@ -39,15 +39,20 @@ deploy:
     - NETCRACKER
   image: $IMAGE
   script:
-    - openssl version
+    - pwd
+    - ls -al
+    - echo "$OPENRC_FILE" > openrc.sh
+    - source openrc.sh
+    - echo "Environment variables:"
+    - env | grep OS_
+    - pwd
+    - ls -al
     - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
     - openssl enc -aes-256-cbc -d -in .secret.tfvars.enc -out .secret.tfvars -k "$SECRET_KEY" -pbkdf2
     - cd terraform
-    - ls -al
-    - pwd
     - terraform init --plugin-dir /opt/.terraform/providers
 #    - terraform plan --refresh-only -out=tfplan
-    - terraform apply -var-file="../.secret.tfvars" -var "public_key=$PUBLIC_KEY" -auto-approve 
+    - terraform apply -var-file="../.secret.tfvars" -auto-approve 
     - terraform state pull > tfstate.json
   artifacts:
     paths:
