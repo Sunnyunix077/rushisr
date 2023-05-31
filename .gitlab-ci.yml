@@ -4,9 +4,11 @@ variables:
   SECRET_KEY: "$SECRET_KEY"
   PUBLIC_KEY: "$PUBLIC_KEY"
   
-before_script:
-  - echo "$OPENRC_FILE" > openrc.sh
-  - source openrc.sh
+#before_script:
+#  - echo "$OPENRC_FILE" > openrc.sh
+#  - source openrc.sh
+#  - pwd
+#  - ls -al
  
 #  tags:
 #    - NETCRACKER
@@ -44,7 +46,7 @@ deploy:
     - echo "$OPENRC_FILE" > openrc.sh
     - source openrc.sh
     - echo "Environment variables:"
-    - env | grep OS_
+    - cat zephyr02.pem
     - pwd
     - ls -al
     - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
