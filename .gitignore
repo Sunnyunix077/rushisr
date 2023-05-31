@@ -1,2 +1,5 @@
 .secret.tfvars
-#terraform/.terraform
+terraform/.terraform
+terraform/.terraform.tftate
+terraform/.terraform.tftate.backup
+terraform/.terraform.lock.hcl
