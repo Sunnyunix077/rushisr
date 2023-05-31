@@ -10,6 +10,10 @@ variable "password" {
   type = string
 }
 
+variable "public_key" {
+  description = "SSH public key"
+  type        = string
+}
 variable "user_domain_name" {
   type = string
 }
