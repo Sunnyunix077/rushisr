@@ -1,5 +1,7 @@
 variables:
   IMAGE: artifactorycn.netcracker.com:17048/tfansible:1.0
+  SECRET_TFVARS_FILE: "$SECRET_TFVARS_FILE"
+  SECRET_KEY: "$SECRET_KEY"
   
 before_script:
   - echo "$OPENRC_FILE" > openrc.sh
@@ -36,7 +38,9 @@ deploy:
     - NETCRACKER
   image: $IMAGE
   script:
-    - terraform apply -var-file="$SECRET_TFVARS_FILE" -auto-approve 
+    - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
+    - openssl enc -aes-256-cbc -d -in .secret.tfvars.enc -out .secret.tfvars -k "$SECRET_KEY"
+    - terraform apply -var-file=".secret.tfvars" -auto-approve 
     - terraform state pull > tfstate.json
   artifacts:
     paths:
