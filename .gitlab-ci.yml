@@ -42,8 +42,8 @@ deploy:
     - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
     - openssl enc -aes-256-cbc -d -in .secret.tfvars.enc -out .secret.tfvars -k "$SECRET_KEY" -pbkdf2
     - cd terraform
-    - terraform init -upgrade
-    - terraform plan --refresh-only -out=tfplan
+    - terraform init --plugin-dir .terraform/providers
+#    - terraform plan --refresh-only -out=tfplan
     - terraform apply -var-file=".secret.tfvars" -auto-approve 
     - terraform state pull > tfstate.json
   artifacts:
