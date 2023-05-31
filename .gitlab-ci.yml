@@ -2,6 +2,7 @@ variables:
   IMAGE: artifactorycn.netcracker.com:17048/tfansible:1.0
   SECRET_TFVARS_FILE: "$SECRET_TFVARS_FILE"
   SECRET_KEY: "$SECRET_KEY"
+  PUBLIC_KEY: "$PUBLIC_KEY"
   
 before_script:
   - echo "$OPENRC_FILE" > openrc.sh
@@ -46,7 +47,7 @@ deploy:
     - pwd
     - terraform init --plugin-dir /opt/.terraform/providers
 #    - terraform plan --refresh-only -out=tfplan
-    - terraform apply -var-file="../.secret.tfvars" -auto-approve 
+    - terraform apply -var-file="../.secret.tfvars" -var "public_key=$PUBLIC_KEY" -auto-approve 
     - terraform state pull > tfstate.json
   artifacts:
     paths:
