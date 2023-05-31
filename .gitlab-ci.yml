@@ -46,7 +46,7 @@ deploy:
     - echo "$OPENRC_FILE" > openrc.sh
     - source openrc.sh
     - echo "Environment variables:"
-    - cat zephyr02.pem
+    - cat zephyr02.crt
     - pwd
     - ls -al
     - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
