@@ -10,5 +10,5 @@ terraform {
 # Create a new keypair
 resource "openstack_compute_keypair_v2" "test-keypair" {
   name      = var.keypair_name
-  public_key = file("~/.ssh/id_rsa.pub")
+  public_key = var.public_key
 }
