@@ -44,6 +44,7 @@ deploy:
     - cp zephyr02.crt .
     - export OS_PASSWORD=$OS_PASSWORD
     - echo "$OPENRC_FILE" > openrc.sh
+    - chmod +x openrc.sh
     - source openrc.sh
 #    - echo "Environment variables:"
     - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
