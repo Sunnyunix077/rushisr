@@ -60,6 +60,7 @@ configure:
     - cd ansible
     - pwd
     - ls -al
+    - cat inventory/hosts
     - ansible-playbook site.yml
 
 test:
