@@ -39,6 +39,8 @@ deploy:
     - NETCRACKER
   image: $IMAGE
   script:
+    - pwd
+    - ls -al
     - echo "$OPENRC_FILE" > openrc.sh
     - source openrc.sh
     - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
