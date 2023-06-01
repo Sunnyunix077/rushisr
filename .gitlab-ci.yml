@@ -46,7 +46,7 @@ deploy:
     - echo "export OS_PASSWORD='$OS_PASS'" >> openrc.sh
     - echo "export OS_CACERT=$(pwd)/zephyr02.crt" >> openrc.sh
     - cat openrc.sh
-    - source openrc.sh
+    - source openrc.sh && echo "openrc sourced"
     - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
     - openssl enc -aes-256-cbc -d -in .secret.tfvars.enc -out .secret.tfvars -k "$SECRET_KEY" -pbkdf2
     - cd terraform
