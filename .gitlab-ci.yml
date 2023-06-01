@@ -51,7 +51,7 @@ deploy:
     - openssl enc -aes-256-cbc -d -in .secret.tfvars.enc -out .secret.tfvars -k "$SECRET_KEY" -pbkdf2
     - cd terraform
     - terraform init --plugin-dir /opt/.terraform/providers
-    - openstack token issue
+#    - openstack token issue
     - terraform apply -var-file="../.secret.tfvars" -auto-approve
     - terraform state pull > tfstate.json
   artifacts:
