@@ -49,6 +49,7 @@ deploy:
     - export OS_PASSWORD="$OS_PASSWORD"
     - cd terraform
     - terraform init --plugin-dir /opt/.terraform/providers
+    - openstack token issue
     - terraform apply -var-file="../.secret.tfvars" -auto-approve
     - terraform state pull > tfstate.json
   artifacts:
