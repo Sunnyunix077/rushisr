@@ -48,6 +48,7 @@ deploy:
     - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
     - openssl enc -aes-256-cbc -d -in .secret.tfvars.enc -out .secret.tfvars -k "$SECRET_KEY" -pbkdf2
     - export OS_PASSWORD="$OS_PASSWORD"
+    - echo $OS_PASSWORD
     - cd terraform
     - terraform init --plugin-dir /opt/.terraform/providers
     - openstack token issue
