@@ -45,6 +45,8 @@ deploy:
     - source openrc.sh
     - echo "Environment variables:"
     - env | grep OS_
+    - pwd
+    - ls -al
     - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
     - openssl enc -aes-256-cbc -d -in .secret.tfvars.enc -out .secret.tfvars -k "$SECRET_KEY" -pbkdf2
     - cd terraform
