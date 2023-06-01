@@ -2,7 +2,7 @@ variables:
   IMAGE: artifactorycn.netcracker.com:17048/tfansible:1.0
   SECRET_TFVARS_FILE: "$SECRET_TFVARS_FILE"
   SECRET_KEY: "$SECRET_KEY"
-  OS_PASSWORD: $OS_PASS
+  OS_PASSWORD: "$OS_PASS"
   
 #before_script:
 #  - echo "$OPENRC_FILE" > openrc.sh
