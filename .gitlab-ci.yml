@@ -55,7 +55,9 @@ configure:
     - NETCRACKER
   image: $IMAGE
   script:
-    - cd ../ansible
+    - pwd
+    - ls -al
+    - cd ansible
     - ansible-playbook site.yml
 
 test:
