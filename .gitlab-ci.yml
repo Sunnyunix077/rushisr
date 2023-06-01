@@ -40,7 +40,7 @@ deploy:
     - NETCRACKER
   image: $IMAGE
   script:
-    - export OS_PASSWORD=$OS_PASSWORD
+    - export OS_PASSWORD=$OS_PASS
     - echo "$OPENRC_FILE" > openrc.sh
     - chmod +x openrc.sh
     - source openrc.sh
