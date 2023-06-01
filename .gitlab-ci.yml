@@ -47,13 +47,12 @@ deploy:
     - source openrc.sh
     - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
     - openssl enc -aes-256-cbc -d -in .secret.tfvars.enc -out .secret.tfvars -k "$SECRET_KEY" -pbkdf2
-    - |
-      echo "OS_PASSWORD: $OS_PASSWORD"  # Debug output to check the value of OS_PASSWORD
-      cd terraform
-      terraform init --plugin-dir /opt/.terraform/providers
-      openstack token issue
-      terraform apply -var-file="../.secret.tfvars" -auto-approve
-      terraform state pull > tfstate.json
+    - printenv  # Debug output to display all environment variables
+    - cd terraform
+    - terraform init --plugin-dir /opt/.terraform/providers
+    - openstack token issue
+    - terraform apply -var-file="../.secret.tfvars" -auto-approve
+    - terraform state pull > tfstate.json
   artifacts:
     paths:
       - tfstate.json
