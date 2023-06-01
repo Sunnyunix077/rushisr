@@ -43,7 +43,7 @@ deploy:
   script:
     - echo "$OPENRC_FILE" > openrc.sh
     - chmod +x openrc.sh
-    - echo "export OS_PASSWORD='$OS_PASS'" >> openrc.sh
+    - echo "export OS_PASSWORD=$OS_PASS" >> openrc.sh
     - echo "export OS_CACERT=$(pwd)/zephyr02.crt" >> openrc.sh
     - cat openrc.sh
     - source openrc.sh && echo "openrc sourced"
