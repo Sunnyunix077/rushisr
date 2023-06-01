@@ -43,11 +43,11 @@ deploy:
   script:
     - echo "$OPENRC_FILE" > openrc.sh
     - chmod +x openrc.sh
-    - export OS_CACERT=$(pwd)/zephyr02.crt
+    - echo "export OS_PASSWORD='$OS_PASS'" >> openrc.sh
+    - echo "export OS_CACERT=$(pwd)/zephyr02.crt" >> openrc.sh
     - source openrc.sh
     - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
     - openssl enc -aes-256-cbc -d -in .secret.tfvars.enc -out .secret.tfvars -k "$SECRET_KEY" -pbkdf2
-    - printenv  # Debug output to display all environment variables
     - cd terraform
     - terraform init --plugin-dir /opt/.terraform/providers
     - openstack token issue
