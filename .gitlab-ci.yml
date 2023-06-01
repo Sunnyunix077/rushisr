@@ -58,6 +58,8 @@ configure:
     - pwd
     - ls -al
     - cd ansible
+    - pwd
+    - ls -al
     - ansible-playbook site.yml
 
 test:
