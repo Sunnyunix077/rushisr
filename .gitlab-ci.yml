@@ -41,7 +41,7 @@ deploy:
     - NETCRACKER
   image: $IMAGE
   script:
-    - export OS_PASSWORD=$OS_PASS
+#    - export OS_PASSWORD=$OS_PASS
     - echo "$OPENRC_FILE" > openrc.sh
     - chmod +x openrc.sh
     - source openrc.sh
@@ -51,7 +51,7 @@ deploy:
     - cd terraform
     - terraform init --plugin-dir /opt/.terraform/providers
     - terraform providers
-    - echo OS_PASSWORD
+    - echo $OS_PASSWORD
     - openstack token issue
 #    - terraform plan --refresh-only -out=tfplan
 #    - terraform apply -var-file="../.secret.tfvars" -auto-approve 
