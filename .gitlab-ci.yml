@@ -4,14 +4,6 @@ variables:
   SECRET_KEY: "$SECRET_KEY"
   OS_PASSWORD: "$OS_PASS"
   
-#before_script:
-#  - echo "$OPENRC_FILE" > openrc.sh
-#  - source openrc.sh
-#  - pwd
-#  - ls -al
- 
-#  tags:
-#    - NETCRACKER
 stages:
   - lint
   - deploy
@@ -51,7 +43,6 @@ deploy:
     - openssl enc -aes-256-cbc -d -in .secret.tfvars.enc -out .secret.tfvars -k "$SECRET_KEY" -pbkdf2
     - cd terraform
     - terraform init --plugin-dir /opt/.terraform/providers
-#    - openstack token issue
     - terraform apply -var-file="../.secret.tfvars" -auto-approve
     - terraform state pull > tfstate.json
   artifacts:
@@ -64,7 +55,8 @@ configure:
     - NETCRACKER
   image: $IMAGE
   script:
-    - ansible-playbook <path_to_demo_4_ansible_code>
+    - cd ../ansible
+    - ansible-playbook site.yml
 
 test:
   stage: test
@@ -81,6 +73,7 @@ destroy:
     - NETCRACKER
   image: $IMAGE
   script:
+    - cd ../terraform
     - terraform init
     - terraform state push tfstate.json
     - terraform destroy -auto-approve <path_to_demo_3_terraform_code>
