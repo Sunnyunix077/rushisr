@@ -56,7 +56,7 @@ deploy:
     - terraform state pull > tfstate.json
   artifacts:
     paths:
-      - tfstate.json
+      - terraform/tfstate.json
 
 configure:
   stage: configure
