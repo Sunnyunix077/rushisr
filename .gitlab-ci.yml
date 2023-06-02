@@ -61,7 +61,7 @@ configure:
   script:
     - cd ansible
     - ls -al
-    - source terraform.env
+    - source ../terraform.env
     - echo "my_host ansible_host=$FLOATING_IP" > inventory.ini
     - ansible-playbook -i inventory.ini playbook.yml
 
