@@ -47,10 +47,11 @@ deploy:
     - terraform state pull > tfstate.json
     - |
       FIP=$(cat tfstate.json | jq -r '.floating_ip.value')
-      echo "FLOATING_IP=$FIP" >> $CI_ENVIRONMENT_URL/terraform.env
+      echo "FLOATING_IP=$FIP" >> ../terraform.env
   artifacts:
     paths:
       - terraform/tfstate.json
+      - terraform/terraform.env
 
 configure:
   stage: configure
@@ -59,7 +60,7 @@ configure:
   image: $IMAGE
   script:
     - cd ansible
-    - source $CI_ENVIRONMENT_URL/terraform.env
+    - source ../terraform.env
     - echo "my_host ansible_host=$FLOATING_IP" > inventory.ini
     - ansible-playbook -i inventory.ini playbook.yml
 
