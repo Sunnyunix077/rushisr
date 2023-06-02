@@ -42,7 +42,7 @@ deploy:
     - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
     - openssl enc -aes-256-cbc -d -in .secret.tfvars.enc -out .secret.tfvars -k "$SECRET_KEY" -pbkdf2
     - cd terraform
-    - terraform init --plugin-dir /opt/.terraform/providers
+    - terraform init
     - terraform apply -var-file="../.secret.tfvars" -auto-approve
     - terraform state pull > tfstate.json
     - |
