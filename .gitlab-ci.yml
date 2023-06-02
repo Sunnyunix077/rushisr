@@ -51,7 +51,7 @@ deploy:
   artifacts:
     paths:
       - terraform/tfstate.json
-      - terraform/terraform.env
+      - terraform.env
 
 configure:
   stage: configure
@@ -60,7 +60,7 @@ configure:
   image: $IMAGE
   script:
     - cd ansible
-    - source ../terraform.env
+    - source terraform.env
     - echo "my_host ansible_host=$FLOATING_IP" > inventory.ini
     - ansible-playbook -i inventory.ini playbook.yml
 
