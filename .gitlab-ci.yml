@@ -60,8 +60,8 @@ configure:
     - cd ansible
     - pwd
     - ls -al
-    - cat inventory/hosts
-    - ansible-playbook site.yml
+    - cat /builds/rude0423/demo_lab/ansible/inventory/hosts
+    - ansible-playbook -i /builds/rude0423/demo_lab/ansible/inventory/hosts site.yml
 
 test:
   stage: test
