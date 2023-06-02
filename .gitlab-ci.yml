@@ -46,7 +46,7 @@ deploy:
     - terraform apply -var-file="../.secret.tfvars" -auto-approve
     - terraform state pull > tfstate.json
     - |
-      FIP=$(cat terraform/tfstate.json | jq -r '.floating_ip.value')
+      FIP=$(cat tfstate.json | jq -r '.floating_ip.value')
       echo "FLOATING_IP=$FIP" >> $CI_ENVIRONMENT_URL/terraform.env
   artifacts:
     paths:
