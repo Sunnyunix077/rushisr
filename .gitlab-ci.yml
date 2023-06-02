@@ -1,5 +1,5 @@
 variables:
-  IMAGE: artifactorycn.netcracker.com:17048/tfansible:1.0
+  IMAGE: artifactorycn.netcracker.com:17048/tfansible:1.1
   SECRET_TFVARS_FILE: "$SECRET_TFVARS_FILE"
   SECRET_KEY: "$SECRET_KEY"
   OS_PASSWORD: "$OS_PASS"
