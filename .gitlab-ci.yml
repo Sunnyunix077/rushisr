@@ -45,6 +45,9 @@ deploy:
     - terraform init --plugin-dir /opt/.terraform/providers
     - terraform apply -var-file="../.secret.tfvars" -auto-approve
     - terraform state pull > tfstate.json
+    - |
+      FIP=$(cat terraform/tfstate.json | jq -r '.floating_ip.value')
+      echo "FLOATING_IP=$FIP" >> $CI_ENVIRONMENT_URL/terraform.env
   artifacts:
     paths:
       - terraform/tfstate.json
@@ -55,13 +58,10 @@ configure:
     - NETCRACKER
   image: $IMAGE
   script:
-    - pwd
-    - ls -al
     - cd ansible
-    - pwd
-    - ls -al
-    - cat /builds/rude0423/demo_lab/ansible/inventory/hosts
-    - ansible-playbook -i /builds/rude0423/demo_lab/ansible/inventory/hosts site.yml
+    - source $CI_ENVIRONMENT_URL/terraform.env
+    - echo "my_host ansible_host=$FLOATING_IP" > inventory.ini
+    - ansible-playbook -i inventory.ini playbook.yml
 
 test:
   stage: test
