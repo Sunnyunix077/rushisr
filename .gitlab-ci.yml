@@ -62,9 +62,9 @@ configure:
     - ls -al
     - source ../terraform.env
     - echo "my_host ansible_host=$FLOATING_IP" > inventory.ini
-    - mkdir -p $CI_PROJECT_DIR/.ssh
-    - echo "$SSH_PUBLIC_KEY" > $HOME/.ssh/id_rsa.pub
-    - chmod 600 $HOME/.ssh/id_rsa.pub
+    - mkdir -p /root/.ssh
+    - echo "$SSH_PUBLIC_KEY" > /root/.ssh/id_rsa.pub
+    - chmod 600 /root/.ssh/id_rsa.pub
     - ansible-playbook -i inventory.ini site.yml
 
 test:
