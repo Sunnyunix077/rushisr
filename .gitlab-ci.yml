@@ -48,7 +48,7 @@ deploy:
     - terraform apply -var-file=".secret.tfvars" -auto-approve
     - terraform state pull > tfstate.json
     - |
-      FIP=$(cat tfstate.json | jq -r '.resources[] | select(.type == "openstack_networking_floatingip_v2") | .instances[].attributes.address')
+      FIP=$(grep -A 3 'openstack_networking_floatingip_v2' tfstate.json | grep 'address' | sed -n 's/.*"address": "\([^"]*\)",/\1/p')
       echo "FLOATING_IP=$FIP" >> ../terraform.env
   artifacts:
     paths:
