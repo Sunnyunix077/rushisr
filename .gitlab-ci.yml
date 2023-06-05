@@ -47,7 +47,6 @@ deploy:
     - |
       FIP=$(cat tfstate.json | jq -r '.resources[] | select(.type == "openstack_networking_floatingip_v2") | .instances[].attributes.address')
       echo "FLOATING_IP=$FIP" >> ../terraform.env
-      ping $FIP
   artifacts:
     paths:
       - terraform/tfstate.json
@@ -63,6 +62,7 @@ configure:
     - ls -al
     - source ../terraform.env
     - echo "my_host ansible_host=$FLOATING_IP" > inventory.ini
+    - ping -c 4 $FLOATING_IP
     - mkdir -p $HOME/.ssh
     - echo "$SSH_PUBLIC_KEY" > $HOME/.ssh/id_rsa.pub
     - chmod 600 $HOME/.ssh/id_rsa.pub
