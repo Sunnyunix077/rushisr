@@ -92,6 +92,11 @@ destroy:
     - NETCRACKER
   image: artifactorycn.netcracker.com:17048/utils/terraform-openstack:1.4.6
   script:
+    - echo "$OPENRC_FILE" > openrc.sh
+    - chmod +x openrc.sh
+    - echo "export OS_PASSWORD=$OS_PASS" >> openrc.sh
+    - echo "export OS_CACERT=$(pwd)/zephyr02.crt" >> openrc.sh
+    - source openrc.sh
     - cd terraform
     - echo "$SECRET_TFVARS_FILE" > .secret.tfvars
     - terraform init
