@@ -79,8 +79,14 @@ test:
     - NETCRACKER
   image: artifactorycn.netcracker.com:17048/utils/terraform-openstack:1.4.6
   script:
-    - response_code=$(curl -s -o /dev/null -w "%{http_code}" http://your-vm-url)
-    - if [ "$response_code" -eq 200 ]; then echo "HTTP/200 response received"; else echo "Error: Unexpected HTTP response $response_code"; exit 1; fi
+    - |
+      response_code=$(curl -s -o /dev/null -w "%{http_code}" http://your-vm-url)
+      if [ "$response_code" -eq 200 ]; then
+        echo "HTTP/200 response received"
+      else
+        echo "Error: Unexpected HTTP response $response_code"
+        exit 1
+      fi
 #    - curl -I http://0.0.0.0:8080
     # Add additional tests if needed
 
