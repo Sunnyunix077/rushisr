@@ -29,6 +29,15 @@ resource "openstack_networking_secgroup_rule_v2" "icmp_rule" {
   remote_ip_prefix  = "0.0.0.0/0"
   security_group_id = "${openstack_networking_secgroup_v2.test-security_group.id}"
 }
+resource "openstack_networking_secgroup_rule_v2" "ssh_rule" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 8080
+  port_range_max    = 8080
+  remote_ip_prefix  = "0.0.0.0/0"
+  security_group_id = "${openstack_networking_secgroup_v2.test-security_group.id}"
+}
 
 #resource "openstack_networking_floatingip_v2" "my_floating_ip" {
 #  pool = var.floating_ip_pool
