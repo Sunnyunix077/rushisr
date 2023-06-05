@@ -62,7 +62,7 @@ configure:
     - ls -al
     - source ../terraform.env
     - echo "my_host ansible_host=$FLOATING_IP" > inventory.ini
-    - ping -c 4 $FLOATING_IP
+    - nc -vz -w 5 $FLOATING_IP 22
     - mkdir -p $HOME/.ssh
     - echo "$SSH_PUBLIC_KEY" > $HOME/.ssh/id_rsa.pub
     - chmod 600 $HOME/.ssh/id_rsa.pub
