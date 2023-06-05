@@ -71,7 +71,7 @@ configure:
 #    - chmod 600 $HOME/.ssh/id_rsa.pub
 #    - chmod 700 $HOME/.ssh
 #    - ssh-keygen -t rsa -N '' -f $HOME/.ssh/id_rsa
-    - ansible-playbook -i inventory.ini site.yml -vvv
+    - ansible-playbook site.yml
 
 test:
   stage: test
