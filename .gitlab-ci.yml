@@ -65,7 +65,9 @@ configure:
     - mkdir -p $HOME/.ssh
     - echo "$SSH_PUBLIC_KEY" > $HOME/.ssh/id_rsa.pub
     - chmod 600 $HOME/.ssh/id_rsa.pub
-    - ssh-keygen -p -m PEM -f $HOME/.ssh/id_rsa
+    - chmod 700 $HOME/.ssh
+    - ssh-keygen -t rsa -N '' -f $HOME/.ssh/id_rsa
+    - ssh-keyscan $FLOATING_IP >> $HOME/.ssh/known_hosts
     - ansible-playbook -i inventory.ini site.yml
 
 test:
