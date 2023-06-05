@@ -3,6 +3,7 @@ variables:
   SECRET_TFVARS_FILE: "$SECRET_TFVARS_FILE"
   SECRET_KEY: "$SECRET_KEY"
   OS_PASSWORD: "$OS_PASS"
+  ANSIBLE_HOST_KEY_CHECKING: 'false'
   
 stages:
   - lint
