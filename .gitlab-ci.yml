@@ -3,6 +3,8 @@ variables:
   SECRET_TFVARS_FILE: "$SECRET_TFVARS_FILE"
   SECRET_KEY: "$SECRET_KEY"
   OS_PASSWORD: "$OS_PASS"
+  ANSIBLE_HOST_KEY_CHECKING: 'false'
+  PRIVATE_KEY: $PRIVATE_KEY
   
 stages:
   - lint
@@ -59,14 +61,17 @@ configure:
   image: $IMAGE
   script:
     - cd ansible
-    - ls -al
+    - id
     - source ../terraform.env
     - echo "my_host ansible_host=$FLOATING_IP" > inventory.ini
     - mkdir -p $HOME/.ssh
-    - echo "$SSH_PUBLIC_KEY" > $HOME/.ssh/id_rsa.pub
-    - chmod 600 $HOME/.ssh/id_rsa.pub
-    - ssh-keygen -p -m PEM -f $HOME/.ssh/id_rsa
-    - ansible-playbook -i inventory.ini site.yml
+    - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
+    - chmod 600 $HOME/.ssh/id_rsa
+#    - echo "$SSH_PUBLIC_KEY" > $HOME/.ssh/id_rsa.pub
+#    - chmod 600 $HOME/.ssh/id_rsa.pub
+#    - chmod 700 $HOME/.ssh
+#    - ssh-keygen -t rsa -N '' -f $HOME/.ssh/id_rsa
+    - ansible-playbook site.yml
 
 test:
   stage: test
