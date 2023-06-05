@@ -77,7 +77,7 @@ test:
   stage: test
   tags:
     - NETCRACKER
-  image: $IMAGE
+  image: artifactorycn.netcracker.com:17048/utils/terraform-openstack:1.4.6
   script:
     - curl -I http://0.0.0.0:8080
     # Add additional tests if needed
