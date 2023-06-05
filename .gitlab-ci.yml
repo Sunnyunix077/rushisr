@@ -1,5 +1,5 @@
 variables:
-  IMAGE: artifactorycn.netcracker.com:17048/tfansible:1.1
+  IMAGE: artifactorycn.netcracker.com:17048/utils/terraform-openstack:1.4.6
   SECRET_TFVARS_FILE: "$SECRET_TFVARS_FILE"
   SECRET_KEY: "$SECRET_KEY"
   OS_PASSWORD: "$OS_PASS"
@@ -40,11 +40,12 @@ deploy:
     - echo "export OS_PASSWORD=$OS_PASS" >> openrc.sh
     - echo "export OS_CACERT=$(pwd)/zephyr02.crt" >> openrc.sh
     - source openrc.sh
-    - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
-    - openssl enc -aes-256-cbc -d -in .secret.tfvars.enc -out .secret.tfvars -k "$SECRET_KEY" -pbkdf2
+#    - echo "$SECRET_TFVARS_FILE" | base64 -d > .secret.tfvars.enc
+#    - openssl enc -aes-256-cbc -d -in .secret.tfvars.enc -out .secret.tfvars -k "$SECRET_KEY" -pbkdf2
     - cd terraform
+    - echo "$SECRET_TFVARS_FILE" > .secret.tfvars
     - terraform init
-    - terraform apply -var-file="../.secret.tfvars" -auto-approve
+    - terraform apply -var-file=".secret.tfvars" -auto-approve
     - terraform state pull > tfstate.json
     - |
       FIP=$(cat tfstate.json | jq -r '.resources[] | select(.type == "openstack_networking_floatingip_v2") | .instances[].attributes.address')
