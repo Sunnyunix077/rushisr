@@ -61,7 +61,6 @@ configure:
   image: $IMAGE
   script:
     - cd ansible
-    - id
     - source ../terraform.env
     - echo "my_host ansible_host=$FLOATING_IP" > inventory/hosts
     - mkdir -p $HOME/.ssh
@@ -71,6 +70,7 @@ configure:
 #    - chmod 600 $HOME/.ssh/id_rsa.pub
 #    - chmod 700 $HOME/.ssh
 #    - ssh-keygen -t rsa -N '' -f $HOME/.ssh/id_rsa
+    - sleep 30
     - ansible-playbook -i inventory/hosts site.yml
 
 test:
@@ -79,7 +79,9 @@ test:
     - NETCRACKER
   image: artifactorycn.netcracker.com:17048/utils/terraform-openstack:1.4.6
   script:
-    - curl -I http://0.0.0.0:8080
+    - response_code=$(curl -s -o /dev/null -w "%{http_code}" http://your-vm-url)
+    - if [ "$response_code" -eq 200 ]; then echo "HTTP/200 response received"; else echo "Error: Unexpected HTTP response $response_code"; exit 1; fi
+#    - curl -I http://0.0.0.0:8080
     # Add additional tests if needed
 
 destroy:
