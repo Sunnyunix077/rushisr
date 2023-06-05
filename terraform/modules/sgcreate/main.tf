@@ -29,7 +29,7 @@ resource "openstack_networking_secgroup_rule_v2" "icmp_rule" {
   remote_ip_prefix  = "0.0.0.0/0"
   security_group_id = "${openstack_networking_secgroup_v2.test-security_group.id}"
 }
-resource "openstack_networking_secgroup_rule_v2" "ssh_rule" {
+resource "openstack_networking_secgroup_rule_v2" "http_rule" {
   direction         = "ingress"
   ethertype         = "IPv4"
   protocol          = "tcp"
