@@ -70,7 +70,7 @@ configure:
 #    - chmod 600 $HOME/.ssh/id_rsa.pub
 #    - chmod 700 $HOME/.ssh
 #    - ssh-keygen -t rsa -N '' -f $HOME/.ssh/id_rsa
-    - sleep 30
+    - sleep 60
     - ansible-playbook -i inventory/hosts site.yml
 
 test:
@@ -80,7 +80,7 @@ test:
   image: artifactorycn.netcracker.com:17048/utils/terraform-openstack:1.4.6
   script:
     - |
-      response_code=$(curl -s -o /dev/null -w "%{http_code}" http://your-vm-url)
+      response_code=$(curl -s -o /dev/null -w "%{http_code}" http://0.0.0.0:8080)
       if [ "$response_code" -eq 200 ]; then
         echo "HTTP/200 response received"
       else
