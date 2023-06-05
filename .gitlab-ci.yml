@@ -4,6 +4,7 @@ variables:
   SECRET_KEY: "$SECRET_KEY"
   OS_PASSWORD: "$OS_PASS"
   ANSIBLE_HOST_KEY_CHECKING: 'false'
+  PRIVATE_KEY: $PRIVATE_KEY
   
 stages:
   - lint
@@ -64,11 +65,12 @@ configure:
     - source ../terraform.env
     - echo "my_host ansible_host=$FLOATING_IP" > inventory.ini
     - mkdir -p $HOME/.ssh
+    - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
+    - chmod 600 $HOME/.ssh/id_rsa
 #    - echo "$SSH_PUBLIC_KEY" > $HOME/.ssh/id_rsa.pub
 #    - chmod 600 $HOME/.ssh/id_rsa.pub
 #    - chmod 700 $HOME/.ssh
 #    - ssh-keygen -t rsa -N '' -f $HOME/.ssh/id_rsa
-    - ssh-keyscan -t rsa git.netcracker.com >> $HOME/.ssh/known_hosts
     - ansible-playbook -i inventory.ini site.yml -vvv
 
 test:
