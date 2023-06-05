@@ -47,6 +47,7 @@ deploy:
     - |
       FIP=$(cat tfstate.json | jq -r '.resources[] | select(.type == "openstack_networking_floatingip_v2") | .instances[].attributes.address')
       echo "FLOATING_IP=$FIP" >> ../terraform.env
+      ping $FIP
   artifacts:
     paths:
       - terraform/tfstate.json
