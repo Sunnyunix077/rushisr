@@ -21,8 +21,8 @@ lint_ansible:
   image: $ANSI_IMAGE
   script:
     - cd ansible
-    - export ANSIBLELINT_SKIP_LOAD_LIST=true
-    - ansible-lint --use-schema-from=/usr/lib/python3.10/site-packages/ansiblelint/schemas
+    - export ANSIBLE_SCHEMA_LOAD_LIST="/usr/lib/python3.10/site-packages/ansiblelint/schemas"
+    - ansible-lint site.yml
 
 deploy:
   stage: deploy
