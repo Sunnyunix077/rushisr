@@ -13,21 +13,14 @@ stages:
   - test
   - destroy
 
-#lint_terraform:
-#  stage: lint
-#  tags:
-#    - NETCRACKER
-#  image: $IMAGE
-#  script:
-#    - tflint <path_to_demo_3_terraform_code>
-
-#lint_ansible:
-#  stage: lint
-#  tags:
-#    - NETCRACKER
-#  image: $IMAGE
-#  script:
-#    - ansible-lint <path_to_demo_4_ansible_code>
+lint_ansible:
+  stage: lint
+  tags:
+    - NETCRACKER
+  image: $IMAGE
+  script:
+    - cd ansible
+    - ansible-lint site.yml
 
 deploy:
   stage: deploy
@@ -57,7 +50,7 @@ configure:
   stage: configure
   tags:
     - NETCRACKER
-  image: artifactorycn.netcracker.com:17048/tfansible:1.1
+  image: artifactorycn.netcracker.com:17048/utils/ansible:6.6.0
   script:
     - cd ansible
     - source ../terraform.env
