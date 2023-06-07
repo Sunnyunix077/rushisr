@@ -11,7 +11,6 @@
     - name: Include os-configure role
       ansible.builtin.include_role:
         name: os-configure
-        
     - name: Include nginx role
       ansible.builtin.include_role:
         name: nginx

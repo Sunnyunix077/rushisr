@@ -8,7 +8,7 @@
     dest: /etc/resolv.conf
     mode: '0644' # noqa
   notify:
-    - Restart network Service
+    - Restart Network Service
 
 - name: Download repository file
   ansible.builtin.get_url:
