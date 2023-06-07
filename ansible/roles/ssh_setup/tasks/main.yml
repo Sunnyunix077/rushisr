@@ -1,6 +1,0 @@
----
-- name: Create Ansible user
-  user:
-    name: "{{ ans_user }}"
-    createhome: yes
-    shell: /bin/bash
