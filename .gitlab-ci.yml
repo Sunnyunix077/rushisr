@@ -17,7 +17,7 @@ lint_ansible:
   stage: lint
   tags:
     - NETCRACKER
-  image: $IMAGE
+  image: artifactorycn.netcracker.com:17048/utils/ansible:6.6.0
   script:
     - cd ansible
     - ansible-lint site.yml
