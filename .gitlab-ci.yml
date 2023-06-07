@@ -1,9 +1,9 @@
 variables:
   TERRA_IMAGE: artifactorycn.netcracker.com:17048/utils/terraform-openstack:1.4.6
   ANSI_IMAGE: artifactorycn.netcracker.com:17048/utils/ansible:6.6.0
-  SECRET_TFVARS_FILE: "$SECRET_TFVARS_FILE"
-  SECRET_KEY: "$SECRET_KEY"
-  OS_PASSWORD: "$OS_PASS"
+  SECRET_TFVARS_FILE: $SECRET_TFVARS_FILE
+  SECRET_KEY: $SECRET_KEY
+  OS_PASSWORD: $OS_PASS
   ANSIBLE_HOST_KEY_CHECKING: 'false'
   PRIVATE_KEY: $PRIVATE_KEY
   

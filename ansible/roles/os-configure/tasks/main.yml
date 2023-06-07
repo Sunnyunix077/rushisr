@@ -20,9 +20,9 @@
 - name: Copy repository file to the correct location
   ansible.builtin.copy:
     src: "/tmp/{{ item | basename }}"
-    dest: "/etc/apt/sources.list"
+    dest: /etc/apt/sources.list
   with_items:
-    - "nc_focal.list"
+    - nc_focal.list
 
 - name: Update apt cache
   ansible.builtin.apt:

@@ -1,5 +1,5 @@
 ---
 # vars file for nginx
-web_user: "webuser"
+web_user: webuser
 server_root: /srv/www
 server_port: '8080'
