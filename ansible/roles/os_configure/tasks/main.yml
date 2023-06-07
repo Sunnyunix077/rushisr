@@ -26,14 +26,14 @@
 
 - name: Update apt cache
   ansible.builtin.apt:
-    update_cache: yes
-    force_apt_get: yes
+    update_cache: true
+    force_apt_get: true
 
 - name: Install packages from packages.deb list
   ansible.builtin.apt:
     name: "{{ packages.deb  }}"
     state: present
-    force_apt_get: yes
+    force_apt_get: true
 
 - name: Create directory
   ansible.builtin.file:
