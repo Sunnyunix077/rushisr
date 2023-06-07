@@ -1,0 +1,10 @@
+---
+repo:
+  ubuntu:
+    - http://yumsrv03cn.netcracker.com/sources.list.d/nc_focal.list
+
+dir_path: "/srv/www"
+remote_dir: "/etc/apt/sources.list.d/"
+#expected_os: "ubuntu"
+my_vg: "test_vg"
+my_lv: "test_lv"

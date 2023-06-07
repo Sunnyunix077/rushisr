@@ -1,0 +1,65 @@
+---
+- name: Print Ubuntu Release
+  ansible.builtin.debug:
+    var: ansible_distribution_release
+- name: Create resolv.conf file
+  ansible.builtin.template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+    mode: '0644'
+  notify:
+    - Restart network Service
+
+- name: Download repository file
+  ansible.builtin.get_url:
+    url: "{{ item }}"
+    dest: /tmp/{{ item | basename }}
+  with_items: "{{ repo.ubuntu }}"
+  delegate_to: localhost
+
+- name: Copy repository file to the correct location
+  ansible.builtin.copy:
+    src: "/tmp/{{ item | basename }}"
+#    dest: "/etc/apt/sources.list.d/{{ item | basename }}"
+    dest: "/etc/apt/sources.list"
+  with_items:
+    - "nc_focal.list"
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+    force_apt_get: yes
+
+- name: Install packages from packages.deb list
+  ansible.builtin.apt:
+    name: "{{ packages.deb  }}"
+    state: present
+    force_apt_get: yes
+
+- name: Create directory
+  ansible.builtin.file:
+    path: "{{ dir_path }}"
+    state: directory
+
+- name: Create volume group
+  community.general.system.lvg:
+    vg: "{{ my_vg }}"
+    pvs: /dev/vdb
+
+- name: Create logical volume
+  community.general.system.lvol:
+    vg: "{{ my_vg }}"
+    lv: "{{ my_lv }}"
+    size: 4G
+
+- name: Format logical volume to xfs
+  community.general.system.filesystem:
+    fstype: xfs
+    dev: "/dev/{{ my_vg }}/{{ my_lv }}"
+
+- name: Mount logical volume
+  ansible.posix.mount:
+    path: "{{ dir_path }}"
+    src: "/dev/{{ my_vg }}/{{ my_lv }}"
+    fstype: xfs
+    state: mounted

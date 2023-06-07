@@ -1,0 +1,31 @@
+---
+- name: Create webuser
+  ansible.builtin.user:
+    name: webuser
+
+- name: Install nginx package
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+
+#- name: Configure nginx
+#  copy:
+#    src: nginx.conf
+#    dest: /etc/nginx/nginx.conf
+#  notify: Restart Nginx service
+
+- name: Copy default index.html
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /srv/www/index.html
+    owner: webuser
+    group: webuser
+    mode: '0644'
+  register: index_html_result
+
+- name: Configure nginx
+  ansible.builtin.copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+  notify: restart nginx
+  when: index_html_result.changed

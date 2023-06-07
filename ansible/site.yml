@@ -1,0 +1,17 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: true
+  tasks:
+    - name: Check OS distribution
+      ansible.builtin.debug:
+        var: ansible_distribution
+      failed_when: ansible_distribution != 'Ubuntu'
+
+    - name: Include os-configure role
+      ansible.builtin.include_role:
+        name: os-configure
+        
+    - name: Include nginx role
+      ansible.builtin.include_role:
+        name: nginx
