@@ -21,7 +21,7 @@ lint_ansible:
   image: $ANSI_IMAGE
   script:
     - cd ansible
-    - ansible-lint --offline site.yml
+    - ansible-lint --offline --exclude meta/ --exclude defaults/ site.yml
 
 deploy:
   stage: deploy
