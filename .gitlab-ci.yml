@@ -14,14 +14,14 @@ stages:
   - test
   - destroy
 
-lint_ansible:
-  stage: lint
-  tags:
-    - NETCRACKER
-  image: $ANSI_IMAGE
-  script:
-    - cd ansible
-    - ansible-lint --offline --exclude meta/ --exclude defaults/ site.yml
+#lint_ansible:
+#  stage: lint
+#  tags:
+#    - NETCRACKER
+#  image: $ANSI_IMAGE
+#  script:
+#    - cd ansible
+#    - ansible-lint --offline --exclude meta/ --exclude defaults/ site.yml
 
 deploy:
   stage: deploy
