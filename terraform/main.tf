@@ -55,8 +55,9 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 
 # Attach the new volume to the instance
 resource "openstack_compute_volume_attach_v2" "test-attach" {
-  instance_id = module.compute.instance_id[0]
-  volume_id   = module.volcreate.volume_id[0]
+  count     = length(module.compute.intance_id)
+  volume_id = element(module.volcreate.volume_id, count.index)
+  instance_id = element(module.compute.instance_id, count.index)
 }
 
 #resource "local_file" "ansible_inventory_file" {
