@@ -48,8 +48,9 @@ module "compute" {
 
 # Attach the floating ip to instance
 resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
-  floating_ip = module.floatipcreate.float_ip[0]
-  instance_id = module.compute.instance_id[0]
+  count       = length(module.compute.instance_id)
+  floating_ip = element(openstack_networking_floatingip_v2.my_floating_ip.*.address, count.index)
+  instance_id = element(module.compute.instance_id, count.index)
 }
 
 # Attach the new volume to the instance
