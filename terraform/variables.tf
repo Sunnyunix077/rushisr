@@ -70,3 +70,8 @@ variable "ansible_inventory_file_path" {
   type        = string
   description = "The path where the generated Ansible inventory file should be created"
 }
+
+variable "instance_count" {
+  description = "Number of instances to create"
+  type        = number
+}
