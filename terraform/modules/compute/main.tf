@@ -11,7 +11,7 @@ terraform {
 # Create a new instance
 resource "openstack_compute_instance_v2" "test-instance" {
 
-  count        = length(var.instance_types) * var.instance_count
+  count        = var.instance_count
   name = "${var.instance_prefix}${format("%02d", count.index + 1)}${var.instance_suffix}"
   flavor_name     = var.instance_flavor
   key_pair        = var.keypair_name
