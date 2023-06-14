@@ -11,8 +11,8 @@ terraform {
 # Create a new instance
 resource "openstack_compute_instance_v2" "test-instance" {
 
-  count        = var.instance_count
-  name = format("%s%02d%s", var.instance_prefix, count.index % 3 + 1, var.instance_suffix)
+  count           = var.instance_count
+  name            = element(local.instance_names, count.index)
   flavor_name     = var.instance_flavor
   key_pair        = var.keypair_name
   security_groups = [var.sg_id]
@@ -21,10 +21,17 @@ resource "openstack_compute_instance_v2" "test-instance" {
     name = var.instance_network
   }
   access_ip_v4 = var.float_ip
+}
+  locals {
+  dpl_instance_names = [for i in range(1, var.instance_count + 1) : format("labdpl%02dcn", i)]
+  cr_instance_names  = [for i in range(1, 4) : format("labcr%02dcn", i)]
+  cm_instance_names  = [for i in range(1, 4) : format("labcm%02dcn", i)]
+  st_instance_names  = [for i in range(1, 4) : format("labst%02dcn", i)]
 
-  provisioner "local-exec" {
-    command = <<EOT
-      openstack server set --name ${format("%s%02d%s", var.instance_prefix, count.index + 1, var.instance_suffix)} ${self.id}
-    EOT
-  }
+  instance_names = concat(
+    local.dpl_instance_names,
+    local.cr_instance_names,
+    local.cm_instance_names,
+    local.st_instance_names
+  )
 }
