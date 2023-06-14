@@ -10,12 +10,13 @@ terraform {
 
 # Create a new instance
 resource "openstack_compute_instance_v2" "test-instance" {
-  name            = var.instance_name
+
+  count        = length(var.instance_types) * var.instance_count
+  name         = "${var.instance_prefix}${element(var.instance_types, count.index / var.instance_count)}${count.index % var.instance_count + 1}${var.instance_suffix}"
   flavor_name     = var.instance_flavor
   key_pair        = var.keypair_name
   security_groups = [var.sg_id]
   image_name      = var.instance_image
-  count		  = 2
   network {
     name = var.instance_network
   }

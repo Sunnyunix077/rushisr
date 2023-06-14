@@ -31,7 +31,10 @@ module "floatipcreate" {
 module "compute" {
   source = "./modules/compute"
 
-  instance_name = var.instance_name
+  instance_prefix = "lab"
+  instance_suffix = "cn"
+  instance_count = 10
+  instance_types = ["dpl", "cr[01-03]", "cm[01-03]", "st[01-03]"]
   instance_flavor = var.instance_flavor
   instance_image = var.instance_image
   instance_network = var.instance_network
