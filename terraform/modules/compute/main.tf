@@ -12,7 +12,7 @@ terraform {
 resource "openstack_compute_instance_v2" "test-instance" {
 
   count        = var.instance_count
-  name = format("%s%02d%s", var.instance_prefix, count.index % var.instance_count + 1, var.instance_suffix)
+  name = format("%s%02d%s", var.instance_prefix, (count.index / 3) + 1, var.instance_suffix)
   flavor_name     = var.instance_flavor
   key_pair        = var.keypair_name
   security_groups = [var.sg_id]
