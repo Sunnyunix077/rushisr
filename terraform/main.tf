@@ -30,7 +30,7 @@ module "floatipcreate" {
 
 module "compute" {
   source = "./modules/compute"
-
+  instance_name = "lab"
   instance_prefix = "lab"
   instance_suffix = "cn"
   instance_count = 10
