@@ -55,7 +55,7 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 
 # Attach the new volume to the instance
 resource "openstack_compute_volume_attach_v2" "test-attach" {
-  count     = length(module.compute.intance_id)
+  count     = length(module.compute.instance_id)
   volume_id = element(module.volcreate.volume_id, count.index)
   instance_id = element(module.compute.instance_id, count.index)
 }
