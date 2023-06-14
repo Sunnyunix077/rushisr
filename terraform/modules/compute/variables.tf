@@ -29,3 +29,23 @@ variable "sg_id" {
 variable "float_ip" {
   type = string
 }
+
+variable "instance_prefix" {
+  description = "Prefix for the instance hostname"
+  type        = string
+}
+
+variable "instance_suffix" {
+  description = "Suffix for the instance hostname"
+  type        = string
+}
+
+variable "instance_count" {
+  description = "Number of instances to create"
+  type        = number
+}
+
+variable "instance_types" {
+  description = "List of instance types"
+  type        = list(string)
+}
