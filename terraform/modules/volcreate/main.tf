@@ -13,5 +13,5 @@ resource "openstack_blockstorage_volume_v3" "test-volume" {
   name = var.volume_name
   size = var.volume_size
   volume_type = var.volume_type
-  count = 2
+  count = 10
 }
