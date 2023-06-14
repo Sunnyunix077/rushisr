@@ -21,4 +21,10 @@ resource "openstack_compute_instance_v2" "test-instance" {
     name = var.instance_network
   }
   access_ip_v4 = var.float_ip
+
+  provisioner "local-exec" {
+    command = <<EOT
+      openstack server set --name ${format("%s%02d%s", var.instance_prefix, count.index + 1, var.instance_suffix)} ${self.id}
+    EOT
+  }
 }
