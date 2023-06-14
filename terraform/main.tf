@@ -34,12 +34,12 @@ module "compute" {
   instance_prefix = "lab"
   instance_suffix = "cn"
   instance_count = 10
-  instance_types = flatten([
-  [for _ in range(var.instance_count) : "dpl"],
-  [for i in range(1, 4) : format("cr%02d", i)],
-  [for i in range(1, 4) : format("cm%02d", i)],
-  [for i in range(1, 4) : format("st%02d", i)],
-])
+  instance_types = [
+    "dpl",
+    [for i in range(1, 4) : format("cr%02d", i)],
+    [for i in range(1, 4) : format("cm%02d", i)],
+    [for i in range(1, 4) : format("st%02d", i)],
+  ]
   instance_flavor = var.instance_flavor
   instance_image = var.instance_image
   instance_network = var.instance_network
