@@ -24,9 +24,9 @@ resource "openstack_compute_instance_v2" "test-instance" {
 }
   locals {
   dpl_instance_names = [for i in range(1, var.instance_count + 1) : format("labdpl%02dcn", i)]
-  cr_instance_names  = [for i in range(1, 4) : format("labcr%02dcn", i)]
-  cm_instance_names  = [for i in range(1, 4) : format("labcm%02dcn", i)]
-  st_instance_names  = [for i in range(1, 4) : format("labst%02dcn", i)]
+  cr_instance_names  = flatten([for i in range(1, 4) : [format("labcr%02dcn", i)]] * 3)
+  cm_instance_names  = flatten([for i in range(1, 4) : [format("labcm%02dcn", i)]] * 3)
+  st_instance_names  = flatten([for i in range(1, 4) : [format("labst%02dcn", i)]] * 3)
 
   instance_names = concat(
     local.dpl_instance_names,
