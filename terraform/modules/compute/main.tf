@@ -15,7 +15,7 @@ resource "openstack_compute_instance_v2" "test-instance" {
   key_pair        = var.keypair_name
   security_groups = [var.sg_id]
   image_name      = var.instance_image
-  count		  = 1
+  count		  = 2
   network {
     name = var.instance_network
   }

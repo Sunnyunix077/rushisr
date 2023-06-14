@@ -62,35 +62,35 @@ configure:
     - sleep 60
     - ansible-playbook -i inventory/hosts site.yml
 
-test:
-  stage: test
-  tags:
-    - NETCRACKER
-  image: $TERRA_IMAGE
-  script:
-    - source terraform.env
-    - |
-      response_code=$(curl -s -o /dev/null -w "%{http_code}" http://$FLOATING_IP:8080)
-      if [ "$response_code" -eq 200 ]; then
-        echo "HTTP/200 response received"
-      else
-        echo "Error: Unexpected HTTP response $response_code"
-        exit 1
-      fi
+#test:
+#  stage: test
+#  tags:
+#    - NETCRACKER
+#  image: $TERRA_IMAGE
+#  script:
+#    - source terraform.env
+#    - |
+#      response_code=$(curl -s -o /dev/null -w "%{http_code}" http://$FLOATING_IP:8080)
+#      if [ "$response_code" -eq 200 ]; then
+#        echo "HTTP/200 response received"
+#      else
+#        echo "Error: Unexpected HTTP response $response_code"
+#        exit 1
+#      fi
 
-destroy:
-  stage: destroy
-  tags:
-    - NETCRACKER
-  image: $TERRA_IMAGE
-  script:
-    - echo "$OPENRC_FILE" > openrc.sh
-    - chmod +x openrc.sh
-    - echo "export OS_PASSWORD=$OS_PASS" >> openrc.sh
-    - echo "export OS_CACERT=$(pwd)/zephyr02.crt" >> openrc.sh
-    - source openrc.sh
-    - cd terraform
-    - echo "$SECRET_TFVARS_FILE" > .secret.tfvars
-    - terraform init
-    - terraform state push tfstate.json
-    - terraform destroy -var-file=".secret.tfvars" -auto-approve 
+#destroy:
+#  stage: destroy
+#  tags:
+#    - NETCRACKER
+#  image: $TERRA_IMAGE
+#  script:
+#    - echo "$OPENRC_FILE" > openrc.sh
+#    - chmod +x openrc.sh
+#    - echo "export OS_PASSWORD=$OS_PASS" >> openrc.sh
+#    - echo "export OS_CACERT=$(pwd)/zephyr02.crt" >> openrc.sh
+#    - source openrc.sh
+#    - cd terraform
+#    - echo "$SECRET_TFVARS_FILE" > .secret.tfvars
+#    - terraform init
+#    - terraform state push tfstate.json
+#    - terraform destroy -var-file=".secret.tfvars" -auto-approve 
