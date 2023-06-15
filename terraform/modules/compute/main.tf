@@ -35,7 +35,3 @@ resource "openstack_compute_instance_v2" "test-instance" {
     local.st_instance_names
   ])
 }
-
-locals {
-  instance_names = slice(local.instance_names, 0, var.instance_count)
-}
