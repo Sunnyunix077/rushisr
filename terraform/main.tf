@@ -40,11 +40,6 @@ module "compute" {
     [for i in range(1, 4) : format("cm%02d", i)],
     [for i in range(1, 4) : format("st%02d", i)]
   )
-  instance_flavors  = [
-    for _ in range(var.instance_count) : "IaaS.Vcpu_2.ram_4.disk_40"
-  ] + [
-    for _ in range(3) : "IaaS.Vcpu_2.ram_14.disk_40"
-  ]
   instance_image = var.instance_image
   instance_network = var.instance_network
   keypair_name = module.keypair.keypair_name
