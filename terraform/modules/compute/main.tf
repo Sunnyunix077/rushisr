@@ -14,8 +14,8 @@ resource "openstack_compute_instance_v2" "test-instance" {
   count           = var.instance_count
   name            = format(
     "%s%02d%s",
-    var.instance_prefix,
-    count.index + 1,
+    local.instance_prefix[count.index % length(local.instance_prefix)],
+    ((count.index / length(local.instance_prefix)) % 3) + 1,
     var.instance_suffix != "" ? var.instance_suffix : ""
   )
   flavor_name     = var.instance_flavor
@@ -26,4 +26,13 @@ resource "openstack_compute_instance_v2" "test-instance" {
     name = var.instance_network
   }
   access_ip_v4 = var.float_ip
+}
+
+locals {
+  instance_prefix = [
+    "labdpl",
+    "labcr",
+    "labcm",
+    "labst",
+  ]
 }
