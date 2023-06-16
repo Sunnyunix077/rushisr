@@ -77,6 +77,6 @@ variable "instance_count" {
 }
 variable "instance_flavors" {
   description = "Flavors for each instance"
-  type        = list(string)
-  default     = []
+  type        = string
+  default     = ""
 }
