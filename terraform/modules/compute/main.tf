@@ -26,7 +26,7 @@ resource "openstack_compute_instance_v2" "test-instance" {
     count.index < 4 ? 1 : floor((count.index - 4) / 3) + 2,
     var.instance_suffix != "" ? var.instance_suffix : ""
   )
-  flavor_name = count.index < 4 ? "IaaS.Vcpu_2.ram_4.disk_40" : "IaaS.Vcpu_2.ram_14.disk_40"
+  flavor_name     = var.instance_flavors[count.index]
   key_pair        = var.keypair_name
   security_groups = [var.sg_id]
   image_name      = var.instance_image

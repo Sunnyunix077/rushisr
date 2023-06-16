@@ -45,6 +45,12 @@ module "compute" {
   keypair_name = module.keypair.keypair_name
   sg_id = module.sgcreate.sg_id
   float_ip  = module.floatipcreate.float_ip[0]
+  instance_flavors = [
+    for instance_type in local.instance_types : 
+    instance_type == "dpl" || instance_type == "cm" || instance_type == "st" ?
+    "IaaS.Vcpu_2.ram_4.disk_40" :
+    "IaaS.Vcpu_2.ram_14.disk_40"
+  ]
 #  volume_id = module.volcreate.volume_id
  depends_on = [
     module.keypair,
