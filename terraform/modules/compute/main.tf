@@ -23,15 +23,10 @@ resource "openstack_compute_instance_v2" "test-instance" {
   access_ip_v4 = var.float_ip
 }
   locals {
-  dpl_instance_names = [for i in range(1, var.instance_count + 1) : format("labdpl%02dcn", i)]
-  cr_instance_names  = flatten([for i in range(1, 4) : [format("labcr%02dcn", i)]])
-  cm_instance_names  = flatten([for i in range(1, 4) : [format("labcm%02dcn", i)]])
-  st_instance_names  = flatten([for i in range(1, 4) : [format("labst%02dcn", i)]])
-
-  instance_names = flatten([
-    local.dpl_instance_names,
-    local.cr_instance_names,
-    local.cm_instance_names,
-    local.st_instance_names
-  ])
+  instance_names = concat(
+    [for i in range(1, var.instance_count + 1) : format("labdpl%02dcn", i)],
+    [for i in range(1, 4) : format("labcr%02dcn", i)],
+    [for i in range(1, 4) : format("labcm%02dcn", i)],
+    [for i in range(1, 4) : format("labst%02dcn", i)]
+  )
 }
