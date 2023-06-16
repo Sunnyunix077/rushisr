@@ -15,12 +15,6 @@ locals {
     "labcr",
     "labst",
   ]
-  instance_flavors = {
-    "labdpl" = "IaaS.Vcpu_2.ram_4.disk_40"
-    "labcm"  = "IaaS.Vcpu_2.ram_4.disk_40"
-    "labcr"  = "IaaS.Vcpu_2.ram_14.disk_40"
-    "labst"  = "IaaS.Vcpu_2.ram_4.disk_40"
-  }
 }
 # Create a new instance
 resource "openstack_compute_instance_v2" "test-instance" {
@@ -40,4 +34,5 @@ resource "openstack_compute_instance_v2" "test-instance" {
     name = var.instance_network
   }
   access_ip_v4 = var.float_ip
+  instance_flavor = var.instance_flavor != "" ? var.instance_flavor : ""
 }
