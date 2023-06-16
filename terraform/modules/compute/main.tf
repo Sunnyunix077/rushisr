@@ -13,10 +13,10 @@ resource "openstack_compute_instance_v2" "test-instance" {
 
   count           = var.instance_count
   name            = format(
-    "%s%s%02d",
-    local.instance_prefix[(count.index / 3) % length(local.instance_prefix)],
-    var.instance_suffix != "" ? var.instance_suffix : "",
-    (count.index % 3) + 1
+    "%s%02d%s",
+    local.instance_prefix[count.index / 3],
+    count.index % 3 + 1,
+    var.instance_suffix != "" ? var.instance_suffix : ""
   )
   flavor_name     = var.instance_flavor
   key_pair        = var.keypair_name
