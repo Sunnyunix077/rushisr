@@ -30,9 +30,9 @@ module "floatipcreate" {
 
 module "compute" {
   source = "./modules/compute"
-  instance_name = "lab"
-  instance_prefix = "lab"
-  instance_suffix = "cn"
+#  instance_name = "lab"
+#  instance_prefix = "lab"
+#  instance_suffix = "cn"
   instance_count = 10
 #  instance_types    = concat(
 #    [for _ in range(var.instance_count) : "dpl"],
