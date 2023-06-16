@@ -13,10 +13,10 @@ resource "openstack_compute_instance_v2" "test-instance" {
 
   count           = var.instance_count
   name            = format(
-    "%s%s%02d",
+    "%s%02d%s",
     local.instance_prefix[count.index % length(local.instance_prefix)],
-    var.instance_suffix != "" ? var.instance_suffix : "",
-    ((count.index / length(local.instance_prefix)) % 3) + 1
+    ((count.index / length(local.instance_prefix)) % 3) + 1,
+    var.instance_suffix != "" ? var.instance_suffix : ""
   )
   flavor_name     = var.instance_flavor
   key_pair        = var.keypair_name
@@ -32,13 +32,7 @@ locals {
   instance_prefix = [
     "labdpl",
     "labcr",
-    "labcr",
-    "labcr",
     "labcm",
-    "labcm",
-    "labcm",
-    "labst",
-    "labst",
-    "labst",
+    "labst"
   ]
 }
