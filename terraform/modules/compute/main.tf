@@ -15,7 +15,7 @@ resource "openstack_compute_instance_v2" "test-instance" {
   name            = format(
     "%s%02d%s",
     var.instance_prefix,
-    (count.index % 10) + 1,
+    count.index + 1,
     var.instance_suffix != "" ? var.instance_suffix : ""
   )
   flavor_name     = var.instance_flavor

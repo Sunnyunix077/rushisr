@@ -47,20 +47,20 @@ deploy:
       - terraform/tfstate.json
       - terraform.env
 
-configure:
-  stage: configure
-  tags:
-    - NETCRACKER
-  image: $ANSI_IMAGE
-  script:
-    - cd ansible
-    - source ../terraform.env
-    - echo "my_host ansible_host=$FLOATING_IP" > inventory/hosts
-    - mkdir -p $HOME/.ssh
-    - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
-    - chmod 600 $HOME/.ssh/id_rsa
-    - sleep 60
-    - ansible-playbook -i inventory/hosts site.yml
+#configure:
+#  stage: configure
+#  tags:
+#    - NETCRACKER
+#  image: $ANSI_IMAGE
+#  script:
+#    - cd ansible
+#    - source ../terraform.env
+#    - echo "my_host ansible_host=$FLOATING_IP" > inventory/hosts
+#    - mkdir -p $HOME/.ssh
+#    - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
+#    - chmod 600 $HOME/.ssh/id_rsa
+#    - sleep 60
+#    - ansible-playbook -i inventory/hosts site.yml
 
 #test:
 #  stage: test
