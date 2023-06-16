@@ -22,8 +22,8 @@ resource "openstack_compute_instance_v2" "test-instance" {
   count = var.instance_count
   name            = format(
     "%s%02d%s",
-    local.instance_prefixes[count.index % length(local.instance_prefixes)],
-    floor(count.index / length(local.instance_prefixes)) + 1,
+    local.instance_prefixes[count.index < 4 ? 0 : (count.index - 3) % 3 + 1],
+    floor((count.index - 1) / 3) + 1,
     var.instance_suffix != "" ? var.instance_suffix : ""
   )
   flavor_name     = var.instance_flavor
