@@ -77,6 +77,11 @@ variable "instance_count" {
 }
 variable "instance_flavors" {
   description = "Flavors for each instance"
-  type        = string
-  default     = ""
+  type        = map(string)
+  default     = {
+    "dpl" = "IaaS.Vcpu_2.ram_4.disk_40"
+    "cm"  = "IaaS.Vcpu_2.ram_4.disk_40"
+    "st"  = "IaaS.Vcpu_2.ram_4.disk_40"
+    "cr"  = "IaaS.Vcpu_2.ram_14.disk_40"
+  }
 }

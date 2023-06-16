@@ -7,6 +7,6 @@ output "instance_id" {
 
 output "instance_flavors" {
   description = "Flavors of the created instances"
-  value       = module.compute.openstack_compute_instance_v2[*].flavor_name
+  value       = openstack_compute_instance_v2.test-instance[*].flavor_name
 }
 
