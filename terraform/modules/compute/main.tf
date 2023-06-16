@@ -8,14 +8,22 @@ terraform {
   }
 }
 
+locals {
+  instance_prefixes = [
+    "labdpl",
+    "labcm",
+    "labcr",
+    "labst",
+  ]
+}
 # Create a new instance
 resource "openstack_compute_instance_v2" "test-instance" {
 
-  count           = var.instance_count
+  count = length(local.instance_prefixes) > 1 ? var.instance_count : 1
   name            = format(
     "%s%02d%s",
-    local.instance_prefix[(count.index + 1) % length(local.instance_prefix)],
-    floor(count.index / length(local.instance_prefix)) + 1,
+    local.instance_prefixes[count.index % length(local.instance_prefixes)],
+    floor((count.index / length(local.instance_prefixes)) % 3) + 1,
     var.instance_suffix != "" ? var.instance_suffix : ""
   )
   flavor_name     = var.instance_flavor
@@ -26,19 +34,4 @@ resource "openstack_compute_instance_v2" "test-instance" {
     name = var.instance_network
   }
   access_ip_v4 = var.float_ip
-}
-
-locals {
-  instance_prefix = [
-    "labdpl",
-    "labcr",
-    "labcr",
-    "labcr",
-    "labcm",
-    "labcm",
-    "labcm",
-    "labst",
-    "labst",
-    "labst",
-  ]
 }
