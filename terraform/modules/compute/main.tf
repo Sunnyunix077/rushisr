@@ -19,11 +19,11 @@ locals {
 # Create a new instance
 resource "openstack_compute_instance_v2" "test-instance" {
 
-  count = length(local.instance_prefixes) == 1 ? 1 : 3
+  count = var.instance_count
   name            = format(
     "%s%02d%s",
-    local.instance_prefixes[floor(count.index / 3)],
-    count.index % 3 + 1,
+    local.instance_prefixes[count.index % length(local.instance_prefixes)],
+    floor(count.index / length(local.instance_prefixes)) + 1,
     var.instance_suffix != "" ? var.instance_suffix : ""
   )
   flavor_name     = var.instance_flavor
