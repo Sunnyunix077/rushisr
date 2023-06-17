@@ -40,12 +40,7 @@ module "compute" {
     [for i in range(1, 4) : format("cm%02d", i)],
     [for i in range(1, 4) : format("st%02d", i)]
   )
-  instance_flavors = [
-    var.flavor_dpl_cm_st,
-    var.flavor_dpl_cm_st,
-    var.flavor_cr,
-    var.flavor_dpl_cm_st
-  ]
+  instance_flavors = var.instance_flavor
   instance_image = var.instance_image
   instance_network = var.instance_network
   keypair_name = module.keypair.keypair_name
