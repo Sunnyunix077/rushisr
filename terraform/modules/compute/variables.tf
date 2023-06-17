@@ -56,8 +56,8 @@ variable "flavor_dpl_cm_st_" {
    default = ""
 }
 
-variable "flavour_cr_" {
-   description = "Flavour used for cr instances"
+variable "flavor_cr_" {
+   description = "Flavor used for cr instances"
    type = string
    default = ""
 }
