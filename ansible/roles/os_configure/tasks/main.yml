@@ -15,10 +15,15 @@
     url="{{docker_pgp_key_url}}"
     state=present
     
-- name: Configure Docker CE repository file "{{docker_repo_configuration_path}}"
-  ansible.builtin.lineinfile:
-    path="{{docker_repo_configuration_path}}"
-    line="{{docker_repo_line}}"
+- name: Create Docker CE repository configuration file content "{{docker_repo_configuration_path}}"
+  delegate_to : localhost 
+  set_fact :
+    repo_file_content : "{{docker_repo_line}}" 
+
+- name : Copy Docker CE repository configuration file content 
+  ansible.builtin.copy :
+    dest = "{{docker_repo_configuration_path}}"
+    content = "{{repo_file_content}}"
 
 - name: Download repository file
   ansible.builtin.get_url:
