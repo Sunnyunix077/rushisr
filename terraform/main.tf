@@ -46,7 +46,7 @@ module "compute" {
   sg_id             = module.sgcreate.sg_id
   float_ip          = module.floatipcreate.float_ip[0]
   flavor_dpl_cm_st_ = "IaaS.Vcpu_2.ram_4.disk_40"
-  flavor_cr_       = "IaaS.Vcpu_2.ram_14.disk_40"
+  flavor_cr_       = "IaaS.Vcpu_2.ram_4.disk_40"
 #  volume_id = module.volcreate.volume_id
  depends_on = [
     module.keypair,
