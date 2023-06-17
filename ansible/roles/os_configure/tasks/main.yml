@@ -15,13 +15,20 @@
     url: http://yumsrv03cn.netcracker.com/deb/misc/docker-ce/gpg
     state: present
 
-- name: Create directory for docker-archive-keyring.gpg 
-  ansible.builtin.file:
-    path: /usr/share/keyrings/
-    state: directory
+- name: Export GPG key from specified keyring to temp file
+  ansible.builtin.shell:
+    cmd: 'gpg --no-default-keyring --keyring /etc/apt/trusted.gpg.d/yumsrv03cn_example_docker_ce.asc --export > /tmp/temp_gpg_key'
+    executable: /bin/bash
 
-- name : Copy gpg contents to dearmor docker-archive-keyring.gpg.
-  shell : 'gpg --dearmor <(gpg --no-default-keyring --keyring /etc/apt/trusted.gpg.d/yumsrv03cn_netcracker_docker_ce.asc --export) > /usr/share/keyrings/docker-archive-keyring.gpg'
+- name: Dearmor and copy GPG contents to docker-archive-keyring.gpg.
+  ansible.builtin.shell:
+    cmd: 'gpg --dearmor /tmp/temp_gpg_key > /usr/share/keyrings/docker-archive-keyring.gpg'
+    executable: /bin/bash
+
+- name: Remove temporary GPG key file
+  ansible.builtin.file:
+    path: '/tmp/temp_gpg_key'
+    state: absent
 
 - name: Add Docker repository to sources list
   ansible.builtin.apt_repository:
