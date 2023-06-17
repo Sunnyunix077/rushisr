@@ -46,7 +46,6 @@ module "compute" {
     var.flavor_cr,
     var.flavor_dpl_cm_st
   ]
-}
   instance_image = var.instance_image
   instance_network = var.instance_network
   keypair_name = module.keypair.keypair_name
