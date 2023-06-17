@@ -12,13 +12,13 @@
 
 - name : Add Docker CE repository PGP key 
   ansible.builtin.apt_key :
-    url: "{{ docker_pgp_key_url }}" 
-    state: present
+    url : "{{ docker_pgp_key_url }}" 
+    state : present
     
-- name : Copy Docker CE repository configuration file content 
-  ansible.builtin.copy :
-    dest : "{{ docker_repo_configuration_path }}"
-    content : "{{ repo_file_content }}"
+- name : Configure Docker CE repository using apt_repository module.
+  ansible.builtin.apt_repository :
+    repo : "{{ docker_repo_line }}"
+    state : present 
 
 - name: Download repository file
   ansible.builtin.get_url:
