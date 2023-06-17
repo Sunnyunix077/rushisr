@@ -75,8 +75,13 @@ variable "instance_count" {
   description = "Number of instances to create"
   type        = number
 }
-#variable "instance_flavor" {
-#  description = "Flavor for the instances"
-#  type        = string
-#  default     = ""
-#}
+variable "instance_flavors" {
+  description = "Map of instance types to flavors"
+  type        = map(string)
+  default = {
+    "dpl" = "IaaS.Vcpu_2.ram_4.disk_40"
+    "cm"  = "IaaS.Vcpu_2.ram_4.disk_40"
+    "st"  = "IaaS.Vcpu_2.ram_4.disk_40"
+    "cr"  = "IaaS.Vcpu_2.ram_14.disk_40"
+  }
+}

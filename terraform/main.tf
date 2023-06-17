@@ -28,24 +28,19 @@ module "floatipcreate" {
   floating_ip_pool = var.floating_ip_pool
 }
 
-locals {
-  instance_types = concat(
-    [for _ in range(var.instance_count) : "dpl"],
-    [for i in range(1, 4) : format("cr%02d", i)],
-    [for i in range(1, 4) : format("cm%02d", i)],
-    [for i in range(1, 4) : format("st%02d", i)]
-  ) 
-}
 module "compute" {
   source = "./modules/compute"
   instance_name = "lab"
   instance_prefix = "lab"
   instance_suffix = "cn"
   instance_count = 10
-  instance_flavor = [
-    for instance_type in instance_types:
-      instance_type == "dpl" || instance_type == "cm" || instance_type == "st" ? "IaaS.Vcpu_2.ram_4.disk_40" : "IaaS.Vcpu_2.ram_14.disk_40"
-  ]
+  instance_types    = concat(
+    [for _ in range(var.instance_count) : "dpl"],
+    [for i in range(1, 4) : format("cr%02d", i)],
+    [for i in range(1, 4) : format("cm%02d", i)],
+    [for i in range(1, 4) : format("st%02d", i)]
+  )
+  instance_flavors = var.instance_flavors
   instance_image = var.instance_image
   instance_network = var.instance_network
   keypair_name = module.keypair.keypair_name
