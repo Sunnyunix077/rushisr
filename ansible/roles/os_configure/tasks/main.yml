@@ -12,21 +12,13 @@
 
 - name: Import Docker GPG key
   ansible.builtin.apt_key:
-    url: http://yumsrv03cn.netcracker.com/deb/misc/docker-ce/gpg
+    url: http://yumsrv03cn.example.com/deb/misc/docker-ce/gpg
     state: present
 
-- name: Export GPG key from default trusted keys to temp file
-  ansible.builtin.command:
-    cmd: gpg --export -o /tmp/temp_gpg_key
-
-- name: Dearmor and copy GPG contents to docker-archive-keyring.gpg.
-  ansible.builtin.command:
-    cmd: gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg /tmp/temp_gpg_key
-
-- name: Remove temporary GPG key file
-  ansible.builtin.file:
-    path: '/tmp/temp_g/pg_key'
-    state: absent
+- name: Export and Dearmor Docker GPG key into docker-archive-keyring.gpg.
+  shell: apt-key export | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+  args:
+    executable: /bin/bash
 
 - name: Add Docker repository to sources list
   ansible.builtin.apt_repository:
