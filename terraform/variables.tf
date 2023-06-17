@@ -78,10 +78,8 @@ variable "instance_count" {
 
 variable "flavor_dpl_cm_st" {
    description = "Flavor used for dpl, cm and st instances"
-   type        = string
 }
 
 variable "flavor_cr" {
    description = "Flavour used for cr instances"
-   type        = string
 }
