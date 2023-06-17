@@ -23,29 +23,29 @@ stages:
 #    - cd ansible
 #    - ansible-lint --offline --exclude meta/ --exclude defaults/ site.yml
 
-#deploy:
-#  stage: deploy
-#  tags:
-#    - NETCRACKER
-#  image: $TERRA_IMAGE
-#  script:
-#    - echo "$OPENRC_FILE" > openrc.sh
-#    - chmod +x openrc.sh
-#    - echo "export OS_PASSWORD=$OS_PASS" >> openrc.sh
-#    - echo "export OS_CACERT=$(pwd)/zephyr02.crt" >> openrc.sh
-#    - source openrc.sh
-#    - cd terraform
-#    - echo "$SECRET_TFVARS_FILE" > .secret.tfvars
-#    - terraform init
-#    - terraform apply -var-file=".secret.tfvars" -auto-approve
-#    - terraform state pull > tfstate.json
-#    - |
-#      FIP=($(awk -F'[:,]' '/openstack_networking_floatingip_v2/ {getline; while(getline && !/}/) {if (/address/) {gsub(/[[:space:]]+/, "", $2); gsub(/"/, "", $2); print $2}}}' tfstate.json))
-#      echo "FLOATING_IP=$FIP" >> ../terraform.env
-#  artifacts:
-#    paths:
-#      - terraform/tfstate.json
-#      - terraform.env
+deploy:
+  stage: deploy
+  tags:
+    - NETCRACKER
+  image: $TERRA_IMAGE
+  script:
+    - echo "$OPENRC_FILE" > openrc.sh
+    - chmod +x openrc.sh
+    - echo "export OS_PASSWORD=$OS_PASS" >> openrc.sh
+    - echo "export OS_CACERT=$(pwd)/zephyr02.crt" >> openrc.sh
+    - source openrc.sh
+    - cd terraform
+    - echo "$SECRET_TFVARS_FILE" > .secret.tfvars
+    - terraform init
+    - terraform apply -var-file=".secret.tfvars" -auto-approve
+    - terraform state pull > tfstate.json
+    - |
+      FIP=($(awk -F'[:,]' '/openstack_networking_floatingip_v2/ {getline; while(getline && !/}/) {if (/address/) {gsub(/[[:space:]]+/, "", $2); gsub(/"/, "", $2); print $2}}}' tfstate.json))
+      echo "FLOATING_IP=$FIP" >> ../terraform.env
+  artifacts:
+    paths:
+      - terraform/tfstate.json
+      - terraform.env
 
 configure:
   stage: configure
