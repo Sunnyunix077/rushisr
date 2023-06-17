@@ -51,11 +51,11 @@ variable "instance_types" {
 }
 
 variable "flavor_dpl_cm_st_" {
-   description = ".Flavor used for dpl, cm and st instances*"
+   description = "Flavor used for dpl, cm and st instances"
    type = string
 }
 
 variable "flavour_cr_" {
-   description = ".Flavour used for cr instances*"
+   description = "Flavour used for cr instances"
    type = string
 }

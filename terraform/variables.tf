@@ -82,6 +82,6 @@ variable "flavor_dpl_cm_st" {
 }
 
 variable "flavor_cr" {
-   description="Flavour used for cr instances."
-   type=string
+   description = "Flavour used for cr instances"
+   type        = string
 }
