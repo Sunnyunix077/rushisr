@@ -42,9 +42,9 @@ variable "instance_name" {
   type = string
 }
 
-variable "instance_flavor" {
-  type = string
-}
+#variable "instance_flavor" {
+#  type = string
+#}
 
 variable "instance_image" {
   type = string
