@@ -49,3 +49,13 @@ variable "instance_types" {
   description = "List of instance types"
   type        = list(string)
 }
+
+variable "flavor_dpl_cm_st" {
+   description = "Flavor used for dpl, cm and st instances"
+   type        = string 
+}
+
+variable "flavor_cr" {
+   description = "Flavor used for cr instances"
+   type        = string 
+}
