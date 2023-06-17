@@ -13,14 +13,14 @@ module "sgcreate" {
   security_group_description = var.security_group_description
 }
 
-module "volcreate" {
-  source = "./modules/volcreate"
-  
-  volume_name = var.volume_name
-  volume_size = var.volume_size
-  volume_type = var.volume_type
+#module "volcreate" {
+#  source = "./modules/volcreate"
+#  
+#  volume_name = var.volume_name
+#  volume_size = var.volume_size
+#  volume_type = var.volume_type
 #  volume_id = module.volcreate.volume_id
-}
+#}
 
 module "floatipcreate" {
   source = "./modules/floatipcreate"
@@ -63,11 +63,11 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 }
 
 # Attach the new volume to the instance
-resource "openstack_compute_volume_attach_v2" "test-attach" {
-  count     = length(module.compute.instance_id)
-  volume_id = element(module.volcreate.volume_id, count.index)
-  instance_id = element(module.compute.instance_id, count.index)
-}
+#resource "openstack_compute_volume_attach_v2" "test-attach" {
+#  count     = length(module.compute.instance_id)
+#  volume_id = element(module.volcreate.volume_id, count.index)
+#  instance_id = element(module.compute.instance_id, count.index)
+#}
 
 #resource "local_file" "ansible_inventory_file" {
 #  content = <<EOF
