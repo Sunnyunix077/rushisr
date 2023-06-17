@@ -16,10 +16,10 @@ locals {
     "labst",
   ]
   instance_flavors = [
-    var.flavor_dpl_cm_st,
-    var.flavor_dpl_cm_st,
-    var.flavor_cr,
-    var.flavor_dpl_cm_st
+    var.flavor_dpl_cm_st_,
+    var.flavor_dpl_cm_st_,
+    var.flavor_cr_,
+    var.flavor_dpl_cm_st_
   ]
 }
 

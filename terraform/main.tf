@@ -40,13 +40,13 @@ module "compute" {
     [for i in range(1, 4) : format("cm%02d", i)],
     [for i in range(1, 4) : format("st%02d", i)]
   )
-  instance_image = var.instance_image
-  instance_network = var.instance_network
-  keypair_name = module.keypair.keypair_name
-  sg_id = module.sgcreate.sg_id
-  float_ip  = module.floatipcreate.float_ip[0]
-  flavor_dpl_cm_st="IaaS.Vcpu_2.ram_4.disk_40"
-  flavor_cr       ="IaaS.Vcpu_2.ram_14.disk_40"
+  instance_image    = var.instance_image
+  instance_network  = var.instance_network
+  keypair_name      = module.keypair.keypair_name
+  sg_id             = module.sgcreate.sg_id
+  float_ip          = module.floatipcreate.float_ip[0]
+  flavor_dpl_cm_st_ = "IaaS.Vcpu_2.ram_4.disk_40"
+  flavour_cr_       = "IaaS.Vcpu_2.ram_14.disk_40"
 #  volume_id = module.volcreate.volume_id
  depends_on = [
     module.keypair,
