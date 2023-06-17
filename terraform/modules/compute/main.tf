@@ -36,5 +36,4 @@ resource "openstack_compute_instance_v2" "test-instance" {
     name = var.instance_network
   }
   access_ip_v4 = var.float_ip
-  instance_flavor = var.instance_flavor != "" ? var.instance_flavor : ""
 }
