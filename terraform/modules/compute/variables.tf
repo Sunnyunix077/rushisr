@@ -50,12 +50,12 @@ variable "instance_types" {
   type        = list(string)
 }
 
-variable ".flavor_dpl_cm_st_" {
+variable "flavor_dpl_cm_st_" {
    description = ".Flavor used for dpl, cm and st instances*"
    type = string
 }
 
-variable ".flavour_cr_" {
+variable "flavour_cr_" {
    description = ".Flavour used for cr instances*"
    type = string
 }
