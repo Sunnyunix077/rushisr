@@ -15,7 +15,14 @@ locals {
     "labcr",
     "labst",
   ]
+  instance_flavors = [
+    var.flavor_dpl_cm_st,
+    var.flavor_dpl_cm_st,
+    var.flavor_cr,
+    var.flavor_dpl_cm_st
+  ]
 }
+
 # Create a new instance
 resource "openstack_compute_instance_v2" "test-instance" {
 
