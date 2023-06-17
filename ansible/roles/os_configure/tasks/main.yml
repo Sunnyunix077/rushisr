@@ -10,11 +10,10 @@
   notify:
     - Restart Network Service
 
-- name : Add Docker CE repository PGP key 
-  ansible.builtin.apt_key :
-    url : "{{ docker_pgp_key_url }}" 
-    state : present
-    
+- name : Add Docker CE repository PGP key using shell command.
+  ansible.builtin.shell :
+    cmd : curl -fsSL "{{ docker_pgp_key_url }}" | sudo gpg --dearmor -o {{ docker_archive_keyring_path }}
+
 - name : Configure Docker CE repository using shell command.
   ansible.builtin.shell :
     cmd : echo '{{ docker_repo_line }}' | sudo tee {{ docker_repo_configuration_path }}
