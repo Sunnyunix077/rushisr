@@ -7,3 +7,7 @@ dir_path: /srv/www
 remote_dir: /etc/apt/sources.list.d/
 my_vg: test_vg
 my_lv: test_lv
+docker_pgp_key_url: http://yumsrv03cn.netcracker.com/deb/misc/docker-ce/gpg
+docker_archive_keyring_path: /usr/share/keyrings/docker-archive-keyring.gpg
+docker_repo_configuration_path: /etc/apt/sources.list.d/docker.list
+docker_repo_line: deb [arch=amd64 signed-by={{docker_archive_keyring_path}}] http://yumsrv03cn.netcracker.com/deb/misc/docker-ce/ubuntu focal stable
