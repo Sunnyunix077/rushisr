@@ -57,8 +57,6 @@ module "compute" {
     module.sgcreate,
     module.floatipcreate
   ]
-  flavor_dpl_cm_st="IaaS.Vcpu_2.ram_4.disk_40"
-  flavor_cr="IaaS.Vcpu_2.ram_14.disk_40"
 }
 
 # Attach the floating ip to instance

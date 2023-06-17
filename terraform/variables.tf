@@ -79,9 +79,11 @@ variable "instance_count" {
 variable "flavor_dpl_cm_st" {
    description = "Flavor used for dpl, cm and st instances"
    type        = string 
+   default     = "IaaS.Vcpu_2.ram_4.disk_40"
 }
 
 variable "flavor_cr" {
    description = "Flavor used for cr instances"
    type        = string 
+   default     = "IaaS.Vcpu_2.ram_14.disk_40"
 }
