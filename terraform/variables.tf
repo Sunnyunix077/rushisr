@@ -75,11 +75,3 @@ variable "instance_count" {
   description = "Number of instances to create"
   type        = number
 }
-
-variable "flavor_dpl_cm_st" {
-   description = "Flavor used for dpl, cm and st instances"
-}
-
-variable "flavor_cr" {
-   description = "Flavour used for cr instances"
-}

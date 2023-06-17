@@ -53,9 +53,11 @@ variable "instance_types" {
 variable "flavor_dpl_cm_st_" {
    description = "Flavor used for dpl, cm and st instances"
    type = string
+   default = ""
 }
 
 variable "flavour_cr_" {
    description = "Flavour used for cr instances"
    type = string
+   default = ""
 }
