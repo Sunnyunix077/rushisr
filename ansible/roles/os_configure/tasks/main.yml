@@ -10,15 +10,14 @@
   notify:
     - Restart Network Service
 
-- name: Read Docker GPG key from specified keyring
-  ansible.builtin.slurp:
-    src: /etc/apt/trusted.gpg.d/yumsrv03cn_netcracker_docker_ce.asc
-  register: docker_gpg_key_data
+- name: Import Docker GPG key
+  ansible.builtin.apt_key:
+    url: http://yumsrv03cn.example.com/deb/misc/docker-ce/gpg
+    state: present
 
-- name: Write Docker GPG key data to temp file
-  ansible.builtin.copy:
-    content: "{{ docker_gpg_key_data['content'] | b64decode }}"
-    dest: /tmp/temp_gpg_key
+- name: Export GPG key from default trusted keys to temp file
+  ansible.builtin.command:
+    cmd: gpg --export -o /tmp/temp_gpg_key
 
 - name: Dearmor and copy GPG contents to docker-archive-keyring.gpg.
   ansible.builtin.command:
