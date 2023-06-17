@@ -26,7 +26,7 @@ resource "openstack_compute_instance_v2" "test-instance" {
     count.index < 4 ? 1 : floor((count.index - 4) / 3) + 2,
     var.instance_suffix != "" ? var.instance_suffix : ""
   )
-  flavor_name     = var.instance_flavors[
+  flavor_name     = var.instance_flavor[
     substr(local.instance_types[count.index], 1, 2)
   ]
   key_pair        = var.keypair_name
