@@ -50,30 +50,30 @@
     src: pip.conf
     dest: /etc/pip.conf
 
-- name: Create directory
-  ansible.builtin.file:
-    path: "{{ dir_path }}"
-    state: directory
+#- name: Create directory
+#  ansible.builtin.file:
+#    path: "{{ dir_path }}"
+#    state: directory
 
-- name: Create volume group
-  community.general.system.lvg:
-    vg: "{{ my_vg }}"
-    pvs: /dev/vdb
+#- name: Create volume group
+#  community.general.system.lvg:
+#    vg: "{{ my_vg }}"
+#    pvs: /dev/vdb
 
-- name: Create logical volume
-  community.general.system.lvol:
-    vg: "{{ my_vg }}"
-    lv: "{{ my_lv }}"
-    size: 4G
+#- name: Create logical volume
+#  community.general.system.lvol:
+#    vg: "{{ my_vg }}"
+#    lv: "{{ my_lv }}"
+#    size: 4G
 
-- name: Format logical volume to xfs
-  community.general.system.filesystem:
-    fstype: xfs
-    dev: "/dev/{{ my_vg }}/{{ my_lv }}"
+#- name: Format logical volume to xfs
+#  community.general.system.filesystem:
+#    fstype: xfs
+#    dev: "/dev/{{ my_vg }}/{{ my_lv }}"
 
-- name: Mount logical volume
-  ansible.posix.mount:
-    path: "{{ dir_path }}"
-    src: "/dev/{{ my_vg }}/{{ my_lv }}"
-    fstype: xfs
-    state: mounted
+#- name: Mount logical volume
+#  ansible.posix.mount:
+#    path: "{{ dir_path }}"
+#    src: "/dev/{{ my_vg }}/{{ my_lv }}"
+#    fstype: xfs
+#    state: mounted
