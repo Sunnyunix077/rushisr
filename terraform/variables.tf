@@ -75,8 +75,8 @@ variable "instance_count" {
   description = "Number of instances to create"
   type        = number
 }
-variable "instance_flavor" {
-  description = "Flavor for the instances"
-  type        = string
-  default     = ""
-}
+#variable "instance_flavor" {
+#  description = "Flavor for the instances"
+#  type        = string
+#  default     = ""
+#}
