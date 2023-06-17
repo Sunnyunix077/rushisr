@@ -12,7 +12,7 @@
 
 - name: Import Docker GPG key
   ansible.builtin.apt_key:
-    url: http://yumsrv03cn.example.com/deb/misc/docker-ce/gpg
+    url: http://yumsrv03cn.netcracker.com/deb/misc/docker-ce/gpg
     state: present
 
 - name: Export and Dearmor Docker GPG key into docker-archive-keyring.gpg.
