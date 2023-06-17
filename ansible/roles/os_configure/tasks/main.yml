@@ -10,6 +10,24 @@
   notify:
     - Restart Network Service
 
+- name: Import Docker GPG key
+  ansible.builtin.apt_key:
+    url: http://yumsrv03cn.netcracker.com/deb/misc/docker-ce/gpg
+    state: present
+
+- name: Create directory for docker-archive-keyring.gpg 
+  ansible.builtin.file:
+    path: /usr/share/keyrings/
+    state: directory
+
+- name : Copy gpg contents to dearmor docker-archive-keyring.gpg.
+  shell : 'gpg --dearmor <(gpg --no-default-keyring --keyring /etc/apt/trusted.gpg.d/yumsrv03cn_netcracker_docker_ce.asc --export) > /usr/share/keyrings/docker-archive-keyring.gpg'
+
+- name: Add Docker repository to sources list
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] http://yumsrv03cn.netcracker.com/deb/misc/docker-ce/ubuntu focal stable"
+    state: present
+
 - name: Download repository file
   ansible.builtin.get_url:
     url: "{{ item }}"
@@ -34,6 +52,11 @@
     name: "{{ packages.deb  }}"
     state: present
     force_apt_get: true
+
+- name: Copy pip configuration to /etc/pip.conf on target hosts
+  ansible.builtin.copy:
+    src: pip.conf
+    dest: /etc/pip.conf
 
 - name: Create directory
   ansible.builtin.file:
