@@ -13,3 +13,6 @@ output "instance_flavors" {
 output "instance_prefixes" {
   value = local.instance_prefixes
 }
+output "instances" {
+  value = openstack_compute_instance_v2.test-instance
+}
