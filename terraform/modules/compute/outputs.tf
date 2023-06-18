@@ -16,6 +16,3 @@ output "instance_prefixes" {
 output "instances" {
   value = openstack_compute_instance_v2.test-instance
 }
-output "floating_ips" {
-  value = [for i in openstack_compute_floatingip_v2.floating_ip : i.address]
-}
