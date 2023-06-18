@@ -74,10 +74,13 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 #  content  = "[servers]\n${join("\n", module.floatipcreate.float_ip)}"
 #  filename = var.ansible_inventory_file_path
 #}
+locals {
+  grouped_instances = {for k in local.instance_prefixes : k => [for i in module.compute.openstack_compute_instance_v2_test-instance : i.access_ip_v4 if substr(i.name, 0, length(k)) == k]}
+}
 resource "local_file" "hosts_cfg" {
-  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = openstack_compute_instance_v2.test-instance[*].access_ip_v4 })
-  filename = var.ansible_inventory_file_path
-  depends_on = [module.compute]
+  for_each = local.grouped_instances
+  content = templatefile("${path.module}/ansible_inventory.tmpl", {servers = join("\n", each.value)})
+  filename = format("%s/%s_%s", var.ansible_inventory_directory_path, each.key , var.inventory_filename_suffix)
 }
 #resource "local_file" "hosts_cfg" {
 #  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })

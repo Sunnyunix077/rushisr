@@ -1,8 +1,4 @@
-%{ for prefix in local.instance_prefixes ~}
-[${prefix}]
-%{ for count in range(var.instance_count) ~}
-%{ if count < 4 || (count - 4) % 3 + 2 == loop.index ~}
-${servers[count]}
-%{ endif ~}
-%{ endfor ~}
+[${prefix}-group]
+%{ for server in servers ~}
+${server}
 %{ endfor ~}
