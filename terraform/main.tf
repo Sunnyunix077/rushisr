@@ -80,7 +80,7 @@ locals {
 resource "local_file" "hosts_cfg" {
   for_each = local.grouped_instances
   content = templatefile("${path.module}/ansible_inventory.tmpl", {servers = join("\n", each.value)})
-  filename = format("%s/%s_%s", var.ansible_inventory_directory_path, each.key , var.inventory_filename_suffix)
+  filename = format("%s/%s_%s", var.ansible_inventory_file_path, each.key , var.inventory_filename_suffix)
 }
 #resource "local_file" "hosts_cfg" {
 #  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
