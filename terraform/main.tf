@@ -86,10 +86,11 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 #  )
 #  filename = var.ansible_inventory_file_path
 #}
-resource "local_file" "hosts_cfg" {
-  content  = "[servers]\n${join("\n", module.floatipcreate.float_ip)}"
-  filename = var.ansible_inventory_file_path
-}
+#Working code as below :
+#resource "local_file" "hosts_cfg" {
+#  content  = "[servers]\n${join("\n", module.floatipcreate.float_ip)}"
+#  filename = var.ansible_inventory_file_path
+#}
 #data  "template_file" "hosts" {
 #  template = "${file("./hosts.tpl")}"
 #  vars = {
@@ -101,3 +102,7 @@ resource "local_file" "hosts_cfg" {
 #  content  = data.template_file.hosts.rendered
 #  filename = var.ansible_inventory_file_path
 #}
+resource "local_file" "hosts_cfg" {
+  content  = templatefile("${path.module}/inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
+  filename = var.ansible_inventory_file_path
+}
