@@ -74,20 +74,12 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 #  content  = "[servers]\n${join("\n", module.floatipcreate.float_ip)}"
 #  filename = var.ansible_inventory_file_path
 #}
-locals {
-  organized_ips = {
-    dpl = [for i in range(0, var.instance_count) : module.floatipcreate.float_ip[i] if i == 0]
-    cm  = [for i in range(1, var.instance_count) : module.floatipcreate.float_ip[i] if (i - 1) % 3 == 0]
-    cr  = [for i in range(2, var.instance_count) : module.floatipcreate.float_ip[i] if (i - 1) % 3 == 1]
-    st  = [for i in range(3, var.instance_count) : module.floatipcreate.float_ip[i] if (i - 1) %3 == 2]
- }
-}
 resource "local_file" "hosts_cfg" {
- content= templatefile("${path.module}/ansible_inventory.tmpl",{servers_dpl=join("\n",local.organized_ips.dpl),
- servers_cm=join("\n",local.organized_ips.cm),servers_cr= join("\n", local.organized_ips.cr),
- servers_st= join ("\n", local.organized_ips.st)})
- filename =var.ansible_inventory_file_path
+  content  = templatefile("${path.module}/ansible_inventory.tmpl", { module = module.compute })
+  filename = var.ansible_inventory_file_path
+  depends_on = [module.compute]
 }
+
 #resource "local_file" "hosts_cfg" {
 #  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
 #  filename = var.ansible_inventory_file_path

@@ -1,11 +1,8 @@
-[dplservers]
-${servers_dpl}
-
-[cmservers]
-${servers_cm}
-
-[crservers]
-${servers_cr}
-
-[stservers]
-${servers_st}
+%{ for prefix in local.instance_prefixes ~}
+[${prefix}]
+%{ for count in range(var.instance_count) ~}
+%{ if count < 4 || (count - 4) % 3 + 2 == loop.index ~}
+${module.compute.test-instance[count].access_ip_v4}
+%{ endif ~}
+%{ endfor ~}
+%{ endfor ~}
