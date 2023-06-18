@@ -74,11 +74,3 @@ variable "instance_count" {
   description = "Number of instances to create"
   type        = number
 }
-variable "inventory_filename_suffix" {
-  description = "The suffix that should be appended after the instance_prefix (e.g., 'inventory' or 'hosts')"
-  default     = "inventory"
-}
-variable "ansible_inventory_directory_path" {
-  description = "Directory path where you want to store Ansible inventory files"
-  default     = "../ansible/inventory/hosts"
-}

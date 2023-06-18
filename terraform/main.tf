@@ -74,22 +74,19 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 #  content  = "[servers]\n${join("\n", module.floatipcreate.float_ip)}"
 #  filename = var.ansible_inventory_file_path
 #}
-resource "null_resource" "create_ansible_inventory_directory" {
-  triggers = {
-    dir_path = var.ansible_inventory_directory_path
-  }
-  provisioner "local-exec" {
-    command = format("mkdir -p %s", var.ansible_inventory_directory_path)
-  }
-}
 locals {
-  grouped_instances = {for k in module.compute.instance_prefixes : k => [for i in module.compute.instances : i.access_ip_v4 if substr(i.name, 0, length(k)) == k]}
+  instances_with_prefix = {for k in module.compute.instance_prefixes : k => [for i in module.compute.instances : i if substr(i.name, 0, length(k)) == k]}
 }
-resource "local_file" "hosts_cfg" {
-  for_each = local.grouped_instances
-  content = templatefile("${path.module}/ansible_inventory.tmpl", {servers = each.value, prefix = each.key})
-  filename = format("%s/%s_%s", var.ansible_inventory_file_path, each.key , var.inventory_filename_suffix)
-  depends_on   =[ null_resource.create_ansible_inventory_directory ]
+resource "local_file" "ansible_inventory" {
+  content = join("\n\n", [
+    for prefix, instances in local.instances_with_prefix: format("%s-group\n%s", prefix,
+      join("\n", [
+        for instance in instances: instance.access_ip_v4
+      ])
+    )
+  ])
+filename = var.ansible_inventory_file_path
+depends_on = [module.compute]
 }
 #resource "local_file" "hosts_cfg" {
 #  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
