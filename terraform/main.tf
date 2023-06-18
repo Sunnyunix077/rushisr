@@ -75,7 +75,7 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 #  filename = var.ansible_inventory_file_path
 #}
 locals {
-  grouped_instances = {for k in local.instance_prefixes : k => [for i in module.compute.openstack_compute_instance_v2_test-instance : i.access_ip_v4 if substr(i.name, 0, length(k)) == k]}
+  grouped_instances = {for k in module.compute.instance_prefixes : k => [for i in module.compute.openstack_compute_instance_v2_test-instance : i.access_ip_v4 if substr(i.name, 0, length(k)) == k]}
 }
 resource "local_file" "hosts_cfg" {
   for_each = local.grouped_instances
