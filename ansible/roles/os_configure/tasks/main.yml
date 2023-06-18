@@ -44,6 +44,15 @@
     state: present
     force_apt_get: true
 
+- name : Check if docker-ce package is available.
+  ansible.builtin.command :
+    cmd : apt-cache policy docker-ce
+    register : apt_cache_policy_result
+
+- name : Show apt-cache policy result.
+  ansible.builtin.debug :
+    var : apt_cache_policy_result.stdout_lines
+
 - name: Copy pip configuration to /etc/pip.conf on target hosts
   ansible.builtin.copy:
     src: pip.conf
