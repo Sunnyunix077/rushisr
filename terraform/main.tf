@@ -69,40 +69,26 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 #  instance_id = element(module.compute.instance_id, count.index)
 #}
 
-#resource "local_file" "ansible_inventory_file" {
-#  content = <<EOF
-#[servers]
-#${join("\n", formatlist(module.floatipcreate.float_ip))}
-#  EOF
-#
-#  filename = var.ansible_inventory_file_path
-#}
-# generate inventory file for Ansible
-#resource "local_file" "hosts_cfg" {
-#  content = templatefile("${path.module}/hosts.tpl",
-#    {
-#      servers = join("\n", module.floatipcreate.float_ip)
-#    }
-#  )
-#  filename = var.ansible_inventory_file_path
-#}
 #Working code as below :
 #resource "local_file" "hosts_cfg" {
 #  content  = "[servers]\n${join("\n", module.floatipcreate.float_ip)}"
 #  filename = var.ansible_inventory_file_path
 #}
-#data  "template_file" "hosts" {
-#  template = "${file("./hosts.tpl")}"
-#  vars = {
-#    servers = join("\n",  module.floatipcreate.float_ip)
-#  }
-#}
-#
-#resource "local_file" "hosts_file" {
-#  content  = data.template_file.hosts.rendered
+locals {
+  organized_ips = {
+    dpl = [for i in range(0, var.instance_count) : module.floatipcreate.float_ip[i] if i < 4]
+    cm  = [for i in range(4, var.instance_count) : module.floatipcreate.float_ip[i] if (i - 4) % 3 == 0]
+    cr  = [for i in range(5, var.instance_count) : module.floatipcreate.float_ip[i] if (i - 4) % 3 == 1]
+    st  = [for i in range(6, var.instance_count) : module.floatipcreate.float_ip[i] if (i - 4) %3 == 2]
+ }
+}
+resource "local_file" "hosts_cfg" {
+ content= templatefile("${path.module}/ansible_inventory.tmpl",{servers_dpl=join("\n",local.organized_ips.dpl),
+ servers_cm=join("\n",local.organized_ips.cm),servers_cr= join("\n", local.organized_ips.cr),
+ servers_st= join ("\n", local.organized_ips.st)})
+ filename =var.ansible_inventory_file_path
+}
+#resource "local_file" "hosts_cfg" {
+#  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
 #  filename = var.ansible_inventory_file_path
 #}
-resource "local_file" "hosts_cfg" {
-  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
-  filename = var.ansible_inventory_file_path
-}

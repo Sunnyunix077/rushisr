@@ -42,7 +42,6 @@
     name: "{{ packages.deb  }}"
     state: present
     force_apt_get: true
-  ignore_errors: yes
 
 - name: Copy pip configuration to /etc/pip.conf on target hosts
   ansible.builtin.copy:
