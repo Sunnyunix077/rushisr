@@ -51,7 +51,7 @@ deploy:
 configure:
   stage: configure
   dependencies: 
-    - apply_terraform
+    - deploy
   tags:
     - NETCRACKER
   image: $ANSI_IMAGE
