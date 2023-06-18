@@ -14,5 +14,5 @@ instance_image = "ubuntu-20.04-cloudimg-amd64"
 instance_network = "inner-net_RUDE0423"
 floating_ip_pool = "ext-net"
 private_key_path = "~/.ssh/id_rsa"
-ansible_inventory_file_path = "ansible/inventory/hosts"
+ansible_inventory_file_path = "../ansible/inventory/hosts"
 instance_count = 10
