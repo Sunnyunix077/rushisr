@@ -10,14 +10,13 @@
   notify:
     - Restart Network Service
 
-- name : Download Docker CE repository PGP key.
-  ansible.builtin.get_url :
-    url : "{{docker_pgp_key_url}}"
-    dest : "{{gpg_raw_file_location}}"
-    
-- name : Import downloaded PGP key.
-  ansible.builtin.command :
-    cmd : gpg --dearmor -o {{docker_archive_keyring_path}} {{gpg_raw_file_location}}
+- name : Add Docker CE repository PGP key using shell command.
+  ansible.builtin.shell :
+    cmd : curl -fsSL "{{ docker_pgp_key_url }}" | sudo gpg --dearmor -o {{ docker_archive_keyring_path }}
+
+- name : Configure Docker CE repository using shell command.
+  ansible.builtin.shell :
+    cmd : echo '{{ docker_repo_line }}' | sudo tee {{ docker_repo_configuration_path }}
 
 - name: Download repository file
   ansible.builtin.get_url:
@@ -44,15 +43,6 @@
     state: present
     force_apt_get: true
   ignore_errors: yes
-
-- name : Check if docker-ce package is available.
-  ansible.builtin.command :
-    cmd : apt-cache policy docker-ce
-  register : apt_cache_policy_result
-
-- name : Show apt-cache policy result.
-  ansible.builtin.debug :
-    var : apt_cache_policy_result.stdout_lines
 
 - name: Copy pip configuration to /etc/pip.conf on target hosts
   ansible.builtin.copy:

@@ -39,16 +39,19 @@ deploy:
     - terraform init
     - terraform apply -var-file=".secret.tfvars" -auto-approve
     - terraform state pull > tfstate.json
-    - |
-      FIP=($(awk -F'[:,]' '/openstack_networking_floatingip_v2/ {getline; while(getline && !/}/) {if (/address/) {gsub(/[[:space:]]+/, "", $2); gsub(/"/, "", $2); print $2}}}' tfstate.json))
-      echo "FLOATING_IP=$FIP" >> ../terraform.env
+#    - |
+#      FIP=($(awk -F'[:,]' '/openstack_networking_floatingip_v2/ {getline; while(getline && !/}/) {if (/address/) {gsub(/[[:space:]]+/, "", $2); gsub(/"/, "", $2); print $2}}}' tfstate.json))
+#      echo "FLOATING_IP=$FIP" >> ../terraform.env
   artifacts:
     paths:
       - terraform/tfstate.json
-      - terraform.env
+#      - terraform.env
+      - ansible/inventory/hosts
 
 configure:
   stage: configure
+  dependencies: 
+    - apply_terraform
   tags:
     - NETCRACKER
   image: $ANSI_IMAGE
