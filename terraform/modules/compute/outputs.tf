@@ -16,6 +16,6 @@ output "instance_prefixes" {
 output "instances" {
   value = openstack_compute_instance_v2.test-instance
 }
-output "instances_names_and_ids" {
-  value = {for instance_id, instance_name in zip(keys(local.instances), values(local.instances)) : instance_id => instance_name.name}
+output "instances_names" {
+  value = openstack_compute_instance_v2.test-instance.*.name
 }
