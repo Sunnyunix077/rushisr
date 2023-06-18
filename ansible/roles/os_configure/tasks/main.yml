@@ -43,7 +43,7 @@
     name: "{{ packages.deb  }}"
     state: present
     force_apt_get: true
-    ignore_errors: yes
+  ignore_errors: yes
 
 - name : Check if docker-ce package is available.
   ansible.builtin.command :
