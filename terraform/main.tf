@@ -77,7 +77,7 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 locals {
   instances_with_floatip = {for idx, instance_id in module.compute.instance_id : module.compute.instances_names[idx] => module.floatipcreate.float_ip[idx]}
   instances_with_prefix = {for k in module.compute.instance_prefixes :
-    k => [for key, value in local.instances_with_floatip: {name=key.name, access_ip_v4=value} if substr(key.name,0,length(k)) == k]
+    k => [for key, value in local.instances_with_floatip: {name=key, access_ip_v4=value} if substr(key,0,length(k)) == k]
   }
 }
 resource "local_file" "ansible_inventory" {
