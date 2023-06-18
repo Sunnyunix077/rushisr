@@ -75,7 +75,7 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 #  filename = var.ansible_inventory_file_path
 #}
 resource "local_file" "hosts_cfg" {
-  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = module.compute.test-instance[*].access_ip_v4 })
+  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = openstack_compute_instance_v2.test-instance[*].access_ip_v4 })
   filename = var.ansible_inventory_file_path
   depends_on = [module.compute]
 }
