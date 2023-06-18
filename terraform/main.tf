@@ -76,10 +76,10 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 #}
 locals {
   organized_ips = {
-    dpl = [for i in range(0, var.instance_count) : module.floatipcreate.float_ip[i] if i < 4]
-    cm  = [for i in range(4, var.instance_count) : module.floatipcreate.float_ip[i] if (i - 4) % 3 == 0]
-    cr  = [for i in range(5, var.instance_count) : module.floatipcreate.float_ip[i] if (i - 4) % 3 == 1]
-    st  = [for i in range(6, var.instance_count) : module.floatipcreate.float_ip[i] if (i - 4) %3 == 2]
+    dpl = [for i in range(0, var.instance_count) : module.floatipcreate.float_ip[i] if i == 0]
+    cm  = [for i in range(1, var.instance_count) : module.floatipcreate.float_ip[i] if (i - 1) % 3 == 0]
+    cr  = [for i in range(2, var.instance_count) : module.floatipcreate.float_ip[i] if (i - 1) % 3 == 1]
+    st  = [for i in range(3, var.instance_count) : module.floatipcreate.float_ip[i] if (i - 1) %3 == 2]
  }
 }
 resource "local_file" "hosts_cfg" {
