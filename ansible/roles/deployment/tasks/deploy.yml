@@ -1,0 +1,3 @@
+---
+- name: Run Kolla Ansible deployment
+  # Add tasks to run the Kolla Ansible deployment using the generated configuration files and inventory

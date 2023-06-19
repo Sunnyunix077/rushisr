@@ -1,0 +1,41 @@
+---
+- name: Install Ansible
+  ansible.builtin.apt:
+    name: ansible
+    state: present
+
+- name: Install Kolla Ansible
+  ansible.builtin.pip:
+    name: 'kolla-ansible==12.8.0'
+    state: present
+
+- name: Create /etc/kolla directory
+  file:
+    path: /etc/kolla
+    state: directory
+    mode: "0755"
+
+- name: Set ownership of /etc/kolla directory
+  file:
+    path: /etc/kolla
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    state: directory
+
+- name: Copy Kolla configuration files to /etc/kolla
+  copy:
+    src: /usr/local/share/kolla-ansible/etc_examples/kolla/
+    dest: /etc/kolla
+    remote_src: true
+    recurse: yes
+
+- name: Copy Kolla inventory files to /etc/kolla
+  copy:
+    src: /usr/local/share/kolla-ansible/ansible/inventory/
+    dest: /etc/kolla
+    remote_src: true
+    recurse: yes
+
+- name: Generate Kolla passwords
+  command: kolla-genpwd
+  

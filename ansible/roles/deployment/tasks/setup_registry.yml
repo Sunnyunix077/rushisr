@@ -1,0 +1,66 @@
+---
+- name: Create Docker registry directory
+  file:
+    path: /path/to/docker_registry
+    state: directory
+    mode: "0755"
+
+- name: Start Docker registry container
+  docker_container:
+    name: local_registry
+    image: registry:latest
+    ports:
+      - "5000:5000"
+    volumes:
+      - /path/to/docker_registry:/var/lib/registry
+    state: started
+    restart_policy: always
+
+- name: Configure Docker to use local registry
+  file:
+    path: /etc/docker/daemon.json
+    content: |
+      {
+        "insecure-registries": ["localhost:5000"]
+      }
+  notify:
+    - Restart Docker
+
+- name: Restart Docker
+  service:
+    name: docker
+    state: restarted
+
+- name: Download images from Antifactory
+  get_url:
+    url: http://antifactory:17064/path/to/wallaby_images.tar.gz
+    dest: /path/to/wallaby_images.tar.gz
+
+- name: Load images into local registry
+  docker_image:
+    name: localhost:5000/{{ item }}
+    load_path: /path/to/wallaby_images.tar.gz
+  with_items:
+    - image1
+    - image2
+    - image3
+
+- name: Remove downloaded image tarball
+  file:
+    path: /path/to/wallaby_images.tar.gz
+    state: absent
+
+- name: Tune /etc/ansible/ansible.cfg
+  lineinfile:
+    path: /etc/ansible/ansible.cfg
+    line: "{{ item }}"
+  with_items:
+    - "host_key_checking = False"
+    - "pipelining = True"
+    - "forks = 30"
+    - "gathering = smart"
+    - "fact_caching = jsonfile"
+    - "fact_caching_connection = /root/ansible-facts"
+    - "fact_caching_timeout = 0"
+    - "timeout = 60"
+    
