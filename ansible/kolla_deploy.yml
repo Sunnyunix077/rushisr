@@ -1,0 +1,9 @@
+# site.yml
+
+- hosts: labdpl-group 
+  remote_user: ubuntu  
+  become: true   
+  tasks:
+    - name: Include deployment role        
+      ansible.builtin.include_role :
+         name : deployment
