@@ -65,7 +65,7 @@ configure:
     - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
     - chmod 600 $HOME/.ssh/id_rsa
     - sleep 60
-    - ansible-playbook -i inventory/hosts site.yml --tags os_configure
+    - ansible-playbook -i inventory/hosts site.yml
 
 kolla_deploy:
   stage: kolla_deploy
@@ -81,7 +81,7 @@ kolla_deploy:
     - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
     - chmod 600 $HOME/.ssh/id_rsa
     - sleep 60
-    - ansible-playbook -i inventory/hosts -l labdpl-group site.yml --tags deployment
+    - ansible-playbook -i inventory/hosts kolla_deploy.yml
 
 #test:
 #  stage: test
