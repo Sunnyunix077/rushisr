@@ -82,7 +82,7 @@ locals {
 }
 resource "local_file" "ansible_inventory" {
   content = join("\n\n", [
-    for prefix, instances in local.instances_with_prefix: format("%s-group\n%s", prefix,
+    for prefix, instances in local.instances_with_prefix: format("[%s-group]\n%s", prefix,
       join("\n", [
         for instance in instances: instance.access_ip_v4
       ])
