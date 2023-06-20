@@ -34,8 +34,7 @@
     src: /usr/local/share/kolla-ansible/ansible/inventory/
     dest: /etc/kolla
     remote_src: true
-    recurse: yes
 
 - name: Generate Kolla passwords
-  command: kolla-genpwd
+  cmd: kolla-genpwd
   
