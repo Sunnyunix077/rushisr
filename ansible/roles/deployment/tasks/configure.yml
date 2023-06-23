@@ -9,6 +9,11 @@
     name: kolla-ansible==12.8.0
     state: present
 
+- name: Install Ansible
+  ansible.builtin.apt:
+    name: rsync
+    state: present
+
 - name: Create /etc/kolla directory
   ansible.builtin.file:
     path: /etc/kolla

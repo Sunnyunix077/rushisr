@@ -80,7 +80,6 @@ kolla_deploy:
     - mkdir -p $HOME/.ssh
     - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
     - chmod 600 $HOME/.ssh/id_rsa
-    - sleep 60
     - ansible-playbook -i inventory/hosts kolla_deploy.yml
 
 #test:
