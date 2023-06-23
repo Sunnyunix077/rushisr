@@ -10,30 +10,27 @@
     state: present
 
 - name: Create /etc/kolla directory
-  file:
+  ansible.builtin.file:
     path: /etc/kolla
     state: directory
     mode: "0755"
 
 - name: Set ownership of /etc/kolla directory
-  file:
+  ansible.builtin.file:
     path: /etc/kolla
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     state: directory
 
 - name: Copy Kolla configuration files to /etc/kolla
-  copy:
+  ansible.builtin.synchronize:
     src: /usr/local/share/kolla-ansible/etc_examples/kolla/
     dest: /etc/kolla
-    remote_src: true
-    recurse: yes
 
 - name: Copy Kolla inventory files to /etc/kolla
-  copy:
+  ansible.builtin.synchronize:
     src: /usr/local/share/kolla-ansible/ansible/inventory/
     dest: /etc/kolla
-    remote_src: true
 
 - name: Generate Kolla passwords
   ansible.builtin.command:
