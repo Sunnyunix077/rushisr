@@ -1,0 +1,20 @@
+---
+- name: Gather facts from all hosts
+  setup:
+    delegate_to: localhost
+
+- name: Create /etc/hosts entries for each host in inventory groups (control, compute, storage)
+  blockinfile:
+    path: /etc/hosts
+    block: |
+      {% for group_name in ['control', 'compute', 'storage'] %}
+        {% if group_name in groups %}
+          {% for host_ip in groups[group_name] | map('extract', hostvars, ['ansible_default_ipv4']) | list %}
+            {{ host_ip.address }} {{ hostvars[host_ip]['inventory_hostname'] }}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+- name: Copy /etc/hosts file from control node to all other nodes using shell and scp
+  ansible.builtin.shell:
+    cmd: "scp {{ hostvars[groups['control'][0]]['ansible_host'] }}:/etc/hosts /etc/"
+  when: inventory_hostname not in groups['control']

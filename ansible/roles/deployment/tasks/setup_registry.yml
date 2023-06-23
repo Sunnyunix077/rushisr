@@ -10,7 +10,7 @@
     name: local_registry
     image: registry:latest
     ports:
-      - "5000:5000"
+      - 5000:5000
     volumes:
       - /path/to/docker_registry:/var/lib/registry
     state: started

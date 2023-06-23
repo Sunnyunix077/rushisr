@@ -80,14 +80,34 @@ locals {
     k => [for key, value in local.instances_with_floatip: {name=key, access_ip_v4=value} if substr(key,0,length(k)) == k]
   }
 }
+#resource "local_file" "ansible_inventory" {
+#  content = join("\n\n", [
+#    for prefix, instances in local.instances_with_prefix: format("[%s]\n%s", prefix,
+#      join("\n", [
+#        for instance in instances: instance.access_ip_v4
+#      ])
+#    )
+#  ])
+#filename = var.ansible_inventory_file_path
+#depends_on = [module.compute]
+#}
 resource "local_file" "ansible_inventory" {
   content = join("\n\n", [
-    for prefix, instances in local.instances_with_prefix: format("[%s-group]\n%s", prefix,
+    for prefix, instances in local.instances_with_prefix: format("[%s]\n%s", 
+      (
+        (prefix == "labcr") ? ("control") : 
+        (prefix == "labcm") ? ("compute") :
+          (prefix == "labst") ? ("storage"): ""
+      ),
       join("\n", [
-        for instance in instances: instance.access_ip_v4
+        for instance in instances: instance.name
       ])
     )
-  ])
+  ]) +
+  "\n\n[network]\n" +
+  join("\n",
+  	[for instance in local.instances_with_prefix["labcr"]: instance.name]
+  )
 filename = var.ansible_inventory_file_path
 depends_on = [module.compute]
 }
