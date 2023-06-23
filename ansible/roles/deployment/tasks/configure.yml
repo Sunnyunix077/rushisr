@@ -6,7 +6,7 @@
 
 - name: Install Kolla Ansible
   ansible.builtin.pip:
-    name: 'kolla-ansible==12.8.0'
+    name: kolla-ansible==12.8.0
     state: present
 
 - name: Create /etc/kolla directory
@@ -36,5 +36,6 @@
     remote_src: true
 
 - name: Generate Kolla passwords
-  cmd: kolla-genpwd
+  ansible.builtin.command:
+    cmd: kolla-genpwd
   
