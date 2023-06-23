@@ -28,14 +28,12 @@
     state: directory
 
 - name: Copy Kolla configuration files to /etc/kolla
-  ansible.builtin.command:
+  ansible.builtin.shell:
     cmd: cp -R /usr/local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla
-    warn: false
 
 - name: Copy Kolla inventory files to /etc/kolla
-  ansible.builtin.command:
+  ansible.builtin.shell:
     cmd: cp -R /usr/local/share/kolla-ansible/ansible/inventory/* /etc/kolla
-    warn: false
 
 - name: Generate Kolla passwords
   ansible.builtin.command:
