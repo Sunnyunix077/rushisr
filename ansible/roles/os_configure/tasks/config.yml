@@ -1,0 +1,95 @@
+---
+- name: Print Ubuntu Release
+  ansible.builtin.debug:
+    var: ansible_distribution_release
+  tags: 
+    - os_configure
+- name: Create resolv.conf file
+  ansible.builtin.template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+    mode: '0644' # noqa
+  notify:
+    - Restart Network Service
+  tags: 
+    - os_configure
+
+- name : Add Docker CE repository PGP key using shell command.
+  ansible.builtin.shell :
+    cmd : curl -fsSL "{{ docker_pgp_key_url }}" | sudo gpg --dearmor -o {{ docker_archive_keyring_path }}
+  tags: 
+    - os_configure
+
+- name : Configure Docker CE repository using shell command.
+  ansible.builtin.shell :
+    cmd : echo '{{ docker_repo_line }}' | sudo tee {{ docker_repo_configuration_path }}
+  tags: 
+    - os_configure
+
+- name: Download repository file
+  ansible.builtin.get_url:
+    url: "{{ item }}"
+    dest: /tmp/{{ item | basename }}
+  with_items: "{{ repo.ubuntu }}"
+  delegate_to: localhost
+  tags: 
+    - os_configure
+
+- name: Copy repository file to the correct location
+  ansible.builtin.copy:
+    src: "/tmp/{{ item | basename }}"
+    dest: /etc/apt/sources.list
+  with_items:
+    - nc_focal.list
+  tags: 
+    - os_configure
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    force_apt_get: true
+  tags: 
+    - os_configure
+
+- name: Install packages from packages.deb list
+  ansible.builtin.apt:
+    name: "{{ packages.deb  }}"
+    state: present
+    force_apt_get: true
+  tags: 
+    - os_configure
+
+- name: Copy pip configuration to /etc/pip.conf on target hosts
+  ansible.builtin.copy:
+    src: pip.conf
+    dest: /etc/pip.conf
+  tags: 
+    - os_configure
+
+#- name: Create directory
+#  ansible.builtin.file:
+#    path: "{{ dir_path }}"
+#    state: directory
+
+#- name: Create volume group
+#  community.general.system.lvg:
+#    vg: "{{ my_vg }}"
+#    pvs: /dev/vdb
+
+#- name: Create logical volume
+#  community.general.system.lvol:
+#    vg: "{{ my_vg }}"
+#    lv: "{{ my_lv }}"
+#    size: 4G
+
+#- name: Format logical volume to xfs
+#  community.general.system.filesystem:
+#    fstype: xfs
+#    dev: "/dev/{{ my_vg }}/{{ my_lv }}"
+
+#- name: Mount logical volume
+#  ansible.posix.mount:
+#    path: "{{ dir_path }}"
+#    src: "/dev/{{ my_vg }}/{{ my_lv }}"
+#    fstype: xfs
+#    state: mounted
