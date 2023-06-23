@@ -1,8 +1,4 @@
 ---
-- name: Gather facts from all hosts
-  setup:
-    delegate_to: localhost
-
 - name: Create /etc/hosts entries for each host in inventory groups (control, compute, storage)
   blockinfile:
     path: /etc/hosts
