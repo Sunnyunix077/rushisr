@@ -38,4 +38,18 @@
 - name: Generate Kolla passwords
   ansible.builtin.command:
     cmd: kolla-genpwd
+
+- name: Tune /etc/ansible/ansible.cfg
+  lineinfile:
+    path: /etc/ansible/ansible.cfg
+    line: "{{ item }}"
+  with_items:
+    - host_key_checking = False
+    - pipelining = True
+    - forks = 30
+    - gathering = smart
+    - fact_caching = jsonfile
+    - fact_caching_connection = /root/ansible-facts
+    - fact_caching_timeout = 0
+    - timeout = 60
   
