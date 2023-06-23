@@ -103,11 +103,9 @@ resource "local_file" "ansible_inventory" {
         for instance in instances: instance.name
       ])
     )
-  ]) +
-  "\n\n[network]\n" +
-  join("\n",
-  	[for instance in local.instances_with_prefix["labcr"]: instance.name]
-  )
+  ]) + "${join("\n\n", ["\n[network]",
+           join("\r\n",[for instance in local.instances_with_prefix["labcr"]:instance.name]),
+       ])}"
 filename = var.ansible_inventory_file_path
 depends_on = [module.compute]
 }
