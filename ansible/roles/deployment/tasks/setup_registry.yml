@@ -11,17 +11,18 @@
     state: directory
 
 - name : Install docker.io
-  ansible.builtin.apt :
-    pkg=docker.io
+  ansible.builtin.apt:
+    pkg: docker.io
 
 - name : Start and enable docker service
-  systemd :
-    state=started
-    enabled=yes
-    daemon_reload=yes
-    name=docker
+  systemd:
+    state: started
+    enabled: yes
+    daemon_reload: yes
+    name: docker
+
 - name : Deploy a Local Docker Registry container
-  ansible.builtin.docker_container :
+  ansible.builtin.docker_container:
     name: local_registry_server
     image: registry
     restart_policy: always
@@ -29,46 +30,7 @@
       - "{{ KOLLA_REPO_PORT }}:5000"
 
 - name: Pull kolla image from Docker Hub (example)
-  ansible.builtin.docker_image :
-    source: pull
-    force_source: yes
-    repository: "{{ docker_url }}/kolla/{{ KOLLA_CONTAINER_OS }}-binary-{{ item }}"
-    tag: "{{ KOLLA_CONTAINER_OPS }}"
-  loop: "{{ docker_images }}"
-
-This is my code for which I am getting above error.
----
-- name: Set environment variables
-  set_fact:
-    KOLLA_REPO_PORT: "17186"
-    KOLLA_CONTAINER_OS: ubuntu
-    KOLLA_CONTAINER_OPS: wallaby
-
-- name: Create local Docker Registry directory
-  ansible.builtin.file:
-    path: /var/lib/registry
-    state: directory
-
-- name : Install docker.io
-  ansible.builtin.apt :
-    pkg=docker.io
-
-- name : Start and enable docker service
-  systemd :
-    state=started
-    enabled=yes
-    daemon_reload=yes
-    name=docker
-- name : Deploy a Local Docker Registry container
-  ansible.builtin.docker_container :
-    name: local_registry_server
-    image: registry
-    restart_policy: always
-    ports:
-      - "{{ KOLLA_REPO_PORT }}:5000"
-
-- name: Pull kolla image from Docker Hub (example)
-  ansible.builtin.docker_image :
+  ansible.builtin.docker_image:
     source: pull
     force_source: yes
     repository: "{{ docker_url }}/kolla/{{ KOLLA_CONTAINER_OS }}-binary-{{ item }}"
@@ -77,14 +39,9 @@ This is my code for which I am getting above error.
 
 - name: Tag kolla image for Local Registry (replace localhost with your deployment node's IP)
   command:
-    cmd="docker tag {{ docker_url }}/kolla/{{ KOLLA_CONTAINER_OS }}-binary-{{ item }}:${{KOLLA_CONTAINER_OPS}} localhost:${{KOLLAREPO_PORT}}/kolla/ubuntu-binary-{{item}}:${{KOLLAAONTAINEROPS}"
+    cmd: "docker tag {{ docker_url }}/kolla/{{ KOLLA_CONTAINER_OS }}-binary-{{ item }}:{{ KOLLA_CONTAINER_OPS }} localhost:{{ KOLLA_REPO_PORT }}/kolla/ubuntu-binary-{{ item }}:{{ KOLLA_CONTAINER_OPS }}"
 
 - name: Push tagged image to Local Registry (replace localhost with your deployment node's IP)
-  command :
-    cmd="docker push localhost:5000/kolla/ubuntu-binary-{{ item }}:{‌{ KOLLA_CONTAINER_OPS }}"
-  loop: "{{ docker_images }}"
-
-- name: Push tagged image to Local Registry (replace localhost with your deployment node's IP)
-  command :
-    cmd="docker push localhost:5000/kolla/ubuntu-binary-{{ item }}:{‌{ KOLLA_CONTAINER_OPS }}"
+  command:
+    cmd: "docker push localhost:5000/kolla/ubuntu-binary-{{ item }}:{{ KOLLA_CONTAINER_OPS }}"
   loop: "{{ docker_images }}"
