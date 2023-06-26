@@ -10,15 +10,6 @@
     path: /var/lib/registry
     state: directory
 
-#- name: Update all packages
-#  apt:
-#    update_cache: yes
-
-#- name: Install containerd
-#  apt:
-#    name: containerd
-#    state: latest
-
 - name : Start and enable docker service
   systemd:
     state: started
