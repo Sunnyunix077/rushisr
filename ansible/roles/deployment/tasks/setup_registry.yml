@@ -29,8 +29,7 @@
     remote_src: yes
 
 - name: Load Docker image
-  docker_load:
-        image_src: /tmp/registry.tar
+  shell: docker load -i /tmp/registry.tar
 
 - name : Deploy a Local Docker Registry container
   ansible.builtin.docker_container:
