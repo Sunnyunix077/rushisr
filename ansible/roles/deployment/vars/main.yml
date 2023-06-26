@@ -15,7 +15,7 @@ docker:
     - rabbitmq
     - mariadb
     - mariadb-server
-    -  mariadb-clustercheck
+    - mariadb-clustercheck
     - keystone-fernet
     - keystone
     - keystone-ssh

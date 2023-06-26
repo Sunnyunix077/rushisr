@@ -45,7 +45,7 @@
     force_source: yes
     repository: "{{ docker_url }}/kolla/{{ KOLLA_CONTAINER_OS }}-binary-{{ item }}"
     tag: "{{ KOLLA_CONTAINER_OPS }}"
-  loop: "{{ docker_images }}"
+  loop: "{{ docker.images }}"
 
 - name: Tag kolla image for Local Registry (replace localhost with your deployment node's IP)
   command:
@@ -54,4 +54,4 @@
 - name: Push tagged image to Local Registry (replace localhost with your deployment node's IP)
   command:
     cmd: "docker push localhost:5000/kolla/ubuntu-binary-{{ item }}:{{ KOLLA_CONTAINER_OPS }}"
-  loop: "{{ docker_images }}"
+  loop: "{{ docker.images }}"
