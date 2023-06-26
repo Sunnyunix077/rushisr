@@ -13,7 +13,6 @@ docker:
     - keepalived
     - memcached
     - rabbitmq
-    - mariadb
     - mariadb-server
     - mariadb-clustercheck
     - keystone-fernet
@@ -40,7 +39,6 @@ docker:
     - cinder-volume
     - cinder-backup
     - horizon
-    - mistral
     - mistral-api
     - mistral-engine
     - mistral-event-engine
@@ -48,13 +46,9 @@ docker:
     - heat-api
     - heat-api-cfn
     - heat-engine
-    - nfs-server
-    - nfs
     - collectd
-    - prometeus
     - prometheus-server
     - prometheus-cadvisor
-    - prometeus-api
     - prometheus-node-exporter
     - prometheus-openstack-exporter
     - prometheus-memcached-exporter
