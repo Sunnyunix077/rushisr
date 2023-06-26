@@ -43,7 +43,7 @@
   ansible.builtin.docker_image:
     source: pull
     force_source: yes
-    repository: "{{ docker_url }}/kolla/{{ KOLLA_CONTAINER_OS }}-binary-{{ item }}"
+    name: "{{ docker_url }}/kolla/{{ KOLLA_CONTAINER_OS }}-binary-{{ item }}"
     tag: "{{ KOLLA_CONTAINER_OPS }}"
   loop: "{{ docker.images }}"
 
