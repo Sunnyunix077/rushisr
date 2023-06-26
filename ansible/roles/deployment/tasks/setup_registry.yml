@@ -17,10 +17,21 @@
     daemon_reload: yes
     name: docker
 
+- name: Copy Docker image tar file
+  copy:
+    src: "{{ playbook_dir }}/registry.tar"
+    dest: /tmp/registry.tar
+
+- name: Untar Docker image
+  unarchive:
+    src: /tmp/registry.tar
+    dest: /tmp/
+    remote_src: yes
+
 - name : Deploy a Local Docker Registry container
   ansible.builtin.docker_container:
     name: local_registry_server
-    image: registry
+    image: docker.io/registry:latest
     restart_policy: always
     ports:
       - "{{ KOLLA_REPO_PORT }}:5000"

@@ -2,6 +2,7 @@
 ansible_uer: root
 KOLLA_REPO_PORT: 5000
 docker_url: artifactorycn.netcracker.com:17186
+registry_image_tar: ./registry.tar
 docker:
   images:
     - fluentd
