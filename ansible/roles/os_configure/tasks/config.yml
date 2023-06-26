@@ -59,6 +59,13 @@
   tags: 
     - os_configure
 
+- name: Copy pip configuration to /etc/pip.conf on target hosts
+  ansible.builtin.copy:
+    src: pip.conf
+    dest: /etc/pip.conf
+  tags:
+    - os_configure
+
 - name: Install docker-ce
   ansible.builtin.pip:
     name: docker-ce
@@ -68,13 +75,6 @@
   ansible.builtin.pip:
     name: docker-py
     state: present
-
-- name: Copy pip configuration to /etc/pip.conf on target hosts
-  ansible.builtin.copy:
-    src: pip.conf
-    dest: /etc/pip.conf
-  tags: 
-    - os_configure
 
 #- name: Create directory
 #  ansible.builtin.file:
