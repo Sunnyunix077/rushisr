@@ -54,5 +54,5 @@
 
 - name: Push tagged image to Local Registry (replace localhost with your deployment node's IP)
   command:
-    cmd: "docker push localhost:5000/kolla/ubuntu-binary-{{ item }}:{{ KOLLA_CONTAINER_OPS }}"
+    cmd: "docker push localhost:5000/ubuntu-binary-{{ item }}:{{ KOLLA_CONTAINER_OPS }}"
   loop: "{{ docker.images }}"
