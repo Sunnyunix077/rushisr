@@ -10,4 +10,3 @@ packages:
     - net-tools
     - python3-dev
     - python3-pip
-    - docker-ce
