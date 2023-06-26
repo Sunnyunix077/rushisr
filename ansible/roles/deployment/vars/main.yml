@@ -1,2 +1,61 @@
 ---
 ansible_uer: root
+KOLLA_REPO_PORT: 5000
+docker_url: artifactorycn.netcracker.com:17186
+docker:
+  images:
+    - fluentd
+    - kolla-toolbox
+    - cron
+    - chrony
+    - haproxy
+    - keepalived
+    - memcached
+    - rabbitmq
+    - mariadb
+    - mariadb-server
+    -  mariadb-clustercheck
+    - keystone-fernet
+    - keystone
+    - keystone-ssh
+    - glance-api
+    - nova-api
+    - nova-scheduler
+    - nova-conductor
+    - nova-ssh
+    - nova-novncproxy
+    - nova-libvirt
+    - nova-compute
+    - nova-ssh
+    - placement-api
+    - neutron-server
+    - neutron-metadata-agent
+    - neutron-l3-agent
+    - neutron-dhcp-agent
+    - neutron-openvswitch-agent
+    - openvswitch-db-server
+    - cinder-api
+    - cinder-scheduler
+    - cinder-volume
+    - cinder-backup
+    - horizon
+    - mistral
+    - mistral-api
+    - mistral-engine
+    - mistral-event-engine
+    - mistral-executor
+    - heat-api
+    - heat-api-cfn
+    - heat-engine
+    - nfs-server
+    - nfs
+    - collectd
+    - prometeus
+    - prometheus-server
+    - prometheus-cadvisor
+    - prometeus-api
+    - prometheus-node-exporter
+    - prometheus-openstack-exporter
+    - prometheus-memcached-exporter
+    - prometheus-haproxy-exporter
+    - prometheus-mysqld-exporter
