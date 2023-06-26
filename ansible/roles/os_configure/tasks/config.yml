@@ -14,16 +14,16 @@
   tags: 
     - os_configure
 
-- name : Add Docker CE repository PGP key using shell command.
+- name : Add Docker CE repository PGP key.
   ansible.builtin.shell :
     cmd : curl -fsSL "{{ docker_pgp_key_url }}" | sudo gpg --dearmor -o {{ docker_archive_keyring_path }}
-  tags: 
+  tags:
     - os_configure
 
-- name : Configure Docker CE repository using shell command.
+- name : Configure Docker CE repository.
   ansible.builtin.shell :
     cmd : echo '{{ docker_repo_line }}' | sudo tee {{ docker_repo_configuration_path }}
-  tags: 
+  tags:
     - os_configure
 
 - name: Download repository file
@@ -68,7 +68,7 @@
 
 - name: Install docker-ce
   ansible.builtin.pip:
-    name: docker-ce
+    name: docker
     state: present
 
 - name: Install docker-py
