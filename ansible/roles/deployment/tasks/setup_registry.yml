@@ -10,18 +10,18 @@
     path: /var/lib/registry
     state: directory
 
-#- name: Update all packages
-#  apt:
-#    update_cache: yes
+- name: Update all packages
+  apt:
+    update_cache: yes
 
-#- name: Install containerd
-#  apt:
-#    name: containerd
-#    state: latest
+- name: Install containerd
+  apt:
+    name: containerd
+    state: latest
 
-#- name : Install docker.io
-#  ansible.builtin.apt:
-#    pkg: docker.io
+- name : Install docker.io
+  ansible.builtin.apt:
+    pkg: docker.py
 
 - name : Start and enable docker service
   systemd:
@@ -38,7 +38,7 @@
     ports:
       - "{{ KOLLA_REPO_PORT }}:5000"
 
-- name: Pull kolla image from Docker Hub (example)
+- name: Pull kolla image from Docker Hub
   ansible.builtin.docker_image:
     source: pull
     force_source: yes
