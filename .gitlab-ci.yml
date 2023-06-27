@@ -49,7 +49,7 @@ deploy:
       - terraform/tfstate.json
 #      - terraform.env
       - ansible/inventory/hosts
-      - deploy.env
+      - ansible/deploy.env
 
 configure:
   stage: configure
@@ -78,7 +78,7 @@ kolla_deploy:
   image: $ANSI_IMAGE
   script:
     - cd ansible
-    - source ../terraform/deploy.env
+    - source deploy.env
     - cat inventory/hosts
     - mkdir -p $HOME/.ssh
     - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
