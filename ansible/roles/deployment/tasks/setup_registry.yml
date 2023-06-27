@@ -17,6 +17,26 @@
     daemon_reload: yes
     name: docker
 
+- name: Ensure Docker daemon JSON config directory exists
+  ansible.builtin.file:
+    path: /etc/docker
+    state: directory
+
+- name: Add localhost to insecure registries
+  ansible.builtin.copy:
+    dest: /etc/docker/daemon.json
+    content: |
+      {
+        "insecure-registries" : ["localhost:5000"]
+      }
+    force: yes
+
+- name: Restart Docker service to apply changes
+  ansible.builtin.systemd:
+    name: docker
+    state: restarted
+    daemon_reload: yes
+
 - name: Copy Docker image tar file
   copy:
     src: "{{ playbook_dir }}/registry.tar"
@@ -49,7 +69,7 @@
 
 - name: Tag kolla image for Local Registry (replace localhost with your deployment node's IP)
   command:
-    cmd: "docker tag {{ docker_url }}/kolla/{{ KOLLA_CONTAINER_OS }}-binary-{{ item }}:{{ KOLLA_CONTAINER_OPS }} localhost:{{ KOLLA_REPO_PORT }}/kolla/ubuntu-binary-{{ item }}:{{ KOLLA_CONTAINER_OPS }}"
+    cmd: "docker tag {{ docker_url }}/kolla/{{ KOLLA_CONTAINER_OS }}-binary-{{ item }}:{{ KOLLA_CONTAINER_OPS }} localhost:5000/ubuntu-binary-{{ item }}:{{ KOLLA_CONTAINER_OPS }}"
   loop: "{{ docker.images }}"
 
 - name: Push tagged image to Local Registry (replace localhost with your deployment node's IP)
