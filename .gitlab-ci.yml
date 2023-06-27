@@ -78,7 +78,7 @@ kolla_deploy:
   image: $ANSI_IMAGE
   script:
     - cd ansible
-    - source deploy.env
+    - source ../terraform/deploy.env
     - cat inventory/hosts
     - mkdir -p $HOME/.ssh
     - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
