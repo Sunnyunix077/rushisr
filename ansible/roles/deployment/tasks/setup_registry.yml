@@ -67,12 +67,12 @@
     tag: "{{ KOLLA_CONTAINER_OPS }}"
   loop: "{{ docker.images }}"
 
-- name: Tag kolla image for Local Registry (replace localhost with your deployment node's IP)
+- name: Tag kolla image for Local Registry
   command:
     cmd: "docker tag {{ docker_url }}/kolla/{{ KOLLA_CONTAINER_OS }}-binary-{{ item }}:{{ KOLLA_CONTAINER_OPS }} localhost:5000/ubuntu-binary-{{ item }}:{{ KOLLA_CONTAINER_OPS }}"
   loop: "{{ docker.images }}"
 
-- name: Push tagged image to Local Registry (replace localhost with your deployment node's IP)
+- name: Push tagged image to Local Registry
   command:
     cmd: "docker push localhost:5000/ubuntu-binary-{{ item }}:{{ KOLLA_CONTAINER_OPS }}"
   loop: "{{ docker.images }}"

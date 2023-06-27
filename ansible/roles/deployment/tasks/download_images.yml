@@ -1,3 +1,0 @@
----
-- name: Download and upload OpenStack images
-  # Add tasks to download and upload the OpenStack images to the local registry
