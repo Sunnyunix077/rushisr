@@ -68,12 +68,17 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 #  volume_id = element(module.volcreate.volume_id, count.index)
 #  instance_id = element(module.compute.instance_id, count.index)
 #}
+locals {
+  instance_names = ["labst01cn", "labst02cn", "labst03cn"]
+}
+
 resource "openstack_compute_volume_attach_v2" "volume_attach" {
-  count = 3
-  instance_id = "${element([for i in module.compute.instance_id : i.id if contains(["labst01cn", "labst02cn", "labst03cn"], i.name)], count.index)}"
-  volume_id = "${element(module.volcreate.volume_id, count.index)}"
+  count = length(local.instance_names)
+  instance_id = module.compute.instances_info[local.instance_names[count.index]]
+  volume_id = module.volcreate.volume_id[count.index]
   device = "/dev/vdb"
 }
+
 
 
 #Working code as below :
