@@ -1,0 +1,44 @@
+---
+- name: Check if private key exists
+  ansible.builtin.stat:
+    path: /root/.ssh/id_rsa
+  register: private_key_exists
+
+- name: Check if public key exists
+  ansible.builtin.stat:
+    path: /root/.ssh/id_rsa.pub
+  register: public_key_exists
+
+- name: Generate SSH key pair
+  ansible.posix.openssh_keypair:
+    path: /root/.ssh/id_rsa
+    owner: root
+    group: root
+    mode: '0600'
+  when: not (private_key_exists.stat.exists and public_key_exists.stat.exists)
+
+- name: Copy SSH public key to authorized_keys
+  ansible.builtin.copy:
+    content: "{{ lookup('file', '/path/to/public_key') }}"
+    dest: "~/.ssh/authorized_keys"
+    mode: '0600'
+
+- name: Ensure correct permissions for SSH directory
+  ansible.builtin.file:
+    path: "~/.ssh"
+    mode: '0700'
+
+- name: Ensure correct permissions for authorized_keys
+  ansible.builtin.file:
+    path: "~/.ssh/authorized_keys"
+    mode: '0600'
+
+- name: Disable password authentication in SSH configuration
+  ansible.builtin.lineinfile:
+    path: "/etc/ssh/sshd_config"
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    state: present
+  notify:
+    - Restart SSH Service
+ 

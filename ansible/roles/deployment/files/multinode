@@ -1,17 +1,17 @@
 [control]
 labcr01cn
-labcr02cn
-labcr03cn
+#labcr02cn
+#labcr03cn
 
 [network]
 labcr01cn
-labcr02cn
-labcr03cn
+#labcr02cn
+#labcr03cn
 
 [compute]
 labcm01cn
-labcm02cn
-labcm03cn
+#labcm02cn
+#labcm03cn
 
 [storage]
 labst01cn

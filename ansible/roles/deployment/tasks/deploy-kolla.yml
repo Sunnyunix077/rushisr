@@ -1,0 +1,13 @@
+---
+- name: Copy globals.yml file to /etc/kolla/globals.yml
+  copy:
+    src: multinode
+    dest: /etc/kolla/multinode
+
+- name: Execute Kolla-ansible deploy command
+  ansible.builtin.shell:
+    cmd: kolla-ansible -i multinode bootstrap-servers
+
+- name: Execute Kolla-ansible deploy command
+  ansible.builtin.shell:
+    cmd: kolla-ansible -i ./multinode prechecks

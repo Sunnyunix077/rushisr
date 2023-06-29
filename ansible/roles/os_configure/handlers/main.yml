@@ -4,3 +4,8 @@
   ansible.builtin.service:
     name: systemd-networkd
     state: restarted
+
+- name: Restart SSH Service
+  ansible.builtin.service:
+    name: sshd
+    state: restarted

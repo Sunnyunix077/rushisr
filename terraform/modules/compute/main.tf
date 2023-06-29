@@ -42,3 +42,10 @@ resource "openstack_compute_instance_v2" "test-instance" {
   }
   access_ip_v4 = var.float_ip
 }
+
+resource "openstack_compute_volume_attach_v2" "volume_attach" {
+  count = 3
+  instance_id = "${element([for i in openstack_compute_instance_v2.instance : i.id if contains(["labst01cn", "labst02cn", "labst03cn"], i.name)], count.index)}"
+  volume_id = "${element(var.volume_id, count.index)}"
+  device = "/dev/vdb"
+}
