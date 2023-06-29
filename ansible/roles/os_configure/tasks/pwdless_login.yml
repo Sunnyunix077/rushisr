@@ -17,7 +17,7 @@
 
 - name: Copy SSH public key to authorized_keys
   ansible.builtin.copy:
-    content: "{{ lookup('file', '/path/to/public_key') }}"
+    content: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
     dest: "~/.ssh/authorized_keys"
     mode: '0600'
 
