@@ -40,7 +40,7 @@ deploy:
     - terraform init
     - terraform apply -var-file=".secret.tfvars" -auto-approve
     - terraform state pull > tfstate.json
-    - echo "FLOATING_IP=$(terraform output -raw floating_ip)" > deploy.env
+#    - echo "FLOATING_IP=$(terraform output -raw floating_ip)" > deploy.env
 #    - |
 #      FIP=($(awk -F'[:,]' '/openstack_networking_floatingip_v2/ {getline; while(getline && !/}/) {if (/address/) {gsub(/[[:space:]]+/, "", $2); gsub(/"/, "", $2); print $2}}}' tfstate.json))
 #      echo "FLOATING_IP=$FIP" >> ../terraform.env
@@ -49,7 +49,6 @@ deploy:
       - terraform/tfstate.json
 #      - terraform.env
       - ansible/inventory/hosts
-      - ansible/deploy.env
 
 configure:
   stage: configure
@@ -78,8 +77,8 @@ kolla_deploy:
   image: $ANSI_IMAGE
   script:
     - cd ansible
-    - source deploy.env
     - cat inventory/hosts
+    - FLOATING_IP=$(grep "\[labdpl\]" inventory/hosts -A 1 | tail -n 1)
     - mkdir -p $HOME/.ssh
     - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
     - chmod 600 $HOME/.ssh/id_rsa
