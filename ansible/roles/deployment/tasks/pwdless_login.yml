@@ -15,4 +15,4 @@
   with_items:
     - "{{ groups['labst'] }}"
     - "{{ groups['labcm'] }}"
-    - "{{ groups['labcn'] }}"
+    - "{{ groups['labcr'] }}"
