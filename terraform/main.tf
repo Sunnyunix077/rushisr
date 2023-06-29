@@ -69,12 +69,12 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 #  instance_id = element(module.compute.instance_id, count.index)
 #}
 locals {
-  instance_names = ["labst01cn", "labst02cn", "labst03cn"]
+  storage_instances = ["labst01cn", "labst02cn", "labst03cn"]
 }
 
 resource "openstack_compute_volume_attach_v2" "volume_attach" {
-  count = length(local.instance_names)
-  instance_id = module.compute.instances_info[local.instance_names[count.index]]
+  count = length(local.storage_instances)
+  instance_id = module.compute.instances_info[local.storage_instances[count.index]]
   volume_id = module.volcreate.volume_id[count.index]
   device = "/dev/vdb"
 }
