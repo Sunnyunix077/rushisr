@@ -77,9 +77,11 @@ kolla_deploy:
     - NETCRACKER
   image: $ANSI_IMAGE
   script:
+    - ls -l
     - cd terraform
     - ls -l
     - cd ../ansible
+    - ls -l
     - source deploy.env
     - cat inventory/hosts
     - mkdir -p $HOME/.ssh
