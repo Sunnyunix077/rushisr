@@ -13,14 +13,14 @@ module "sgcreate" {
   security_group_description = var.security_group_description
 }
 
-#module "volcreate" {
-#  source = "./modules/volcreate"
-#  
-#  volume_name = var.volume_name
-#  volume_size = var.volume_size
-#  volume_type = var.volume_type
-#  volume_id = module.volcreate.volume_id
-#}
+module "volcreate" {
+  source = "./modules/volcreate"
+  
+  volume_name = var.volume_name
+  volume_size = var.volume_size
+  volume_type = var.volume_type
+  volume_id = module.volcreate.volume_id
+}
 
 module "floatipcreate" {
   source = "./modules/floatipcreate"
@@ -67,6 +67,13 @@ resource "openstack_compute_floatingip_associate_v2" "my_instance_floating_ip" {
 #  count     = length(module.compute.instance_id)
 #  volume_id = element(module.volcreate.volume_id, count.index)
 #  instance_id = element(module.compute.instance_id, count.index)
+#}
+#resource "openstack_compute_volume_attach_v2" "volume_attach" {
+#  count = "${contains(["labst01cn", "labst02cn", "labst03cn"], openstack_compute_instance_v2.instance[count.index].name) ? 1 : 0}"
+#  instance_id = openstack_compute_instance_v2.instance[count.index].id
+#  volume_id = "${element(module.volcreate.volume_id, count.index)}"
+#  device = "/dev/vdb"
+#  depends_on = [openstack_compute_instance_v2.instance]
 #}
 
 #Working code as below :
