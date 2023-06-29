@@ -20,5 +20,5 @@ output "instances_names" {
   value = openstack_compute_instance_v2.test-instance.*.name
 }
 output "instances_info" {
-  value = {for i in openstack_compute_instance_v2.instance : i.name => i.id}
+  value = {for i in openstack_compute_instance_v2.test-instance : i.name => i.id}
 }
