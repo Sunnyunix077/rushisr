@@ -19,7 +19,7 @@ module "volcreate" {
   volume_name = var.volume_name
   volume_size = var.volume_size
   volume_type = var.volume_type
-  volume_id = module.volcreate.volume_id
+#  volume_id = module.volcreate.volume_id
 }
 
 module "floatipcreate" {
