@@ -1,22 +1,22 @@
 [control]
-labcr01cn
-#labcr02cn
-#labcr03cn
+labcr01cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+#labcr02cn ansible_user=ubuntu ansible_ssh_private_key_file=""{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+#labcr03cn ansible_user=ubuntu ansible_ssh_private_key_file=""{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
 
 [network]
-labcr01cn
-#labcr02cn
-#labcr03cn
+labcr01cn ansible_user=ubuntu ansible_ssh_private_key_file=""{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+#labcr02cn ansible_user=ubuntu ansible_ssh_private_key_file=""{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+#labcr03cn ansible_user=ubuntu ansible_ssh_private_key_file=""{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
 
 [compute]
-labcm01cn
-#labcm02cn
-#labcm03cn
+labcm01cn ansible_user=ubuntu ansible_ssh_private_key_file=""{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+#labcm02cn ansible_user=ubuntu ansible_ssh_private_key_file=""{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+#labcm03cn ansible_user=ubuntu ansible_ssh_private_key_file=""{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
 
 [storage]
-labst01cn
-labst02cn
-labst03cn
+labst01cn ansible_user=ubuntu ansible_ssh_private_key_file=""{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+labst02cn ansible_user=ubuntu ansible_ssh_private_key_file=""{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+labst03cn ansible_user=ubuntu ansible_ssh_private_key_file=""{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
 
 [deployment]
 localhost       ansible_connection=local
