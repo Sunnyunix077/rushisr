@@ -127,6 +127,9 @@ resource "local_file" "hosts_file" {
     hostnames    = var.hostnames
     floating_ips = module.floatipcreate.float_ip
   })
+  provisioner "local-exec" {
+    command = "echo '${self.content}' >> ${self.filename}"
+  }
 }
 #resource "local_file" "hosts_cfg" {
 #  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
