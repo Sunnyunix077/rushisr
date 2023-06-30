@@ -115,7 +115,7 @@ resource "local_file" "ansible_inventory" {
     for prefix, instances in local.instances_with_prefix : format("[%s]\n%s",
       prefix,
       join("\n", [
-        for instance in instances : format("%s ansible_user=ubuntu ansible_ssh_private_key_file=\"%s/.ssh/id_rsa\"", instance["access_ip_v4"], lookup("env", "HOME"))
+        for instance in instances : format("%s ansible_user=ubuntu ansible_ssh_private_key_file=\"%s/.ssh/id_rsa\"", instance.access_ip_v4, lookup("env", "HOME"))
       ])
     )
   ])
