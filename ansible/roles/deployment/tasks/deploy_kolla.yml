@@ -11,3 +11,7 @@
 - name: Execute Kolla-ansible deploy command
   ansible.builtin.shell:
     cmd: kolla-ansible -i ./multinode prechecks
+
+- name: Execute Kolla-ansible deploy command
+  ansible.builtin.shell:
+    cmd: kolla-ansible -i ./multinode deploy
