@@ -49,7 +49,7 @@ deploy:
 #      - terraform.env
       - ansible/inventory/hosts
 
-configure:
+.configure:
   stage: configure
   dependencies:
     - deploy
@@ -67,7 +67,7 @@ configure:
     - sleep 60
     - ansible-playbook -i inventory/hosts site.yml
 
-kolla_deploy:
+.kolla_deploy:
   stage: kolla_deploy
   dependencies:
     - deploy

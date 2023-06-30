@@ -6,12 +6,12 @@
 
 - name: Execute Kolla-ansible deploy command
   ansible.builtin.shell:
-    cmd: kolla-ansible -i multinode bootstrap-servers
+    cmd: kolla-ansible -i /etc/kolla/multinode bootstrap-servers
 
 - name: Execute Kolla-ansible deploy command
   ansible.builtin.shell:
-    cmd: kolla-ansible -i ./multinode prechecks
+    cmd: kolla-ansible -i /etc/kolla/multinode prechecks
 
 - name: Execute Kolla-ansible deploy command
   ansible.builtin.shell:
-    cmd: kolla-ansible -i ./multinode deploy
+    cmd: kolla-ansible -i /etc/kolla/multinode deploy

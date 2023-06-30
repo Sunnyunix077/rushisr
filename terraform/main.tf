@@ -86,22 +86,41 @@ resource "openstack_compute_volume_attach_v2" "volume_attach" {
 #  content  = "[servers]\n${join("\n", module.floatipcreate.float_ip)}"
 #  filename = var.ansible_inventory_file_path
 #}
+#locals {
+#  instances_with_floatip = {for idx, instance_id in module.compute.instance_id : module.compute.instances_names[idx] => module.floatipcreate.float_ip[idx]}
+#  instances_with_prefix = {for k in module.compute.instance_prefixes :
+#    k => [for key, value in local.instances_with_floatip: {name=key, access_ip_v4=value} if substr(key,0,length(k)) == k]
+#  }
+#}
+#resource "local_file" "ansible_inventory" {
+#  content = join("\n\n", [
+#    for prefix, instances in local.instances_with_prefix: format("[%s]\n%s", prefix,
+#      join("\n", [
+#        for instance in instances: instance.access_ip_v4
+#      ])
+#    )
+#  ])
+#filename = var.ansible_inventory_file_path
+#depends_on = [module.compute]
+#}
+
 locals {
   instances_with_floatip = {for idx, instance_id in module.compute.instance_id : module.compute.instances_names[idx] => module.floatipcreate.float_ip[idx]}
   instances_with_prefix = {for k in module.compute.instance_prefixes :
-    k => [for key, value in local.instances_with_floatip: {name=key, access_ip_v4=value} if substr(key,0,length(k)) == k]
+    k => [for key, value in local.instances_with_floatip: {name=key, access_ip_v4=value} if substr(key, 0, length(k)) == k]
   }
 }
 resource "local_file" "ansible_inventory" {
-  content = join("\n\n", [
-    for prefix, instances in local.instances_with_prefix: format("[%s]\n%s", prefix,
+  content = join("\n", [
+    for prefix, instances in local.instances_with_prefix : format("[%s]\n%s",
+      prefix,
       join("\n", [
-        for instance in instances: instance.access_ip_v4
+        for instance in instances : format("%s ansible_user=ubuntu ansible_ssh_private_key_file=\"%s/.ssh/id_rsa\"", instance.access_ip_v4, lookup("env", "HOME"))
       ])
     )
   ])
-filename = var.ansible_inventory_file_path
-depends_on = [module.compute]
+  filename   = var.ansible_inventory_file_path
+  depends_on = [module.compute]
 }
 #resource "local_file" "hosts_cfg" {
 #  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
