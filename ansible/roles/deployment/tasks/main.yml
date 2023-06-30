@@ -2,4 +2,4 @@
 - include_tasks: configure.yml
 - include_tasks: setup_registry.yml
 - include_tasks: prepare_configs.yml
-- include_tasks: deploy.yml
+- include_tasks: deploy_kolla.yml
