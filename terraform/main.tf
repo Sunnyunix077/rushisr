@@ -111,15 +111,14 @@ locals {
   }
 }
 resource "local_file" "ansible_inventory" {
-  content = join("\n", [
-    for prefix, instances in local.instances_with_prefix : format("[%s]\n%s",
-      prefix,
+  content = join("\n\n", [
+    for prefix, instances in local.instances_with_prefix: format("[%s]\n%s", prefix,
       join("\n", [
-        for instance in instances : format("%s ansible_user=ubuntu ansible_ssh_private_key_file=\"%s/.ssh/id_rsa\"", instance.access_ip_v4, lookup("env", "HOME"))
+        for instance in instances: format("%s ansible_user=ubuntu ansible_ssh_private_key_file=\"{{ lookup('env', 'HOME') }}/.ssh/id_rsa\"", instance)
       ])
     )
   ])
-  filename   = var.ansible_inventory_file_path
+  filename = var.ansible_inventory_file_path
   depends_on = [module.compute]
 }
 #resource "local_file" "hosts_cfg" {
