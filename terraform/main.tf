@@ -122,7 +122,7 @@ resource "local_file" "ansible_inventory" {
   depends_on = [module.compute]
 }
 resource "local_file" "hosts_file" {
-  filename = "${path.root}/ansible/roles/os_configure/files/hosts"
+  filename = "${path.module}/ansible/roles/os_configure/files/hosts"
   content  = templatefile("${path.module}/hosts.tpl", {
     hostnames    = var.hostnames
     floating_ips = module.floatipcreate.float_ip
