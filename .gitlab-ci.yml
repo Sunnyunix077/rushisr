@@ -51,14 +51,14 @@ deploy:
 
 configure:
   stage: configure
-  dependencies: 
+  dependencies:
     - deploy
   tags:
     - NETCRACKER
   image: $ANSI_IMAGE
   script:
     - cd ansible
-    - source ../terraform.env
+#    - source ../terraform.env
     - echo "my_host ansible_host=$FLOATING_IP" > inventory/hosts
     - cat inventory/hosts
     - mkdir -p $HOME/.ssh
