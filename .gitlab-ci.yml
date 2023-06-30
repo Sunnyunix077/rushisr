@@ -69,8 +69,8 @@ stages:
 
 kolla_deploy:
   stage: kolla_deploy
-  dependencies: 
-    - deploy
+#  dependencies:
+#    - deploy
   tags:
     - NETCRACKER
   image: $ANSI_IMAGE
