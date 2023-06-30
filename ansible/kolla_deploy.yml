@@ -4,5 +4,5 @@
   become: true   
   tasks:
     - name: Include deployment role        
-      ansible.builtin.include_role :
-        name : deployment
+      ansible.builtin.include_role:
+        name: deployment
