@@ -1,3 +1,2 @@
 ---
 - include_tasks: config.yml
-- include_tasks: hostsfile.yml

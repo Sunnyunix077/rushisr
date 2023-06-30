@@ -74,3 +74,18 @@ variable "instance_count" {
   description = "Number of instances to create"
   type        = number
 }
+variable "hostnames" {
+  type    = list(string)
+  default = [
+    "labst02cn",
+    "labcm01cn",
+    "labst01cn",
+    "labdpl03cn",
+    "labdpl02cn",
+    "labdpl01cn",
+    "labcr03cn",
+    "labcr02cn",
+    "labcr01cn",
+    "labcm02cn"
+  ]
+}
