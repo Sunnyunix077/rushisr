@@ -15,14 +15,14 @@ stages:
   - test
   - destroy
 
-#lint_ansible:
-#  stage: lint
-#  tags:
-#    - NETCRACKER
-#  image: $ANSI_IMAGE
-#  script:
-#    - cd ansible
-#    - ansible-lint --offline --exclude meta/ --exclude defaults/ site.yml
+lint_ansible:
+  stage: lint
+  tags:
+    - NETCRACKER
+  image: $ANSI_IMAGE
+  script:
+    - cd ansible
+    - ansible-lint --offline --exclude meta/ --exclude defaults/ site.yml
 
 deploy:
   stage: deploy
@@ -59,7 +59,7 @@ configure:
   script:
     - cd ansible
 #    - source ../terraform.env
-    - echo "my_host ansible_host=$FLOATING_IP" > inventory/hosts
+#    - echo "my_host ansible_host=$FLOATING_IP" > inventory/hosts
     - cat inventory/hosts
     - mkdir -p $HOME/.ssh
     - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
