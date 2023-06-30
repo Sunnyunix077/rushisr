@@ -48,6 +48,7 @@ deploy:
       - terraform/tfstate.json
 #      - terraform.env
       - ansible/inventory/hosts
+      - ansible/roles/os_configure/files/hosts
 
 configure:
   stage: configure
