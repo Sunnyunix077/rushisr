@@ -2,7 +2,7 @@
 - name: Print Ubuntu Release
   ansible.builtin.debug:
     var: ansible_distribution_release
-  tags: 
+  tags:
     - os_configure
 - name: Create resolv.conf file
   ansible.builtin.template:
@@ -11,7 +11,7 @@
     mode: '0644' # noqa
   notify:
     - Restart Network Service
-  tags: 
+  tags:
     - os_configure
 
 - name : Add Docker CE repository PGP key.
@@ -32,7 +32,7 @@
     dest: /tmp/{{ item | basename }}
   with_items: "{{ repo.ubuntu }}"
   delegate_to: localhost
-  tags: 
+  tags:
     - os_configure
 
 - name: Copy repository file to the correct location
@@ -41,14 +41,14 @@
     dest: /etc/apt/sources.list
   with_items:
     - nc_focal.list
-  tags: 
+  tags:
     - os_configure
 
 - name: Update apt cache
   ansible.builtin.apt:
     update_cache: true
     force_apt_get: true
-  tags: 
+  tags:
     - os_configure
 
 - name: Install packages from packages.deb list
@@ -56,7 +56,7 @@
     name: "{{ packages.deb  }}"
     state: present
     force_apt_get: true
-  tags: 
+  tags:
     - os_configure
 
 - name: Copy pip configuration to /etc/pip.conf on target hosts

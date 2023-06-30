@@ -52,4 +52,3 @@
     - fact_caching_connection = /root/ansible-facts
     - fact_caching_timeout = 0
     - timeout = 60
-  

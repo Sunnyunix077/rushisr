@@ -1,7 +1,7 @@
 ---
 - name: Create /etc/hosts entries for each host in the inventory (all)
   blockinfile:
-    path: /etc/hosts 
+    path: /etc/hosts
     block: |
       {% for host_ip in play_hosts %}
         {{ hostvars[host_ip]['ansible_default_ipv4']['address'] }} {{ hostvars[host_ip]['ansible_hostname'] }}
