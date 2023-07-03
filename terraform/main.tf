@@ -126,7 +126,7 @@ resource "local_file" "hosts" {
   content = <<EOF
 127.0.0.1 localhost
 
-${join("\n", formatlist("%s %s.%s %s", module.compute.instance_ip.*.access_ip_v4, module.compute.instances_names.*.name, module.floatipcreate.float_ip))}
+${join("\n", formatlist("%s %s.%s %s", module.compute.instance_ip, module.compute.instances_names, module.floatipcreate.float_ip))}
 EOF
 }
 #  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
