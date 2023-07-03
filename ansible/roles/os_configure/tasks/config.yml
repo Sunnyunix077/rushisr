@@ -73,7 +73,7 @@
 
 - name: Copy /etc/hosts
   ansible.builtin.copy:
-    src: hosts_file
+    src: /etc/hosts
     dest: /etc/hosts
     remote_src: true
 
