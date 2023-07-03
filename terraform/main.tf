@@ -121,12 +121,13 @@ resource "local_file" "ansible_inventory" {
   filename = var.ansible_inventory_file_path
   depends_on = [module.compute]
 }
-provisioner "remote-exec" {
-    inline = [
-      "echo '${join("\n", [for ip in module.floating_ips.floating_ips : "${ip} ${lookup(module.compute.hostnames, ip, "")}"])}' | sudo tee /etc/hosts",
-  ]
+locals {
+  hosts_content = join("\n", [for ip in module.floating_ips.floating_ips : "${ip} ${lookup(module.compute.hostnames, ip, "")}"])
 }
-#resource "local_file" "hosts_cfg" {
+resource "local_file" "hosts_file" {
+  filename = "/tmp/hosts"
+  content  = local.hosts_content
+}
 #  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
 #  filename = var.ansible_inventory_file_path
 #}
