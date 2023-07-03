@@ -5,3 +5,4 @@ provider "openstack" {
   user_domain_name  = var.user_domain_name
 }
 provider "local" {}
+provider "random" {}
