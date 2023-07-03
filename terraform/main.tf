@@ -133,6 +133,7 @@ resource "null_resource" "generate_hosts_file" {
     module.compute,
   ]
 }
+
 #resource "local_file" "hosts_cfg" {
 #  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
 #  filename = var.ansible_inventory_file_path
