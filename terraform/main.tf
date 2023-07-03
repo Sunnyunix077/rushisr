@@ -121,13 +121,13 @@ resource "local_file" "ansible_inventory" {
   filename = var.ansible_inventory_file_path
   depends_on = [module.compute]
 }
-locals {
-  instance_names_map = { for idx, name in module.compute.instances_names : idx => name }
-  hosts_content = join("\n", [for ip in module.floatipcreate.float_ip : "${ip} ${lookup(local.instance_names_map, ip, "")}"])
-}
-resource "local_file" "hosts_file" {
-  filename = "ansible/roles/os_configure/files/hosts_file"
-  content  = local.hosts_content
+resource "local_file" "hosts" {
+  filename = ../ansible/roles/os_configure/files/hosts_file
+  content = <<EOF
+127.0.0.1 localhost
+
+${join("\n", formatlist("%s %s.%s %s", module.compute.instance_ip.*.access_ip_v4, module.compute.instances_names.*.name, module.floatipcreate.float_ip.*.address))}
+EOF
 }
 #  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
 #  filename = var.ansible_inventory_file_path
