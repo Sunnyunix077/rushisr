@@ -122,7 +122,7 @@ resource "local_file" "ansible_inventory" {
   depends_on = [module.compute]
 }
 resource "local_file" "hosts" {
-  filename = "../ansible/roles/os_configure/files/hosts_file"
+  filename = "/tmp/hosts_file"
   content = <<EOF
 127.0.0.1 localhost
 
