@@ -121,19 +121,11 @@ resource "local_file" "ansible_inventory" {
   filename = var.ansible_inventory_file_path
   depends_on = [module.compute]
 }
-resource "null_resource" "generate_hosts_file" {
-  provisioner "local-exec" {
-    command = <<-EOT
-      echo "${join("\n", [for ip in var.floating_ips : "${ip} ${lookup(var.hostnames, ip, "")}"])}" | sudo tee /etc/hosts
-    EOT
-  }
-
-  depends_on = [
-    module.floating_ips,
-    module.compute,
+provisioner "remote-exec" {
+    inline = [
+      "echo '${join("\n", [for ip in module.floating_ips.floating_ips : "${ip} ${lookup(module.compute.hostnames, ip, "")}"])}' | sudo tee /etc/hosts",
   ]
 }
-
 #resource "local_file" "hosts_cfg" {
 #  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
 #  filename = var.ansible_inventory_file_path
