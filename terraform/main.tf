@@ -121,16 +121,19 @@ resource "local_file" "ansible_inventory" {
   filename = var.ansible_inventory_file_path
   depends_on = [module.compute]
 }
-resource "local_file" "hosts_file" {
-  filename = "${path.module}/ansible/roles/os_configure/files/hosts"
-  content  = templatefile("${path.module}/hosts.tpl", {
-    hostnames    = var.hostnames
-    floating_ips = module.floatipcreate.float_ip
-  })
-  provisioner "local-exec" {
-    command = "echo '${self.content}' >> ${self.filename}"
+data "template_file" "hosts" {
+  template = "${file("${path.module}/hosts.tpl")}"
+  vars = {
+    hostnames    = data.openstack_compute_instance_v2.test-instance.name
+    floating_ips = data.openstack_networking_floatingip_v2.my_floating_ip_address
   }
 }
+
+resource "local_file" "hosts" {
+  content  = data.template_file.hosts.rendered
+  filename = "/etc/hosts"
+}
+
 #resource "local_file" "hosts_cfg" {
 #  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
 #  filename = var.ansible_inventory_file_path
