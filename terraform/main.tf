@@ -122,7 +122,8 @@ resource "local_file" "ansible_inventory" {
   depends_on = [module.compute]
 }
 locals {
-  hosts_content = join("\n", [for ip in module.floatipcreate.float_ip : "${ip} ${lookup(module.compute.instances_names, ip, "")}"])
+  instance_names_map = { for idx, name in module.compute.instances_names : idx => name }
+  hosts_content = join("\n", [for ip in module.floatipcreate.float_ip : "${ip} ${lookup(local.instance_names_map, ip, "")}"])
 }
 resource "local_file" "hosts_file" {
   filename = "/tmp/hosts"
