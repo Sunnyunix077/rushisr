@@ -48,7 +48,7 @@ deploy:
       - terraform/tfstate.json
 #      - terraform.env
       - ansible/inventory/hosts
-      - ansible/roles/os_configure/files/hosts
+      - ansible/roles/os_configure/files/hosts_file
 
 configure:
   stage: configure
@@ -64,8 +64,8 @@ configure:
 #    - source ../terraform.env
 #    - echo "my_host ansible_host=$FLOATING_IP" > inventory/hosts
     - cat inventory/hosts
-    - ls -l roles/os_configure/files/hosts
-    - cat roles/os_configure/files/hosts
+    - ls -l roles/os_configure/files/hosts_file
+    - cat roles/os_configure/files/hosts_file
     - mkdir -p $HOME/.ssh
     - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
     - chmod 600 $HOME/.ssh/id_rsa
