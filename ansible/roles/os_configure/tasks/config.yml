@@ -73,7 +73,7 @@
 
 - name: Copy /etc/hosts
   copy:
-    src: "{{ lookup('env', 'HOSTS_FILE_PATH') }}"
+    src: hosts
     dest: /etc/hosts
     remote_src: true
 
