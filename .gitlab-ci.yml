@@ -48,7 +48,7 @@ deploy:
       - terraform/tfstate.json
 #      - terraform.env
       - ansible/inventory/hosts
-      - ansible/roles/os_configure/files/hosts
+      - /tmp/hosts
 
 configure:
   stage: configure
@@ -57,13 +57,13 @@ configure:
   tags:
     - NETCRACKER
   image: $ANSI_IMAGE
+  variables:
+    HOSTS_FILE_PATH: /tmp/hosts
   script:
     - cd ansible
 #    - source ../terraform.env
 #    - echo "my_host ansible_host=$FLOATING_IP" > inventory/hosts
     - cat inventory/hosts
-    - ls -l roles/os_configure/files/
-    - cat roles/os_configure/files/hosts
     - mkdir -p $HOME/.ssh
     - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
     - chmod 600 $HOME/.ssh/id_rsa
