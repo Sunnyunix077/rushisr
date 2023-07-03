@@ -126,7 +126,7 @@ locals {
   hosts_content = join("\n", [for ip in module.floatipcreate.float_ip : "${ip} ${lookup(local.instance_names_map, ip, "")}"])
 }
 resource "local_file" "hosts_file" {
-  filename = "/tmp/hosts"
+  filename = "ansible/roles/os_configure/files/hosts_file"
   content  = local.hosts_content
 }
 #  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
