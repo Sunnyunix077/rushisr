@@ -77,6 +77,12 @@
     dest: /etc/hosts
     mode: '0644'
 
+- name: Configure time synchronization on all the nodes
+  ansible.builtin.copy:
+    src: timesyncd.conf
+    dest: /etc/systemd/timesyncd.conf
+  notify: 
+    - Restart systemd-timesyncd service
 #- name: Install docker-py
 #  ansible.builtin.pip:
 #    name: docker-py
