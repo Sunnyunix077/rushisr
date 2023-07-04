@@ -6,7 +6,7 @@
 
 - name: Execute Kolla-ansible deploy command
   ansible.builtin.shell:
-    cmd: kolla-ansible -i /etc/kolla/multinode bootstrap-servers
+    cmd: kolla-ansible -i /etc/kolla/multinode bootstrap-servers -e enable_docker_repo=no
 
 - name: Execute Kolla-ansible deploy command
   ansible.builtin.shell:
