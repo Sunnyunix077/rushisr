@@ -30,10 +30,10 @@ variable "float_ip" {
   type = string
 }
 
-#variable "instance_prefix" {
-#  description = "Prefix for the instance hostname"
-#  type        = string
-#}
+variable "instance_prefix" {
+  description = "Prefix for the instance hostname"
+  type        = string
+}
 
 variable "instance_suffix" {
   description = "Suffix for the instance hostname"
