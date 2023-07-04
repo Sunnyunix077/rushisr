@@ -83,7 +83,10 @@ kolla_deploy:
     - mkdir -p $HOME/.ssh
     - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
     - chmod 600 $HOME/.ssh/id_rsa
-    - ansible-playbook -i inventory/hosts kolla_deploy.yml -e "kolla_external_vip_address=$FLOATING_IP"
+    - |
+      ssh-keyscan $FLOATING_IP >> $HOME/.ssh/known_hosts
+      ssh-copy-id -i $HOME/.ssh/id_rsa ubuntu@$FLOATING_IP
+    - ansible-playbook -i inventory/hosts kolla_deploy.yml -e "kolla_external_vip_address=$FLOATING_IP" --private-key $HOME/.ssh/id_rsa
 
 #test:
 #  stage: test
