@@ -1,22 +1,22 @@
 [control]
-labcr01cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
-#labcr02cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
-#labcr03cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+labcr01cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa" ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+#labcr02cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa" ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+#labcr03cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa" ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 [network]
-labcr01cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
-#labcr02cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
-#labcr03cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+labcr01cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa" ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+#labcr02cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa" ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+#labcr03cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa" ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 [compute]
-labcm01cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
-#labcm02cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
-#labcm03cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+labcm01cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa" ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+#labcm02cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa" ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+#labcm03cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa" ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 [storage]
-labst01cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
-labst02cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
-labst03cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+labst01cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa" ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+labst02cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa" ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+labst03cn ansible_user=ubuntu ansible_ssh_private_key_file="{{ lookup('env', 'HOME') }}/.ssh/id_rsa" ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 [deployment]
 localhost       ansible_connection=local
