@@ -124,7 +124,7 @@ docker_namespace: "kolla"
 
 # These can be adjusted for even more customization. The default is the same as
 # the 'network_interface'. These interfaces must contain an IP address.
-kolla_external_vip_interface: "bond0.1100"
+kolla_external_vip_interface: "ens3"
 #api_interface: "{{ network_interface }}"
 #storage_interface: "{{ network_interface }}"
 #swift_storage_interface: "{{ storage_interface }}"
@@ -296,11 +296,11 @@ enable_rabbitmq: "{{ 'yes' if om_rpc_transport == 'rabbit' or om_notify_transpor
 #enable_central_logging: "no"
 #enable_chrony: "no"
 enable_cinder: "yes"
-enable_cinder_backup: "yes"
+#enable_cinder_backup: "yes"
 #enable_cinder_backend_hnas_nfs: "no"
 #enable_cinder_backend_iscsi: "{{ enable_cinder_backend_lvm | bool }}"
 #enable_cinder_backend_lvm: "no"
-#enable_cinder_backend_nfs: "no"
+enable_cinder_backend_nfs: "yes"
 #enable_cinder_backend_quobyte: "no"
 #enable_cloudkitty: "no"
 #enable_collectd: "no"
@@ -440,23 +440,23 @@ mariadb_wsrep_extra_provider_options:
 # External Ceph options
 #######################
 # External Ceph - cephx auth enabled (this is the standard nowadays, defaults to yes)
-external_ceph_cephx_enabled: "yes"
+#external_ceph_cephx_enabled: "yes"
 
 # Glance
-ceph_glance_keyring: "ceph.client.glance.keyring"
-ceph_glance_user: "glance"
-ceph_glance_pool_name: "images"
+#ceph_glance_keyring: "ceph.client.glance.keyring"
+#ceph_glance_user: "glance"
+#ceph_glance_pool_name: "images"
 # Cinder
-ceph_cinder_keyring: "ceph.client.cinder.keyring"
-ceph_cinder_user: "cinder"
-ceph_cinder_pool_name: "volumes"
-ceph_cinder_backup_keyring: "ceph.client.cinder.keyring"
-ceph_cinder_backup_user: "cinder"
-ceph_cinder_backup_pool_name: "backups"
+#ceph_cinder_keyring: "ceph.client.cinder.keyring"
+#ceph_cinder_user: "cinder"
+#ceph_cinder_pool_name: "volumes"
+#ceph_cinder_backup_keyring: "ceph.client.cinder.keyring"
+#ceph_cinder_backup_user: "cinder"
+#ceph_cinder_backup_pool_name: "backups"
 # Nova
-ceph_nova_keyring: "{{ ceph_cinder_keyring }}"
-ceph_nova_user: "cinder"
-ceph_nova_pool_name: "vms"
+#ceph_nova_keyring: "{{ ceph_cinder_keyring }}"
+#ceph_nova_user: "cinder"
+#ceph_nova_pool_name: "vms"
 # Gnocchi
 #ceph_gnocchi_keyring: "ceph.client.gnocchi.keyring"
 #ceph_gnocchi_user: "gnocchi"
@@ -491,8 +491,8 @@ keystone_admin_project: "admin"
 # Glance - Image Options
 ########################
 # Configure image backend.
-glance_backend_ceph: "yes"
-glance_backend_file: "no"
+#glance_backend_ceph: "yes"
+#glance_backend_file: "no"
 #glance_backend_swift: "no"
 #glance_backend_vmware: "no"
 #enable_glance_image_cache: "no"
@@ -529,16 +529,16 @@ glance_backend_file: "no"
 # Cinder - Block Storage Options
 ################################
 # Enable / disable Cinder backends
-cinder_backend_ceph: "yes"
+#cinder_backend_ceph: "yes"
 #cinder_backend_vmwarevc_vmdk: "no"
 #cinder_volume_group: "cinder-volumes"
 # Valid options are [ '', redis, etcd ]
 #cinder_coordination_backend: "{{ 'redis' if enable_redis|bool else 'etcd' if enable_etcd|bool else '' }}"
 
 # Valid options are [ nfs, swift, ceph ]
-cinder_backup_driver: "nfs"
-cinder_backup_share: "172.31.48.53:/var/lib/backup"
-cinder_backup_mount_options_nfs: "auto,nofail,noatime,nolock,intr,tcp,actimeo=1800"
+#cinder_backup_driver: "nfs"
+#cinder_backup_share: "172.31.48.53:/var/lib/backup"
+#cinder_backup_mount_options_nfs: "auto,nofail,noatime,nolock,intr,tcp,actimeo=1800"
 
 #######################
 # Cloudkitty options
@@ -564,10 +564,10 @@ cinder_backup_mount_options_nfs: "auto,nofail,noatime,nolock,intr,tcp,actimeo=18
 ########################
 # Nova - Compute Options
 ########################
-nova_backend_ceph: "yes"
+#nova_backend_ceph: "yes"
 
 # Valid options are [ qemu, kvm, vmware ]
-nova_compute_virt_type: "kvm"
+nova_compute_virt_type: "qemu"
 
 # The number of fake driver per compute node
 #num_nova_fake_per_node: 5

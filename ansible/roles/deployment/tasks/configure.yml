@@ -39,6 +39,12 @@
   ansible.builtin.command:
     cmd: kolla-genpwd
 
+- name: Copy SSH private key
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'PRIVATE_KEY') }}"
+    dest: ~/.ssh/id_rsa
+    mode: '0600'
+
 - name: Tune /etc/ansible/ansible.cfg
   lineinfile:
     path: /etc/ansible/ansible.cfg
