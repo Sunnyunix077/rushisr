@@ -73,7 +73,7 @@
 
 - name: Copy /etc/hosts
   ansible.builtin.copy:
-    src: "{{ CI_PROJECT_DIR }}/roles/os_configure/files/hosts_file"
+    src: "{{ CI_PROJECT_DIR }}/ansible/roles/os_configure/files/hosts_file"
     dest: /etc/hosts
     remote_src: true
 
