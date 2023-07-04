@@ -45,12 +45,22 @@ resource "openstack_compute_instance_v2" "test-instance" {
 }
 resource "openstack_networking_port_v2" "test-port" {
   count = var.instance_count
-
-  name       = format("port-%s-%02d", var.instance_network, count.index + 1)
+  name = format("port-%s-%02d", var.instance_network, count.index + 1)
   network_id = openstack_networking_network_v2.test-network.id
-  fixed_ip   = var.assign_ip_to_second_interface ? null : []
   # Add any additional configuration for the port, if required
 }
 resource "openstack_networking_network_v2" "test-network" {
   name = var.instance_network
+  # Add any additional configuration for the network, if required
+}
+resource "null_resource" "assign-ip-to-second-interface" {
+  count = var.instance_count
+  triggers = {
+    port_id = openstack_networking_port_v2.test-port[count.index].id
+  }
+  provisioner "local-exec" {
+    command = <<EOT
+openstack port set ${openstack_networking_port_v2.test-port[count.index].id} --no-fixed-ip
+EOT
+  }
 }
