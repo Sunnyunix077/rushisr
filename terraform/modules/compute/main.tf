@@ -39,6 +39,7 @@ resource "openstack_compute_instance_v2" "test-instance" {
   image_name      = var.instance_image
   network {
     name = var.instance_network
+    access_network = true
   }
   network {
     name = var.instance_network_2

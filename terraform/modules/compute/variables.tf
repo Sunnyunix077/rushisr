@@ -17,6 +17,7 @@ variable "instance_network" {
 variable "instance_network_2" {
   type = string
 }
+
 variable "keypair_name" {
   type = string
 }
