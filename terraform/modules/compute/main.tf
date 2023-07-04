@@ -39,17 +39,9 @@ resource "openstack_compute_instance_v2" "test-instance" {
   image_name      = var.instance_image
   network {
     name = var.instance_network
-    port = openstack_networking_port_v2.test-port[count.index].id
+  }
+  network {
+    name = var.instance_network_2
   }
   access_ip_v4 = var.float_ip
-}
-resource "openstack_networking_port_v2" "test-port" {
-  count = var.instance_count
-  name = format("port-%s-%02d", var.instance_network, count.index + 1)
-  network_id = openstack_networking_network_v2.test-network.id
-  # Add any additional configuration for the port, if required
-}
-resource "openstack_networking_network_v2" "test-network" {
-  name = var.instance_network
-  # Add any additional configuration for the network, if required
 }

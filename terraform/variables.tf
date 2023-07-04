@@ -54,6 +54,9 @@ variable "instance_network" {
   type = string
 }
 
+variable "instance_network_2" {
+  type = string
+}
 variable "volume_type" {
   type = string
 }
