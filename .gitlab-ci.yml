@@ -24,7 +24,7 @@ stages:
 #    - cd ansible
 #    - ansible-lint --offline --exclude meta/ --exclude defaults/ site.yml
 
-.deploy:
+deploy:
   stage: deploy
   tags:
     - NETCRACKER
@@ -50,7 +50,7 @@ stages:
       - ansible/inventory/hosts
       - ansible/roles/os_configure/files/hosts_file
 
-.configure:
+configure:
   stage: configure
   dependencies:
     - deploy
