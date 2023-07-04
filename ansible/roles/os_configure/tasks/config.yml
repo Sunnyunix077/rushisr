@@ -73,7 +73,7 @@
 
 - name: Copy /etc/hosts
   ansible.builtin.copy:
-    src: "{{ playbook_dir }}/roles/os_configure/files/hosts_file"
+    src: "roles/os_configure/files/hosts_file"
     dest: /etc/hosts
     mode: '0644'
 
