@@ -24,7 +24,7 @@ stages:
 #    - cd ansible
 #    - ansible-lint --offline --exclude meta/ --exclude defaults/ site.yml
 
-deploy:
+.deploy:
   stage: deploy
   tags:
     - NETCRACKER
@@ -50,7 +50,7 @@ deploy:
       - ansible/inventory/hosts
       - ansible/roles/os_configure/files/hosts_file
 
-configure:
+.configure:
   stage: configure
   dependencies:
     - deploy
@@ -69,10 +69,10 @@ configure:
     - sleep 60
     - ansible-playbook -i inventory/hosts site.yml
 
-.kolla_deploy:
+kolla_deploy:
   stage: kolla_deploy
-  dependencies:
-    - deploy
+#  dependencies:
+#    - deploy
   tags:
     - NETCRACKER
   image: $ANSI_IMAGE
