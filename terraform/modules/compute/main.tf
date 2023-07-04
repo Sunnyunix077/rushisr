@@ -53,14 +53,3 @@ resource "openstack_networking_network_v2" "test-network" {
   name = var.instance_network
   # Add any additional configuration for the network, if required
 }
-resource "null_resource" "assign-ip-to-second-interface" {
-  count = var.instance_count
-  triggers = {
-    port_id = openstack_networking_port_v2.test-port[count.index].id
-  }
-  provisioner "local-exec" {
-    command = <<EOT
-openstack port set ${openstack_networking_port_v2.test-port[count.index].id} --no-fixed-ip
-EOT
-  }
-}
