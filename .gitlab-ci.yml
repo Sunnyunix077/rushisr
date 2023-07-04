@@ -79,7 +79,7 @@ kolla_deploy:
   script:
     - cd ansible
     - cat inventory/hosts
-    - FLOATING_IP=$(grep "\[labdpl\]" xyz -A 1 | tail -n 1 | awk '{print $1}')
+    - FLOATING_IP=$(grep "\[labdpl\]" inventory/hosts -A 1 | tail -n 1 | awk '{print $1}')
     - mkdir -p $HOME/.ssh
     - echo "$PRIVATE_KEY" > $HOME/.ssh/id_rsa
     - chmod 600 $HOME/.ssh/id_rsa
