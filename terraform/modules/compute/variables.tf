@@ -14,9 +14,9 @@ variable "instance_network" {
   type = string
 }
 
-variable "instance_network_2" {
-  type = string
-}
+#variable "instance_network_2" {
+#  type = string
+#}
 
 variable "keypair_name" {
   type = string
