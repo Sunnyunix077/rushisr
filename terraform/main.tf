@@ -42,7 +42,7 @@ module "compute" {
   )
   instance_image    = var.instance_image
   instance_network  = var.instance_network
-  instance_network_2 = var.instance_network_2
+#  instance_network_2 = var.instance_network_2
   keypair_name      = module.keypair.keypair_name
   sg_id             = module.sgcreate.sg_id
   float_ip          = module.floatipcreate.float_ip[0]
