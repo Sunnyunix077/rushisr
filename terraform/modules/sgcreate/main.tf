@@ -41,11 +41,10 @@ resource "openstack_networking_secgroup_rule_v2" "http_rule" {
 resource "openstack_networking_secgroup_rule_v2" "allow_all_ingress" {
   direction         = "ingress"
   ethertype         = "IPv4"
-  protocol          = "any"  # Use "any" to allow all protocols
   port_range_min    = null   # Set port_range_min to null to allow all ports
   port_range_max    = null   # Set port_range_max to null to allow all ports
   remote_ip_prefix  = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.test-security_group.id}"
+  security_group_id = openstack_networking_secgroup_v2.test-security_group.id
 }
 #resource "openstack_networking_floatingip_v2" "my_floating_ip" {
 #  pool = var.floating_ip_pool
