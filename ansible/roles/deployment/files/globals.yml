@@ -43,7 +43,7 @@ openstack_release: wallaby
 #openstack_tag_suffix: ""
 
 # Location of configuration overrides
-node_custom_config: "/etc/kolla/config"
+node_custom_config: /etc/kolla/config
 
 # This should be a VIP, an unused IP on your network that will float between
 # the hosts running keepalived for high-availability. If you want to run an
@@ -65,7 +65,7 @@ kolla_external_vip_address:
 # The Public address used to communicate with OpenStack as set in the public_url
 # for the endpoints that will be created. This DNS name should map to
 # kolla_external_vip_address.
-kolla_external_fqdn: "test.example.com"
+kolla_external_fqdn: test.example.com
 
 haproxy_stats_port: 9000
 # Optionally change the path to sysctl.conf modified by Kolla Ansible plays.
@@ -76,13 +76,13 @@ haproxy_stats_port: 9000
 ################
 
 # Custom docker registry settings:
-docker_registry: "localhost:5000"
+docker_registry: localhost:5000
 docker_registry_insecure: "yes"
 #docker_registry_username:
 # docker_registry_password is set in the passwords.yml file.
 
 # Namespace of images:
-docker_namespace: "kolla"
+docker_namespace: kolla
 
 # Docker client timeout in seconds.
 #docker_client_timeout: 120
@@ -124,8 +124,8 @@ docker_namespace: "kolla"
 
 # These can be adjusted for even more customization. The default is the same as
 # the 'network_interface'. These interfaces must contain an IP address.
-kolla_external_vip_interface: "ens3"
-#api_interface: "{{ network_interface }}"
+kolla_external_vip_interface: ens3
+api_interface: ens3
 #storage_interface: "{{ network_interface }}"
 #swift_storage_interface: "{{ storage_interface }}"
 #swift_replication_interface: "{{ swift_storage_interface }}"
