@@ -47,6 +47,14 @@
     group: "{{ ansible_user }}"
     mode: '0600'
 
+- name: Copy SSH private key
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'PRIVATE_KEY') }}"
+    dest: /root/.ssh/id_rsa
+    owner: root
+    group: root
+    mode: '0600'
+
 - name: Tune /etc/ansible/ansible.cfg
   lineinfile:
     path: /etc/ansible/ansible.cfg
