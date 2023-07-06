@@ -125,7 +125,7 @@ resource "local_file" "ansible_inventory" {
 resource "local_file" "hosts" {
   filename = "../ansible/roles/os_configure/files/hosts_file"
   content = <<EOF
-${join("\n", [for i in range(10) : format("%s %s %s.%s", module.floatipcreate.float_ip[i], module.compute.instance_ip[i], module.compute.instances_names[i])])}
+${join("\n", [for i in range(10) : format("%s %s %s", module.floatipcreate.float_ip[i], module.compute.instance_ip[i], module.compute.instances_names[i])])}
 EOF
 }
 #  content  = templatefile("${path.module}/ansible_inventory.tmpl", { servers = join("\n", module.floatipcreate.float_ip) })
