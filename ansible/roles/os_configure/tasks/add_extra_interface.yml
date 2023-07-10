@@ -1,6 +1,13 @@
----
-- name: Add extra interface
-  network_interface:
-    name: ens4
-    state: up
-    assign_ip: false
+- name: Add extra interface to labcr hosts
+  shell: |
+    ip link show ens4
+  register: interface_check
+  failed_when: false
+  changed_when: false
+  when: inventory_hostname in groups['labcr']
+
+- name: Create extra interface if not present
+  shell: |
+    sudo ip link add ens4 type dummy
+    sudo ip link set ens4 up
+  when: inventory_hostname in groups['labcr'] and interface_check.rc != 0
