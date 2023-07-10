@@ -1,2 +1,5 @@
 ---
 - include_tasks: config.yml
+- name: Add extra interface to labcr hosts
+  include_tasks: add_extra_interface.yml
+  when: inventory_hostname in groups['labcr']

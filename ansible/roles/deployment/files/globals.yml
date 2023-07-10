@@ -150,11 +150,11 @@ api_interface: ens3
 # though an IP address can exist on this interface, it will be unusable in most
 # configurations. It is recommended this interface not be configured with any IP
 # addresses for that reason.
-#neutron_external_interface: "ens4"
+neutron_external_interface: ens4
 
 # Valid options are [ openvswitch, ovn, linuxbridge, vmware_nsxv, vmware_nsxv3, vmware_dvs ]
 # if vmware_nsxv3 is selected, enable_openvswitch MUST be set to "no" (default is yes)
-neutron_plugin_agent: "ovn"
+neutron_plugin_agent: ovn
 
 # Valid options are [ internal, infoblox ]
 #neutron_ipam_driver: "internal"
@@ -582,7 +582,7 @@ nova_compute_virt_type: "qemu"
 #nova_safety_upgrade: "no"
 
 # Valid options are [ none, novnc, spice ]
-nova_console: "novnc"
+nova_console: novnc
 
 ##############################
 # Neutron - networking options

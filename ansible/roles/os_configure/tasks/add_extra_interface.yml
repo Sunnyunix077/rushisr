@@ -1,0 +1,6 @@
+---
+- name: Add extra interface
+  network_interface:
+    name: eth1
+    state: up
+    assign_ip: false
