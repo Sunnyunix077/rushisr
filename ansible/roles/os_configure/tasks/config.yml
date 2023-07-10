@@ -83,6 +83,7 @@
     dest: /etc/systemd/timesyncd.conf
   notify: 
     - Restart systemd-timesyncd service
+
 #- name: Install docker-py
 #  ansible.builtin.pip:
 #    name: docker-py
