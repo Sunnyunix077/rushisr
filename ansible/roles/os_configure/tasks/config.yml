@@ -4,6 +4,7 @@
     var: ansible_distribution_release
   tags:
     - os_configure
+
 - name: Create resolv.conf file
   ansible.builtin.template:
     src: resolv.conf.j2
@@ -66,10 +67,10 @@
   tags:
     - os_configure
 
-- name: Install docker-ce
-  ansible.builtin.pip:
-    name: docker
-    state: present
+#- name: Install docker-ce
+#  ansible.builtin.pip:
+#    name: docker
+#    state: present
 
 - name: Copy /etc/hosts
   ansible.builtin.copy:
