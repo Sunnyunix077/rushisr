@@ -67,10 +67,10 @@
   tags:
     - os_configure
 
-#- name: Install docker-ce
-#  ansible.builtin.pip:
-#    name: docker
-#    state: present
+- name: Install docker-ce
+  ansible.builtin.pip:
+    name: docker
+    state: present
 
 - name: Copy /etc/hosts
   ansible.builtin.copy:
