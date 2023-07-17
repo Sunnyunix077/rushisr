@@ -7,7 +7,7 @@ docker:
     - fluentd
     - kolla-toolbox
     - cron
-    - chrony
+#    - chrony
     - haproxy
     - keepalived
     - memcached
@@ -33,6 +33,7 @@ docker:
     - neutron-dhcp-agent
     - neutron-openvswitch-agent
     - openvswitch-db-server
+    - openvswitch-vswitchd #added
     - cinder-api
     - cinder-scheduler
     - cinder-volume
@@ -45,7 +46,7 @@ docker:
     - heat-api
     - heat-api-cfn
     - heat-engine
-    - collectd
+#    - collectd
     - prometheus-server
     - prometheus-cadvisor
     - prometheus-node-exporter
